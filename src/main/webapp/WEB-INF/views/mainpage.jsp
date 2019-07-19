@@ -59,7 +59,7 @@
 									<c:forEach items="${promotionImages }" var="promotionImage"
 										varStatus="status">
 										<li class="item"
-											style="background-image: url(${promotionImage.promotionImage });">
+											style="background-image: url(${promotionImage.promotionImage }); position:absolute; left:414px;">
 											<a href="#"> <span class="img_btm_border"></span> <span
 												class="img_right_border"></span> <span class="img_bg_gra"></span>
 												<div class="event_txt">
@@ -249,13 +249,16 @@
 	    console.log(nowLi);
 	    console.log(beforeLi);
 	    
-	    nowLi.style.transform="translatex("+(-414*(now-2))+"px)";
-	    beforeLi.style.transform="translatex("+(-414*before)+"px)";
-	    beforeLi.style.transition="1s";
-	    beforeLi.style.removeProperty("tansform");
-	    nowLi.style.transform="translatex("+(-414*(now-1))+"px)";
-	    nowLi.style.transition="1s";
+	    beforeLi.style.transition="";
+	    nowLi.style.transition="";
+	    nowLi.style.left="414px"; //대기줄로 이동
+	    beforeLi.style.transition="all 1s";
+	    nowLi.style.transition="all 1s";
+	    beforeLi.style.left="-414px";//사라지기
+	    nowLi.style.left="0px"; //보이기
 	  	
+	   
+
 	    if(now==imagesSize) now=1;
 	    else now++;
 
