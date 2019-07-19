@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -50,26 +51,26 @@
 							</div>
 						</div>
 						<div>
+							<input id="promotion-images-size" type="hidden" value="${fn:length(promotionImages) }"/>
+							
 							<div class="container_visual">
 								<!-- 무한 롤링 이미지 wrapper -->
-								<div class="slide">
-									<ul class="visual_img">
-										<c:forEach items="${promotionImages }" var="promotionImage">
-											<li class="item"
-												style="background-image: url(${promotionImage.promotionImage });">
-												<a href="#"> <span class="img_btm_border"></span> <span
-													class="img_right_border"></span> <span class="img_bg_gra"></span>
-													<div class="event_txt">
-														<h4 class="event_txt_tit"></h4>
-														<p class="event_txt_adr"></p>
-														<p class="event_txt_dsc"></p>
-													</div>
-											</a>
-											</li>
-										</c:forEach>
-									</ul>
-								</div>
-								<!-- slide 끝 -->
+								<ul class="visual_img" id="visual_img">
+									<c:forEach items="${promotionImages }" var="promotionImage"
+										varStatus="status">
+										<li class="item"
+											style="background-image: url(${promotionImage.promotionImage });">
+											<a href="#"> <span class="img_btm_border"></span> <span
+												class="img_right_border"></span> <span class="img_bg_gra"></span>
+												<div class="event_txt">
+													<h4 class="event_txt_tit"></h4>
+													<p class="event_txt_adr"></p>
+													<p class="event_txt_dsc"></p>
+												</div>
+										</a>
+										</li>
+									</c:forEach>
+								</ul>
 							</div>
 							<!-- wrapper 끝 -->
 							<span class="nxt_fix" style="display: none;"></span>
@@ -228,9 +229,56 @@
 	</footer>
 
 
-	<script type="rv-template" id="promotionItem">
+	<script type="text/javascript" id="promotionItem">
+	const imagesSize = document.getElementById("promotion-images-size").value;
+	let now = 2;
+	function slide() {
+	    //다음 사진을 앞으로 당기고 현재 사진은 제자리로 돌아간다.
+	    if(now==1) before = imagesSize;
+	    else before = now-1;
+	    
+	    console.log(now);
+	    console.log(before);
+	    
+	
+	    
+	    const nowLi=document.querySelector('#visual_img li:nth-child('+now+')');
+	    const beforeLi=document.querySelector('#visual_img li:nth-child('+before+')');
+	   
+	    
+	    console.log(nowLi);
+	    console.log(beforeLi);
+	    
+	    nowLi.style.transform="translatex("+(-414*(now-2))+"px)";
+	    beforeLi.style.transform="translatex("+(-414*before)+"px)";
+	    beforeLi.style.transition="1s";
+	    beforeLi.style.removeProperty("tansform");
+	    nowLi.style.transform="translatex("+(-414*(now-1))+"px)";
+	    nowLi.style.transition="1s";
+	  	
+	    if(now==imagesSize) now=1;
+	    else now++;
 
-    </script>
+	}
+
+
+	
+	function animate(now) {
+	    //2부터 시작
+		setTimeout(()=>{
+		        slide();
+	    	animate(now);
+	    },2000);
+	}
+	
+	function init(){
+		animate();
+	}
+	
+	document.addEventListener("DOMContentLoaded", function() {
+	    init();
+	})
+	</script>
 
 	<script type="rv-template" id="itemList">
         <li class="item">
