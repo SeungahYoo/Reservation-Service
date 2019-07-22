@@ -1,8 +1,6 @@
 package com.nts.reservation.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,13 +17,8 @@ public class PromotionApiController {
 	PromotionService promotionService;
 
 	@GetMapping("/promotions")
-	public Map<String, Object> list() {
-		List<Promotion> list = promotionService.getPromotionImages();
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("list", list);
-
-		return map;
+	public List<Promotion> list() {
+		return promotionService.getPromotionImages();
 	}
 
 }
