@@ -11,8 +11,12 @@ import com.nts.reservation.service.PromotionService;
 
 @Service
 public class PromotionServiceImpl implements PromotionService {
-	@Autowired
 	PromotionDao promotionDao;
+
+	@Autowired
+	public PromotionServiceImpl(PromotionDao promotionDao) {
+		this.promotionDao = promotionDao;
+	}
 
 	@Override
 	public List<Promotion> getPromotionImages() {
