@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.nts.reservation.config.ApplicationConfig;
+import com.nts.config.ApplicationConfig;
 import com.nts.reservation.dto.Promotion;
 import com.nts.reservation.service.PromotionService;
 
