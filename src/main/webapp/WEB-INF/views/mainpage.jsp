@@ -57,7 +57,7 @@
 							<div class="container_visual">
 								<!-- 무한 롤링 이미지 wrapper -->
 								<ul class="visual_img" id="visual_img">
-									<c:forEach items="${promotionImages }" var="promotionImage"
+									<%-- 									<c:forEach items="${promotionImages }" var="promotionImage"
 										varStatus="status">
 										<li class="item"
 											style="background-image: url(${promotionImage.promotionImage }); position:absolute; left:414px;">
@@ -70,7 +70,7 @@
 												</div>
 										</a>
 										</li>
-									</c:forEach>
+									</c:forEach> --%>
 								</ul>
 							</div>
 							<!-- wrapper 끝 -->
@@ -230,60 +230,104 @@
 	</footer>
 
 
-	<script type="text/javascript" id="promotionItem">
-	const imagesSize = document.getElementById("promotion-images-size").value;
-	let now = 2;
-	function slide(nowLi,beforeLi) {
-	    //다음 사진을 앞으로 당기고 현재 사진은 제자리로 돌아간다.
+	<script type="rv-template" id="promotionItem">
+    	<li class="item" id="promotionImage" style="background-image: url(http://127.0.0.1:8080/reservation/{productImageUrl});">
+        	<a href="#"> 
+				<span class="img_btm_border"></span> 
+				<span class="img_right_border"></span> 
+				<span class="img_bg_gra"></span>
+            	<div class="event_txt">
+                	<h4 class="event_txt_tit"></h4>
+                	<p class="event_txt_adr"></p>
+                	<p class="event_txt_dsc"></p>
+            	</div>
+        	</a>
+    	</li>
+    </script>
 
-	    
-	    console.log(nowLi);
-	    console.log(beforeLi);
-	    
-	    beforeLi.style.transition="";
-	    nowLi.style.transition="";
-	    nowLi.style.left="414px"; //대기줄로 이동
-	    beforeLi.style.transition="all 1s";
-	    nowLi.style.transition="all 1s";
-	    beforeLi.style.left="-414px";//사라지기
-	    nowLi.style.left="0px"; //보이기
-	  	
-	   
-
-
-
-	}
-
-
-	
-	function animate(now) {
-	    //2부터 시작
-	    
-	   	if(now==1) before = imagesSize;
-	    else before = now-1;
-	    
-	    console.log(now);
-	    console.log(before);
-	
-	    const nowLi=document.querySelector('#visual_img li:nth-child('+now+')');
-	    const beforeLi=document.querySelector('#visual_img li:nth-child('+before+')');
-	    
-		setTimeout(()=>{
-		        slide(nowLi,beforeLi);
-	    	animate(now);
-	    },2000);
+	<script type="text/javascript">
+		const imagesSize = document.getElementById("promotion-images-size").value;
+		let promotionImageUrl = [];
+		let now = 2;
 		
-	    if(now==imagesSize) now=1;
-	    else now++;
-	}
-	
-	function init(){
-		animate(now);
-	}
-	
-	document.addEventListener("DOMContentLoaded", function() {
-	    init();
-	})
+		function slide(nowLi,beforeLi) {
+			console.log(nowLi);
+			console.log(beforeLi);
+		    //다음 사진을 앞으로 당기고 현재 사진은 제자리로 돌아간다.
+			beforeLi.style.transition="";
+		    nowLi.style.transition="";
+		    nowLi.style.left="414px"; //대기줄로 이동
+		    beforeLi.style.transition="all 1s";
+		    nowLi.style.transition="all 1s";
+		    beforeLi.style.left="-414px";//사라지기
+		    nowLi.style.left="0px"; //보이기
+		}
+
+		function animate(now) {
+			//2부터 시작
+			if(now==1) before = imagesSize;
+			else before = now-1;
+			
+			const nowLi=document.querySelector('.visual_img li:nth-child('+now+')');
+			const beforeLi=document.querySelector('.visual_img li:nth-child('+before+')');
+			
+			setTimeout(()=>{
+				slide(nowLi,beforeLi);
+				animate(now);
+			},2000);
+		
+			if(now==imagesSize) now=1;
+			else now++;
+		}
+		
+	    let replaceTemplate = (imageUrl) => {
+	        let promotion = document.querySelector("#promotionItem").innerHTML;
+	        return promotion.replace("{productImageUrl}", imageUrl);
+	    };
+
+		
+		let createTemplate = () => {
+			let visualImage = document.createElement("ul");
+			visualImage.classList.add("visual_img");
+			
+			let resultHTML ="";
+			promotionImageUrl.forEach((url)=>{
+				resultHTML += replaceTemplate(url);
+			});
+			
+			visualImage.innerHTML = resultHTML;
+			
+			let containerVisual = document.querySelector(".visual_img").parentElement;
+			containerVisual.replaceChild(visualImage, document.querySelector(".visual_img"));
+		};
+		
+		function init(){
+			let xmlHttpRequest = new XMLHttpRequest();
+			xmlHttpRequest.onreadystatechange = () => {
+				if(xmlHttpRequest.status >= 400){
+					console.log("오류");
+					//alert("오류가 발생했습니다. 다시 시도해주세요.");
+					return;
+				}
+				
+				if(xmlHttpRequest.readyState === 4){
+					let imageList = JSON.parse(xmlHttpRequest.responseText).list;
+					imageList.forEach((image) => {
+						promotionImageUrl.push(image.promotionImage);
+					});
+					
+					createTemplate();
+					animate(now);
+				}
+			}
+			xmlHttpRequest.open("GET", "/reservation/api/promotions");
+			xmlHttpRequest.send();
+
+		}
+		
+		document.addEventListener("DOMContentLoaded", function() {
+		    init();
+		})
 	</script>
 
 	<script type="rv-template" id="itemList">

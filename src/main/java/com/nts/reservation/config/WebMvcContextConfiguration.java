@@ -1,4 +1,4 @@
-package com.nts.config;
+package com.nts.reservation.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
