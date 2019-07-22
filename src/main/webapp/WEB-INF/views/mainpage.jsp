@@ -244,6 +244,7 @@
         	</a>
     	</li>
     </script>
+
     
     <script type="rv-template" id="itemList">
         <li class="item">
@@ -287,10 +288,12 @@
 			const beforeLi=document.querySelector('.visual_img li:nth-child('+before+')');
 			
 			setTimeout( () => {
+
 				slide(nowLi,beforeLi);
 				animate(now);
 			},2000);
 		
+
 			if(now==imagesSize) {
 				now=1;
 			}
@@ -300,6 +303,7 @@
 		}
 		
 	    let replaceTemplate = (imageUrl) => {
+
 	        let promotion = document.querySelector("#promotionItem").innerHTML;
 	        return promotion.replace("{productImageUrl}", imageUrl);
 	    };
@@ -310,7 +314,9 @@
 			visualImage.classList.add("visual_img");
 			
 			let resultHTML ="";
+
 			promotionImageUrl.forEach( (url) => {
+
 				resultHTML += replaceTemplate(url);
 			});
 			
@@ -347,5 +353,6 @@
 		    init();
 		})
 	</script>
+
 </body>
 </html>
