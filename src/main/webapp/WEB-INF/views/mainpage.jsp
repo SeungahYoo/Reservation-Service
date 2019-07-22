@@ -280,7 +280,7 @@
 			else now++;
 		}
 		
-	    let replaceTemplate = (imageUrl) => {
+		let replaceTemplate = (imageUrl) => {
 	        let promotion = document.querySelector("#promotionItem").innerHTML;
 	        return promotion.replace("{productImageUrl}", imageUrl);
 	    };
