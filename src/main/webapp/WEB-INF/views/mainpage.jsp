@@ -322,7 +322,6 @@
 			}
 			xmlHttpRequest.open("GET", "/reservation/api/promotions");
 			xmlHttpRequest.send();
-
 		}
 		
 		document.addEventListener("DOMContentLoaded", function() {
