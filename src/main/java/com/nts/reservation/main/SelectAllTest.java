@@ -9,13 +9,10 @@ import com.nts.reservation.config.ApplicationConfig;
 import com.nts.reservation.dao.PromotionDao;
 import com.nts.reservation.dto.Promotion;
 
-
 public class SelectAllTest {
 	public static void main(String[] args) {
 		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-
 		PromotionDao promotionDao = ac.getBean(PromotionDao.class);
-
 		List<Promotion> list = promotionDao.selectAll();
 
 		for (Promotion promotion : list) {

@@ -18,7 +18,6 @@ public class DBConfig implements TransactionManagementConfigurer {
 	private static String DB_USER = "user10";
 	private static String DB_PASSWORD = "user10";
 
-
 	@Bean
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
