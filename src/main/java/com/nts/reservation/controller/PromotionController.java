@@ -12,18 +12,21 @@ import com.nts.reservation.service.PromotionService;
 
 @Controller
 public class PromotionController {
-	@Autowired
 	PromotionService promotionService;
-	
-	@GetMapping(path="/mainpage")
+
+	@Autowired
+	public PromotionController(PromotionService promotionService) {
+		this.promotionService = promotionService;
+	}
+
+	@GetMapping(path = "/mainpage")
 	public String mainpage(ModelMap model) {
 		//promotion image 
-		
+
 		List<Promotion> promotionImages = promotionService.getPromotionImages();
-		
-		model.addAttribute("promotionImages",promotionImages);
-		
+
+		model.addAttribute("promotionImages", promotionImages);
+
 		return "mainpage";
 	}
 }
-
