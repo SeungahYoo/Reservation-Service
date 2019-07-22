@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -51,8 +51,9 @@
 							</div>
 						</div>
 						<div>
-							<input id="promotion-images-size" type="hidden" value="${fn:length(promotionImages) }"/>
-							
+							<input id="promotion-images-size" type="hidden"
+								value="${fn:length(promotionImages) }" />
+
 							<div class="container_visual">
 								<!-- 무한 롤링 이미지 wrapper -->
 								<ul class="visual_img" id="visual_img">
@@ -232,19 +233,9 @@
 	<script type="text/javascript" id="promotionItem">
 	const imagesSize = document.getElementById("promotion-images-size").value;
 	let now = 2;
-	function slide() {
+	function slide(nowLi,beforeLi) {
 	    //다음 사진을 앞으로 당기고 현재 사진은 제자리로 돌아간다.
-	    if(now==1) before = imagesSize;
-	    else before = now-1;
-	    
-	    console.log(now);
-	    console.log(before);
-	    
-	
-	    
-	    const nowLi=document.querySelector('#visual_img li:nth-child('+now+')');
-	    const beforeLi=document.querySelector('#visual_img li:nth-child('+before+')');
-	   
+
 	    
 	    console.log(nowLi);
 	    console.log(beforeLi);
@@ -259,8 +250,7 @@
 	  	
 	   
 
-	    if(now==imagesSize) now=1;
-	    else now++;
+
 
 	}
 
@@ -268,14 +258,27 @@
 	
 	function animate(now) {
 	    //2부터 시작
+	    
+	   	if(now==1) before = imagesSize;
+	    else before = now-1;
+	    
+	    console.log(now);
+	    console.log(before);
+	
+	    const nowLi=document.querySelector('#visual_img li:nth-child('+now+')');
+	    const beforeLi=document.querySelector('#visual_img li:nth-child('+before+')');
+	    
 		setTimeout(()=>{
-		        slide();
+		        slide(nowLi,beforeLi);
 	    	animate(now);
 	    },2000);
+		
+	    if(now==imagesSize) now=1;
+	    else now++;
 	}
 	
 	function init(){
-		animate();
+		animate(now);
 	}
 	
 	document.addEventListener("DOMContentLoaded", function() {

@@ -11,11 +11,10 @@ import com.nts.reservation.dto.Promotion;
 import com.nts.reservation.service.PromotionService;
 
 @Service
-public class PromotionServiceImpl implements PromotionService{
+public class PromotionServiceImpl implements PromotionService {
 	@Autowired
 	PromotionDao promotionDao;
-	
-	
+
 	@Override
 	@Transactional
 	public List<Promotion> getPromotionImages() {
