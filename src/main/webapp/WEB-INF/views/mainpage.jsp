@@ -244,6 +244,21 @@
         	</a>
     	</li>
     </script>
+    
+    <script type="rv-template" id="itemList">
+        <li class="item">
+            <a href="detail.html?id=${id}" class="item_book">
+                <div class="item_preview">
+                    <img alt="${description}" class="img_thumb" src="http://211.249.62.123/productImages/${id}?type=th">
+                    <span class="img_border"></span>
+                </div>
+                <div class="event_txt">
+                    <h4 class="event_txt_tit"> <span>${description}</span> <small class="sm">${placeName}</small> </h4>
+                    <p class="event_txt_dsc">${content}</p>
+                </div>
+            </a>
+        </li>
+    </script>
 
 	<script type="text/javascript">
 		const imagesSize = document.getElementById("promotion-images-size").value;
@@ -271,13 +286,17 @@
 			const nowLi=document.querySelector('.visual_img li:nth-child('+now+')');
 			const beforeLi=document.querySelector('.visual_img li:nth-child('+before+')');
 			
-			setTimeout(()=>{
+			setTimeout( () => {
 				slide(nowLi,beforeLi);
 				animate(now);
 			},2000);
 		
-			if(now==imagesSize) now=1;
-			else now++;
+			if(now==imagesSize) {
+				now=1;
+			}
+			else {
+				now++;
+			}
 		}
 		
 	    let replaceTemplate = (imageUrl) => {
@@ -291,7 +310,7 @@
 			visualImage.classList.add("visual_img");
 			
 			let resultHTML ="";
-			promotionImageUrl.forEach((url)=>{
+			promotionImageUrl.forEach( (url) => {
 				resultHTML += replaceTemplate(url);
 			});
 			
@@ -322,28 +341,11 @@
 			}
 			xmlHttpRequest.open("GET", "/reservation/api/promotions");
 			xmlHttpRequest.send();
-
 		}
 		
 		document.addEventListener("DOMContentLoaded", function() {
 		    init();
 		})
 	</script>
-
-	<script type="rv-template" id="itemList">
-        <li class="item">
-            <a href="detail.html?id=${id}" class="item_book">
-                <div class="item_preview">
-                    <img alt="${description}" class="img_thumb" src="http://211.249.62.123/productImages/${id}?type=th">
-                    <span class="img_border"></span>
-                </div>
-                <div class="event_txt">
-                    <h4 class="event_txt_tit"> <span>${description}</span> <small class="sm">${placeName}</small> </h4>
-                    <p class="event_txt_dsc">${content}</p>
-                </div>
-            </a>
-        </li>
-    </script>
 </body>
-
 </html>
