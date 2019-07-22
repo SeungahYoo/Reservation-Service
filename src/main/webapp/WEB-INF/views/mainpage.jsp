@@ -245,8 +245,8 @@
     	</li>
     </script>
 
-    
-    <script type="rv-template" id="itemList">
+
+	<script type="rv-template" id="itemList">
         <li class="item">
             <a href="detail.html?id=${id}" class="item_book">
                 <div class="item_preview">
@@ -336,7 +336,8 @@
 				}
 				
 				if(xmlHttpRequest.readyState === 4){
-					let imageList = JSON.parse(xmlHttpRequest.responseText).list;
+					let imageList = JSON.parse(xmlHttpRequest.responseText);
+					console.log(imageList);
 					imageList.forEach((image) => {
 						promotionImageUrl.push(image.promotionImage);
 					});

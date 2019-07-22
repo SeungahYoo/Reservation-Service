@@ -13,11 +13,16 @@ import com.nts.reservation.service.PromotionService;
 @RestController
 @RequestMapping(path = "/api")
 public class PromotionApiController {
-	@Autowired
+
 	PromotionService promotionService;
 
+	@Autowired
+	public PromotionApiController(PromotionService promotionService) {
+		this.promotionService = promotionService;
+	}
+
 	@GetMapping("/promotions")
-	public List<Promotion> list() {
+	public List<Promotion> getPromotionImages() {
 		return promotionService.getPromotionImages();
 	}
 
