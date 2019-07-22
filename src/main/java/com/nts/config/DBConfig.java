@@ -1,4 +1,4 @@
-package com.nts.reservation.config;
+package com.nts.config;
 
 import javax.sql.DataSource;
 
