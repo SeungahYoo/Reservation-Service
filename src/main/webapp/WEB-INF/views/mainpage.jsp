@@ -51,8 +51,8 @@
 							</div>
 						</div>
 						<div>
-							<input id="promotion-images-size" type="hidden"
-								value="${fn:length(promotionImages) }" />
+				<%-- 			<input id="promotion-images-size" type="hidden"
+								value="${fn:length(promotionImages) }" /> --%>
 
 							<div class="container_visual">
 								<!-- 무한 롤링 이미지 wrapper -->
@@ -265,18 +265,15 @@
 		const imagesSize = document.getElementById("promotion-images-size").value;
 		let promotionImageUrl = [];
 		let now = 2;
-		
+		let imagesSize=11;
 		function slide(nowLi,beforeLi) {
 			console.log(nowLi);
 			console.log(beforeLi);
 		    //다음 사진을 앞으로 당기고 현재 사진은 제자리로 돌아간다.
-			beforeLi.style.transition="";
-		    nowLi.style.transition="";
-		    nowLi.style.left="414px"; //대기줄로 이동
-		    beforeLi.style.transition="all 1s";
-		    nowLi.style.transition="all 1s";
+
+		    nowLi.style.left=(414*(now-2))+"px"; //대기줄로 이동
 		    beforeLi.style.left="-414px";//사라지기
-		    nowLi.style.left="0px"; //보이기
+		    nowLi.style.left="-414px"; //보이기
 		}
 
 		function animate(now) {
@@ -286,20 +283,21 @@
 			
 			const nowLi=document.querySelector('.visual_img li:nth-child('+now+')');
 			const beforeLi=document.querySelector('.visual_img li:nth-child('+before+')');
-			
 			setTimeout( () => {
-
+				console.log(now);
 				slide(nowLi,beforeLi);
+				if(now === (imagesSize+1)) {
+					now=1;
+				}
+				else {
+					now++;
+				}
 				animate(now);
+		
 			},2000);
 		
 
-			if(now==imagesSize) {
-				now=1;
-			}
-			else {
-				now++;
-			}
+		
 		}
 		
 	    let replaceTemplate = (imageUrl) => {
