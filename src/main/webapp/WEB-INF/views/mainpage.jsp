@@ -51,29 +51,12 @@
 							</div>
 						</div>
 						<div>
-				<%-- 			<input id="promotion-images-size" type="hidden"
-								value="${fn:length(promotionImages) }" /> --%>
-
 							<div class="container_visual">
 								<!-- 무한 롤링 이미지 wrapper -->
 								<ul class="visual_img" id="visual_img">
-									<%-- 									<c:forEach items="${promotionImages }" var="promotionImage"
-										varStatus="status">
-										<li class="item"
-											style="background-image: url(${promotionImage.promotionImage }); position:absolute; left:414px;">
-											<a href="#"> <span class="img_btm_border"></span> <span
-												class="img_right_border"></span> <span class="img_bg_gra"></span>
-												<div class="event_txt">
-													<h4 class="event_txt_tit"></h4>
-													<p class="event_txt_adr"></p>
-													<p class="event_txt_dsc"></p>
-												</div>
-										</a>
-										</li>
-									</c:forEach> --%>
 								</ul>
+								<!-- wrapper 끝 -->
 							</div>
-							<!-- wrapper 끝 -->
 							<span class="nxt_fix" style="display: none;"></span>
 						</div>
 					</div>
@@ -84,7 +67,9 @@
 					<li class="item" data-category="0"><a class="anchor active">
 							<span>전체리스트</span>
 					</a></li>
-					<li class="item" data-category="1"><a class="anchor"> <span>전시</span>
+
+
+					<!-- 				<li class="item" data-category="1"><a class="anchor"> <span>전시</span>
 					</a></li>
 					<li class="item" data-category="2"><a class="anchor"> <span>뮤지컬</span>
 					</a></li>
@@ -93,7 +78,7 @@
 					<li class="item" data-category="4"><a class="anchor"> <span>클래식</span>
 					</a></li>
 					<li class="item" data-category="5"><a class="anchor"> <span>연극</span>
-					</a></li>
+					</a></li> -->
 					<!-- li class="item" data-category="7">
                         <a class="anchor"> <span>클래스</span> </a>
                     </li>
@@ -262,10 +247,9 @@
     </script>
 
 	<script type="text/javascript">
-		const imagesSize = document.getElementById("promotion-images-size").value;
 		let promotionImageUrl = [];
 		let now = 2;
-		let imagesSize=11;
+		let imagesSize=0;
 		function slide(nowLi,beforeLi) {
 			console.log(nowLi);
 			console.log(beforeLi);
@@ -287,6 +271,7 @@
 				console.log(now);
 				slide(nowLi,beforeLi);
 				if(now === (imagesSize+1)) {
+					debugger;
 					now=1;
 				}
 				else {
@@ -314,12 +299,10 @@
 			let resultHTML ="";
 
 			promotionImageUrl.forEach( (url) => {
-
 				resultHTML += replaceTemplate(url);
 			});
 			
 			visualImage.innerHTML = resultHTML;
-			
 			let containerVisual = document.querySelector(".visual_img").parentElement;
 			containerVisual.replaceChild(visualImage, document.querySelector(".visual_img"));
 		};
@@ -339,7 +322,8 @@
 					imageList.forEach((image) => {
 						promotionImageUrl.push(image.promotionImage);
 					});
-					
+					imagesSize = promotionImageUrl.length;
+					console.log("imgsize: "+imagesSize);
 					createTemplate();
 					animate(now);
 				}
@@ -348,8 +332,56 @@
 			xmlHttpRequest.send();
 		}
 		
+	</script>
+
+	<script type="text/javascript">
+		let addCategoriesEventListener = () => {
+			const categoriesUl = document.querySelector(".event_tab_lst");
+			categoriesUl.addEventListener("click",function(event){
+				console.log("clicked "+event.target.dataset.category);
+			});
+		}
+	
+		let createCategoryTemplate = (categories) => {
+			let resultHTML="";
+			categories.forEach((category) => {
+				let tmpCode = "<li class='item' data-category="+category.id+"><a class='anchor'><span>"+category.name+"</span></a></li>";
+				document.querySelector(".event_tab_lst").innerHTML+=tmpCode;
+				document.querySelector(".event_tab_lst").addEventListener("click",function(event){
+					console.log("clicked "+event.target.tagName);
+				});
+			});
+/* 				let tmpCode="<li class=\"item\" data-category=\""+(category.id)+"\"><a
+				class=\"anchor\"> <span>"+(category.name)+"</span>";
+				document.querySelector(".event_tab_lst").append("<li class=\"item\" data-category=\""+(category.id)+"\"><a
+						class=\"anchor\"> <span>"+(category.name)+"</span>");
+/* 				resultHTML+=`<li class="item" data-category="`+(category.id)+`"><a
+					class='anchor'> <span>`+(category.name)+`</span>`; */
+			//.innerHTML+=resultHTML; */
+			
+		//addCategoriesEventListener();
+		}
+	
+		let init2 = () => {
+			let xmlHttpRequest = new XMLHttpRequest();
+			xmlHttpRequest.onreadystatechange = () => {
+				if(xmlHttpRequest.status >= 400){
+					console.log("오류");
+					//alert("오류가 발생했습니다. 다시 시도해주세요.");
+					return;
+				}
+				if(xmlHttpRequest.readyState === 4){
+					let categories = JSON.parse(xmlHttpRequest.responseText);
+					createCategoryTemplate(categories);
+				}
+			}
+			xmlHttpRequest.open("GET", "/reservation/api/categories");
+			xmlHttpRequest.send();
+		}
+		
 		document.addEventListener("DOMContentLoaded", function() {
-		    init();
+			 init();
+		    init2();
 		})
 	</script>
 

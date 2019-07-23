@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.dto.Category;
 import com.nts.reservation.service.CategoryService;
 
 @RestController
 @RequestMapping(path = "/api")
 public class CategoryApiController {
-
 	CategoryService categoryService;
 
 	@Autowired
@@ -21,8 +21,9 @@ public class CategoryApiController {
 	}
 
 	@GetMapping("/categories")
-	public List<String> getPromotionImages() {
-		return categoryService.getCategory();
+	public List<Category> getCategories() {
+		System.out.println(categoryService.getCategories());
+		return categoryService.getCategories();
 	}
 
 }

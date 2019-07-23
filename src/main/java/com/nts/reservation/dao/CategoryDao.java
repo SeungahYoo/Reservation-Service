@@ -9,18 +9,20 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.nts.reservation.dto.Category;
+
 @Repository
 public class CategoryDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<String> rowMapper = BeanPropertyRowMapper.newInstance(String.class);
-	private static final String SELECT_ALL = "SELECT name FROM category";
+	private RowMapper<Category> rowMapper = BeanPropertyRowMapper.newInstance(Category.class);
+	private static final String SELECT_ALL = "SELECT * FROM category";
 
 	@Autowired
 	public CategoryDao(NamedParameterJdbcTemplate jdbc) {
 		this.jdbc = jdbc;
 	}
 
-	public List<String> selectAll() {
+	public List<Category> selectAll() {
 		return jdbc.query(SELECT_ALL, Collections.emptyMap(), rowMapper);
 	}
 }
