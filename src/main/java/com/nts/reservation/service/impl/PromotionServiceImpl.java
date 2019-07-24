@@ -11,7 +11,7 @@ import com.nts.reservation.service.PromotionService;
 
 @Service
 public class PromotionServiceImpl implements PromotionService {
-	PromotionDao promotionDao;
+	private PromotionDao promotionDao;
 
 	@Autowired
 	public PromotionServiceImpl(PromotionDao promotionDao) {
@@ -19,7 +19,7 @@ public class PromotionServiceImpl implements PromotionService {
 	}
 
 	@Override
-	public List<Promotion> getPromotionImages() {
-		return promotionDao.selectAllPromotion();
+	public List<Promotion> getPromotions() {
+		return promotionDao.selectPromotions();
 	}
 }

@@ -11,7 +11,7 @@ import com.nts.reservation.service.CategoryService;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-	CategoryDao categoryDao;
+	private CategoryDao categoryDao;
 
 	@Autowired
 	public CategoryServiceImpl(CategoryDao categoryDao) {
@@ -20,8 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public List<Category> getCategories() {
-		System.out.println("service: " + categoryDao.selectAll());
-		return categoryDao.selectAll();
+		return categoryDao.selectCategories();
 	}
 
 }

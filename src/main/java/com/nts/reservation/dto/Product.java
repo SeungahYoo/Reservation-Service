@@ -1,26 +1,35 @@
 package com.nts.reservation.dto;
 
 public class Product {
-	private int categoryId;
-	private String title;
+	private int id;
+	private int category;
+	private String description;
 	private String content;
-	private String place;
-	private String image;
+	private String placeName;
+	private String fileName;
 
-	public int getCategoryId() {
-		return categoryId;
+	public int getId() {
+		return id;
 	}
 
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public int getCategory() {
+		return category;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setCategory(int category) {
+		this.category = category;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getContent() {
@@ -31,26 +40,26 @@ public class Product {
 		this.content = content;
 	}
 
-	public String getPlace() {
-		return place;
+	public String getPlaceName() {
+		return placeName;
 	}
 
-	public void setPlace(String place) {
-		this.place = place;
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
 	}
 
-	public String getImage() {
-		return image;
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [categoryId=" + categoryId + ", title=" + title + ", content=" + content + ", place=" + place
-			+ ", image=" + image + "]";
+		return "Product [id=" + id + ", category=" + category + ", description=" + description + ", content=" + content
+			+ ", placeName=" + placeName + ", fileName=" + fileName + "]";
 	}
 
 }

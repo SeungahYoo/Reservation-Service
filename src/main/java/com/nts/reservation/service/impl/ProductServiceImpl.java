@@ -11,7 +11,7 @@ import com.nts.reservation.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-	ProductDao productDao;
+	private ProductDao productDao;
 
 	@Autowired
 	public ProductServiceImpl(ProductDao productDao) {
