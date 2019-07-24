@@ -68,17 +68,6 @@
 							<span>전체리스트</span>
 					</a></li>
 
-
-					<!-- 				<li class="item" data-category="1"><a class="anchor"> <span>전시</span>
-					</a></li>
-					<li class="item" data-category="2"><a class="anchor"> <span>뮤지컬</span>
-					</a></li>
-					<li class="item" data-category="3"><a class="anchor"> <span>콘서트</span>
-					</a></li>
-					<li class="item" data-category="4"><a class="anchor"> <span>클래식</span>
-					</a></li>
-					<li class="item" data-category="5"><a class="anchor"> <span>연극</span>
-					</a></li> -->
 					<!-- li class="item" data-category="7">
                         <a class="anchor"> <span>클래스</span> </a>
                     </li>
@@ -251,8 +240,8 @@
 		let now = 2;
 		let imagesSize=0;
 		function slide(nowLi,beforeLi) {
-			console.log(nowLi);
-			console.log(beforeLi);
+			//console.log(nowLi);
+			//console.log(beforeLi);
 		    //다음 사진을 앞으로 당기고 현재 사진은 제자리로 돌아간다.
 
 		    nowLi.style.left=(414*(now-2))+"px"; //대기줄로 이동
@@ -268,7 +257,7 @@
 			const nowLi=document.querySelector('.visual_img li:nth-child('+now+')');
 			const beforeLi=document.querySelector('.visual_img li:nth-child('+before+')');
 			setTimeout( () => {
-				console.log(now);
+				//console.log(now);
 				slide(nowLi,beforeLi);
 				if(now === (imagesSize+1)) {
 					debugger;
@@ -280,9 +269,6 @@
 				animate(now);
 		
 			},2000);
-		
-
-		
 		}
 		
 	    let replaceTemplate = (imageUrl) => {
@@ -307,7 +293,7 @@
 			containerVisual.replaceChild(visualImage, document.querySelector(".visual_img"));
 		};
 		
-		function init(){
+		function loadPoromotions(){
 			let xmlHttpRequest = new XMLHttpRequest();
 			xmlHttpRequest.onreadystatechange = () => {
 				if(xmlHttpRequest.status >= 400){
@@ -323,7 +309,7 @@
 						promotionImageUrl.push(image.promotionImage);
 					});
 					imagesSize = promotionImageUrl.length;
-					console.log("imgsize: "+imagesSize);
+					console.log("imgsize: "+imagesSize);"src/main/webapp/WEB-INF/views/mainpage.jsp"
 					createTemplate();
 					animate(now);
 				}
@@ -335,10 +321,26 @@
 	</script>
 
 	<script type="text/javascript">
+		let clickedCategoryBefore = document.querySelector(".event_tab_lst").firstElementChild;
+		
+		let loadCategorizedItems = () {
+			
+		}
+		
 		let addCategoriesEventListener = () => {
 			const categoriesUl = document.querySelector(".event_tab_lst");
+			clickedCategoryBefore.firstElementChild.classList.add("active");
 			categoriesUl.addEventListener("click",function(event){
-				console.log("clicked "+event.target.dataset.category);
+			
+				let clickedCategoryNow = event.target.closest("li");
+				clickedCategoryBefore.firstElementChild.classList.remove("active");
+				clickedCategoryNow.firstElementChild.classList.add("active");
+				console.log(clickedCategoryBefore);
+				console.log(clickedCategoryNow);
+				
+				clickedCategoryBefore=clickedCategoryNow;
+				
+				//console.log(clickedCategory.dataset.category);
 			});
 		}
 	
@@ -347,22 +349,12 @@
 			categories.forEach((category) => {
 				let tmpCode = "<li class='item' data-category="+category.id+"><a class='anchor'><span>"+category.name+"</span></a></li>";
 				document.querySelector(".event_tab_lst").innerHTML+=tmpCode;
-				document.querySelector(".event_tab_lst").addEventListener("click",function(event){
-					console.log("clicked "+event.target.tagName);
-				});
 			});
-/* 				let tmpCode="<li class=\"item\" data-category=\""+(category.id)+"\"><a
-				class=\"anchor\"> <span>"+(category.name)+"</span>";
-				document.querySelector(".event_tab_lst").append("<li class=\"item\" data-category=\""+(category.id)+"\"><a
-						class=\"anchor\"> <span>"+(category.name)+"</span>");
-/* 				resultHTML+=`<li class="item" data-category="`+(category.id)+`"><a
-					class='anchor'> <span>`+(category.name)+`</span>`; */
-			//.innerHTML+=resultHTML; */
-			
-		//addCategoriesEventListener();
+
+		addCategoriesEventListener();
 		}
 	
-		let init2 = () => {
+		let loadCategories = () => {
 			let xmlHttpRequest = new XMLHttpRequest();
 			xmlHttpRequest.onreadystatechange = () => {
 				if(xmlHttpRequest.status >= 400){
@@ -380,8 +372,8 @@
 		}
 		
 		document.addEventListener("DOMContentLoaded", function() {
-			 init();
-		    init2();
+			loadCategories();
+			loadPoromotions();
 		})
 	</script>
 

@@ -13,7 +13,7 @@ import com.nts.reservation.service.CategoryService;
 @RestController
 @RequestMapping(path = "/api")
 public class CategoryApiController {
-	CategoryService categoryService;
+	private CategoryService categoryService;
 
 	@Autowired
 	public CategoryApiController(CategoryService categoryService) {
@@ -22,7 +22,7 @@ public class CategoryApiController {
 
 	@GetMapping("/categories")
 	public List<Category> getCategories() {
-		System.out.println(categoryService.getCategories());
+		//		System.out.println(categoryService.getCategories());
 		return categoryService.getCategories();
 	}
 

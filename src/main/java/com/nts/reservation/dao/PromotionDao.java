@@ -25,7 +25,7 @@ public class PromotionDao {
 		this.jdbc = jdbc;
 	}
 
-	public List<Promotion> selectAll() {
+	public List<Promotion> selectAllPromotion() {
 		return jdbc.query(SELECT_ALL, Collections.emptyMap(), rowMapper);
 	}
 }

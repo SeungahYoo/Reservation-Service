@@ -20,6 +20,6 @@ public class PromotionServiceImpl implements PromotionService {
 
 	@Override
 	public List<Promotion> getPromotionImages() {
-		return promotionDao.selectAll();
+		return promotionDao.selectAllPromotion();
 	}
 }
