@@ -13,7 +13,7 @@ public class SelectAllTest {
 	public static void main(String[] args) {
 		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		PromotionDao promotionDao = ac.getBean(PromotionDao.class);
-		List<Promotion> list = promotionDao.selectAll();
+		List<Promotion> list = promotionDao.selectAllPromotion();
 
 		for (Promotion promotion : list) {
 			System.out.println(promotion);
