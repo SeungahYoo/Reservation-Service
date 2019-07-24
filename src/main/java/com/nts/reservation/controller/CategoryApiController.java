@@ -22,7 +22,6 @@ public class CategoryApiController {
 
 	@GetMapping("/categories")
 	public List<Category> getCategories() {
-		//		System.out.println(categoryService.getCategories());
 		return categoryService.getCategories();
 	}
 

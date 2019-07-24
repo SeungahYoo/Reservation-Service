@@ -15,14 +15,14 @@ import com.nts.reservation.dto.Category;
 public class CategoryDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Category> rowMapper = BeanPropertyRowMapper.newInstance(Category.class);
-	private static final String SELECT_ALL = "SELECT * FROM category";
+	private static final String SELECT_CATEGORIES = "SELECT * FROM category";
 
 	@Autowired
 	public CategoryDao(NamedParameterJdbcTemplate jdbc) {
 		this.jdbc = jdbc;
 	}
 
-	public List<Category> selectAll() {
-		return jdbc.query(SELECT_ALL, Collections.emptyMap(), rowMapper);
+	public List<Category> selectCategories() {
+		return jdbc.query(SELECT_CATEGORIES, Collections.emptyMap(), rowMapper);
 	}
 }

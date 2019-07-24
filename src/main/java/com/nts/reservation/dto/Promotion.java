@@ -1,6 +1,6 @@
 package com.nts.reservation.dto;
 
-public class Promotion{
+public class Promotion {
 	private String promotionImage;
 
 	public String getpromotionImage() {
@@ -15,5 +15,5 @@ public class Promotion{
 	public String toString() {
 		return "Promotion [promotionImage=" + promotionImage + "]";
 	}
-	
+
 }

@@ -15,7 +15,7 @@ import com.nts.reservation.dto.Promotion;
 public class PromotionDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Promotion> rowMapper = BeanPropertyRowMapper.newInstance(Promotion.class);
-	private static final String SELECT_ALL = "SELECT save_file_name promotion_image FROM file_info WHERE id IN "
+	private static final String SELECT_PROMOTIONS = "SELECT save_file_name promotion_image FROM file_info WHERE id IN "
 		+ "(SELECT file_id FROM product_image WHERE product_id IN"
 		+ "(SELECT id FROM product WHERE id IN "
 		+ "(SELECT product_id FROM promotion)) AND type='th')";
@@ -25,7 +25,7 @@ public class PromotionDao {
 		this.jdbc = jdbc;
 	}
 
-	public List<Promotion> selectAllPromotion() {
-		return jdbc.query(SELECT_ALL, Collections.emptyMap(), rowMapper);
+	public List<Promotion> selectPromotions() {
+		return jdbc.query(SELECT_PROMOTIONS, Collections.emptyMap(), rowMapper);
 	}
 }
