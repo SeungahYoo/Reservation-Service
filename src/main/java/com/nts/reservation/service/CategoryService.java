@@ -6,4 +6,6 @@ import com.nts.reservation.dto.Category;
 
 public interface CategoryService {
 	List<Category> getCategories();
+
+	int getCategoryCoount(int categoryId);
 }

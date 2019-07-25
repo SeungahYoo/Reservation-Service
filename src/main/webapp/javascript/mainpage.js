@@ -1,9 +1,9 @@
 let promotionImageUrl = [];
 let now = 2;
 let imagesSize = 0;
+let productListMaxIndex=0;
+
 let slide = (nowLi, beforeLi) => {
-	// console.log(nowLi);
-	// console.log(beforeLi);
 	// 다음 사진을 앞으로 당기고 현재 사진은 제자리로 돌아간다.
 
 	nowLi.style.left = (414 * (now - 2)) + "px"; // 대기줄로 이동
@@ -25,7 +25,6 @@ let animatePromotion = (now) => {
 }
 
 let replacePromotionTemplate = (imageUrl) => {
-
 	let promotionTemplate = document.querySelector("#promotionItem").innerHTML;
 	return promotionTemplate.replace("{productImageUrl}", imageUrl);
 };
@@ -50,7 +49,6 @@ let loadPoromotions = () => {
 	let xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.onreadystatechange = () => {
 		if (xmlHttpRequest.status >= 400) {
-			// console.log("오류");
 			alert("오류가 발생했습니다. 다시 시도해주세요.");
 			return;
 		}
@@ -85,7 +83,6 @@ let replaceProductTemplate = (product) => {
 	                </div>
 	            </a>
 			</li>`;
-
 }
 
 let createProductTemplate = (CategorizedProducts) => {
@@ -99,12 +96,25 @@ let createProductTemplate = (CategorizedProducts) => {
 			rightColumnHTML += replaceProductTemplate(product);
 		}
 	});
-
-	document.querySelector(".lst_event_box:nth-child(1)").innerHTML = leftColumnHTML;
-	document.querySelector(".lst_event_box:nth-child(2)").innerHTML = rightColumnHTML;
+	
+	if(productListMaxIndex === 0){//처음부터 로딩하는 경우
+		document.querySelector(".lst_event_box:nth-child(1)").innerHTML = leftColumnHTML;
+		document.querySelector(".lst_event_box:nth-child(2)").innerHTML = rightColumnHTML;
+	} else {//더보기 버튼 클릭 후 이어서 로딩하는 경우
+		document.querySelector(".lst_event_box:nth-child(1)").innerHTML += leftColumnHTML;
+		document.querySelector(".lst_event_box:nth-child(2)").innerHTML += rightColumnHTML;
+	}
+	
+	productListMaxIndex += CategorizedProducts.length;
+	let moreButton = document.querySelector(".more>button");
+	if(productListMaxIndex == document.querySelector(".category_count").innerText){
+		moreButton.style.visibility="hidden";
+	} else {
+		moreButton.style.visibility="visible";
+	}
 }
 
-let loadCategoryProducts = (categoryId, startIdx) => {
+let loadCategoryProducts = () => {
 	let xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.onreadystatechange = () => {
 		if (xmlHttpRequest.status >= 400) {
@@ -114,22 +124,43 @@ let loadCategoryProducts = (categoryId, startIdx) => {
 		if (xmlHttpRequest.readyState === 4) {
 			let CategorizedProducts = JSON.parse(xmlHttpRequest.responseText);
 			createProductTemplate(CategorizedProducts, event);
-
 		}
 	}
-	xmlHttpRequest.open("GET", "/reservation/api/products?categoryId=" + categoryId + "&startIdx=" + startIdx);
+	categoryId=document.querySelector(".active").closest("li").dataset.category;
+	xmlHttpRequest.open("GET", "/reservation/api/products?categoryId=" + categoryId + "&startIndex=" + productListMaxIndex);
 	xmlHttpRequest.send();
 };
+
+let loadCategoryCount = (categoryId) => {
+	let xmlHttpRequest = new XMLHttpRequest();
+	xmlHttpRequest.onreadystatechange = () => {
+		if (xmlHttpRequest.status >= 400) {
+			alert("오류가 발생했습니다");
+			return;
+		}
+		if (xmlHttpRequest.readyState === 4) {
+			let categoryCount = JSON.parse(xmlHttpRequest.responseText);
+			document.querySelector(".category_count").innerText=categoryCount;
+		}
+	}
+	xmlHttpRequest.open("GET", "/reservation/api/categories/count?categoryId=" + categoryId);
+	xmlHttpRequest.send();
+}
 
 let addCategoriesEventListener = () => {
 	const categoriesUl = document.querySelector(".event_tab_lst");
 	clickedCategoryBefore.firstElementChild.classList.add("active");
+	
 	categoriesUl.addEventListener("click", function (event) {
 		let clickedCategoryNow = event.target.closest("li");
+		productListMaxIndex=0;
 		
 		clickedCategoryBefore.firstElementChild.classList.remove("active");
 		clickedCategoryNow.firstElementChild.classList.add("active");
-		loadCategoryProducts(clickedCategoryNow.dataset.category, 0);
+		
+		loadCategoryCount(clickedCategoryNow.dataset.category);
+		
+		loadCategoryProducts(clickedCategoryNow.dataset.category, productListMaxIndex);
 		clickedCategoryBefore = clickedCategoryNow;
 	});
 }
@@ -148,8 +179,7 @@ let loadCategories = () => {
 	let xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.onreadystatechange = () => {
 		if (xmlHttpRequest.status >= 400) {
-			console.log("오류");
-			// alert("오류가 발생했습니다. 다시 시도해주세요.");
+			alert("오류가 발생했습니다. 다시 시도해주세요.");
 			return;
 		}
 		if (xmlHttpRequest.readyState === 4) {
@@ -161,7 +191,15 @@ let loadCategories = () => {
 	xmlHttpRequest.send();
 }
 
+let addMoreButtonEventListener = () => {
+	const moreButton = document.querySelector(".more>button");
+	moreButton.addEventListener("click", function (event) {
+		loadCategoryProducts();
+	});
+}
+
 document.addEventListener("DOMContentLoaded", function () {
 	loadCategories();
 	loadPoromotions();
+	addMoreButtonEventListener();
 })
