@@ -39,8 +39,6 @@ public class ProductDao {
 		String new_SELECT_PRODUCTS = SELECT_PRODUCTS.replace("${dynamicQuery}", dynamicQuery);
 		parameter.put("start", startIndex);
 		parameter.put("limit", maxCount);
-		//		System.out.println(startIndex);
-		//		System.out.println(jdbc.query(new_SELECT_PRODUCTS, parameter, rowMapper));
 		return jdbc.query(new_SELECT_PRODUCTS, parameter, rowMapper);
 	}
 }
