@@ -35,6 +35,7 @@ public class CategoryDao {
 		if (categoryId > 0) {
 			dynamicQuery += "=" + categoryId;
 		}
+
 		String new_SELECT_CATEGORY_COUNT = SELECT_CATEGORY_COUNT.replace("${dynamicQuery}", dynamicQuery);
 		return jdbc.queryForObject(new_SELECT_CATEGORY_COUNT, Collections.emptyMap(), Integer.class);
 	}

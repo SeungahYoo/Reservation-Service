@@ -5,7 +5,6 @@ let productListMaxIndex=0;
 
 let slide = (nowLi, beforeLi) => {
 	// 다음 사진을 앞으로 당기고 현재 사진은 제자리로 돌아간다.
-
 	nowLi.style.left = (414 * (now - 2)) + "px"; // 대기줄로 이동
 	beforeLi.style.left = "-414px";// 사라지기
 	nowLi.style.left = "-414px"; // 보이기
@@ -14,9 +13,9 @@ let slide = (nowLi, beforeLi) => {
 let animatePromotion = (now) => {
 	// 2부터 시작
 	before = (now === 1)? imagesSize : now-1;
-
 	const nowLi = document.querySelector(`.visual_img li:nth-child(${now})`);
 	const beforeLi = document.querySelector('.visual_img li:nth-child(' + before + ')');
+
 	setTimeout(() => {
 		slide(nowLi, beforeLi);
 		now = (now===imagesSize+1)? 1 : now+1;
@@ -26,6 +25,7 @@ let animatePromotion = (now) => {
 
 let replacePromotionTemplate = (imageUrl) => {
 	let promotionTemplate = document.querySelector("#promotionItem").innerHTML;
+
 	return promotionTemplate.replace("{productImageUrl}", imageUrl);
 };
 
@@ -157,9 +157,7 @@ let addCategoriesEventListener = () => {
 		
 		clickedCategoryBefore.firstElementChild.classList.remove("active");
 		clickedCategoryNow.firstElementChild.classList.add("active");
-		
 		loadCategoryCount(clickedCategoryNow.dataset.category);
-		
 		loadCategoryProducts(clickedCategoryNow.dataset.category, productListMaxIndex);
 		clickedCategoryBefore = clickedCategoryNow;
 	});
@@ -168,8 +166,7 @@ let addCategoriesEventListener = () => {
 let createCategoryTemplate = (categories) => {
 	let resultHTML = "";
 	categories.forEach((category) => {
-		let tmpCode = "<li class='item' data-category=" + category.id + ">" +
-				"<a class='anchor'><span>" + category.name + "</span></a></li>";
+		let tmpCode = `<li class='item' data-category=${category.id}><a class='anchor'><span>${category.name }</span></a></li>`;
 		document.querySelector(".event_tab_lst").innerHTML += tmpCode;
 	});
 	addCategoriesEventListener();
@@ -204,6 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	addMoreButtonEventListener();
 });
 
+
 window.onload = function(){
-		document.querySelector(".active").click();
+	document.querySelector(".active").click();
 };
