@@ -45,7 +45,7 @@ let createPromotionTemplate = () => {
 	containerVisual.replaceChild(visualImage, document.querySelector(".visual_img"));
 };
 
-let loadPoromotions = () => {
+let loadPromotions = () => {
 	let xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.onreadystatechange = () => {
 		if (xmlHttpRequest.status >= 400) {
@@ -97,10 +97,10 @@ let createProductTemplate = (CategorizedProducts) => {
 		}
 	});
 	
-	if(productListMaxIndex === 0){//처음부터 로딩하는 경우
+	if(productListMaxIndex === 0){// 처음부터 로딩하는 경우
 		document.querySelector(".lst_event_box:nth-child(1)").innerHTML = leftColumnHTML;
 		document.querySelector(".lst_event_box:nth-child(2)").innerHTML = rightColumnHTML;
-	} else {//더보기 버튼 클릭 후 이어서 로딩하는 경우
+	} else {// 더보기 버튼 클릭 후 이어서 로딩하는 경우
 		document.querySelector(".lst_event_box:nth-child(1)").innerHTML += leftColumnHTML;
 		document.querySelector(".lst_event_box:nth-child(2)").innerHTML += rightColumnHTML;
 	}
@@ -200,6 +200,10 @@ let addMoreButtonEventListener = () => {
 
 document.addEventListener("DOMContentLoaded", function () {
 	loadCategories();
-	loadPoromotions();
+	loadPromotions();
 	addMoreButtonEventListener();
-})
+});
+
+window.onload = function(){
+		document.querySelector(".active").click();
+};
