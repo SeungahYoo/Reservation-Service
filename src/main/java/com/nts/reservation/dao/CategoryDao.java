@@ -15,7 +15,7 @@ import com.nts.reservation.dto.Category;
 public class CategoryDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Category> rowMapper = BeanPropertyRowMapper.newInstance(Category.class);
-	private static final String SELECT_CATEGORIES = "SELECT * FROM category";
+	private static final String SELECT_CATEGORIES = "SELECT id, name FROM category";
 
 	@Autowired
 	public CategoryDao(NamedParameterJdbcTemplate jdbc) {
