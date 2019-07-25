@@ -86,28 +86,42 @@ let loadPoromotions = () => {
 
 let clickedCategoryBefore = document.querySelector(".event_tab_lst").firstElementChild;
 
-let replaceProductTemplate = (id, description, content, placeName, fileName) => {
-	let productTemplate = document.querySelector("#itenList").innerHTML;
-	return productTemplate.replace("{id}", id)
-		.replace("{description}", description)
-		.replace("{content}", content)
-		.replace("{placeName}", placeName)
-		.replace("{fileName}", fileName);
+let replaceProductTemplate = (product) => {
+	return `<li class="item">
+	            <a href="detail.html?id=${product.id}" class="item_book">
+	                <div class="item_preview">
+	                    <img alt="${product.description}" class="img_thumb" src="http://127.0.0.1:8080/reservation/${product.fileName}">
+	                    <span class="img_border"></span>
+	                </div>
+	                <div class="event_txt">
+	                    <h4 class="event_txt_tit"> <span>${product.description}</span> <small class="sm">${product.placeName}</small> </h4>
+	                    <p class="event_txt_dsc">${product.content}</p>
+	                </div>
+	            </a>
+			</li>`;
+
 }
 
 let createProductTemplate = (CategorizedProducts) => {
-	let visualImage = document.querySelector(".lst_event_box");
+	let leftColumnHTML = "";
+	let rightColumnHTML = "";
 
-	let resultHTML = "";
-
-	CategorizedProducts.forEach((product) => {
-		resultHTML += replacePromotionTemplate(product.id, product.description, product.content, product.placeName, product.fileName);
+	CategorizedProducts.forEach((product, index,products) => {
+		console.log(index);
+		if (index%2===0) { // 짝수번째 product는 왼쪽 컬럼
+			console.log("he");
+			console.log(product);
+			leftColumnHTML += replaceProductTemplate(product);
+		} else { // 홀수번째 product는 오른쪽 컬럼
+			rightColumnHTML += replaceProductTemplate(product);
+		}
 	});
 
-	visualImage.innerHTML = resultHTML;
+	document.querySelector(".lst_event_box:nth-child(1)").innerHTML = leftColumnHTML;
+	document.querySelector(".lst_event_box:nth-child(2)").innerHTML = rightColumnHTML;
 }
 
-let loadCategorizedProducts = (categoryId, startIdx) => {
+let loadCategoryProducts = (categoryId, startIdx) => {
 	let xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.onreadystatechange = () => {
 		if (xmlHttpRequest.status >= 400) {
@@ -116,7 +130,7 @@ let loadCategorizedProducts = (categoryId, startIdx) => {
 		}
 		if (xmlHttpRequest.readyState === 4) {
 			let CategorizedProducts = JSON.parse(xmlHttpRequest.responseText);
-			console.log(CategorizedProducts);
+			// console.log(CategorizedProducts);
 			createProductTemplate(CategorizedProducts, event);
 
 		}
@@ -129,11 +143,11 @@ let addCategoriesEventListener = () => {
 	const categoriesUl = document.querySelector(".event_tab_lst");
 	clickedCategoryBefore.firstElementChild.classList.add("active");
 	categoriesUl.addEventListener("click", function (event) {
-
 		let clickedCategoryNow = event.target.closest("li");
+		
 		clickedCategoryBefore.firstElementChild.classList.remove("active");
 		clickedCategoryNow.firstElementChild.classList.add("active");
-		loadCategorizedProducts(clickedCategoryNow.dataset.category, 0);
+		loadCategoryProducts(clickedCategoryNow.dataset.category, 0);
 		clickedCategoryBefore = clickedCategoryNow;
 	});
 }

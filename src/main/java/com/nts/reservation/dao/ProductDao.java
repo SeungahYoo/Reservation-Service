@@ -16,19 +16,19 @@ import com.nts.reservation.dto.Product;
 public class ProductDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
-	private static final String SELECT_PRODUCTS = "SELECT p.category_id category, p.id id, p.description description, p.content content, di.place_name placeName, fi.save_file_name as fileName "
-		+ "FROM product AS p JOIN display_info AS di on p.id = di.product_id "
-		+ "JOIN product_image AS pi on p.id=pi.product_id "
-		+ "JOIN file_info AS fi on pi.file_id = fi.id "
-		+ "WHERE(p.category_id = :categoryId and pi.type='th') "
-		+ "LIMIT :start , :limit";
+	private static final String SELECT_PRODUCTS = "SELECT product.category_id category, product.id id, product.description description, product.content content, display_info.place_name placeName, file_info.save_file_name fileName "
+		+ "FROM product JOIN display_info ON product.id = display_info.product_id "
+		+ "JOIN product_image ON product.id=product_image.product_id "
+		+ "JOIN file_info ON product_image.file_id = file_info.id "
+		+ "WHERE(product.category_id=:categoryId AND product_image.type='th') "
+		+ "LIMIT :start , :limit; ";
 
 	@Autowired
 	public ProductDao(NamedParameterJdbcTemplate jdbc) {
 		this.jdbc = jdbc;
 	}
 
-	public List<Product> selectProductsFromStartIdx(int categoryId, int startIdx, int displayLimit) {
+	public List<Product> selectProducts(int categoryId, int startIndex, int maxCount) {
 		Map<String, Object> parameter = new HashMap<>();
 
 		if (categoryId <= 0) {
@@ -36,8 +36,8 @@ public class ProductDao {
 		}
 
 		parameter.put("categoryId", categoryId);
-		parameter.put("start", startIdx);
-		parameter.put("limit", displayLimit);
+		parameter.put("start", startIndex);
+		parameter.put("limit", maxCount);
 
 		return jdbc.query(SELECT_PRODUCTS, parameter, rowMapper);
 	}

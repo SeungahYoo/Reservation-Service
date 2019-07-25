@@ -15,10 +15,11 @@ import com.nts.reservation.dto.Promotion;
 public class PromotionDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Promotion> rowMapper = BeanPropertyRowMapper.newInstance(Promotion.class);
-	private static final String SELECT_PROMOTIONS = "SELECT save_file_name promotion_image FROM file_info WHERE id IN "
-		+ "(SELECT file_id FROM product_image WHERE product_id IN"
-		+ "(SELECT id FROM product WHERE id IN "
-		+ "(SELECT product_id FROM promotion)) AND type='th')";
+	private static final String SELECT_PROMOTIONS = "SELECT save_file_name promotion_image FROM file_info "
+		+ "JOIN product_image ON file_info.id=product_image.file_id "
+		+ "JOIN product ON product_image.product_id=product.id "
+		+ "JOIN promotion ON product.id=promotion.product_id "
+		+ "WHERE(product_image.type='th')";
 
 	@Autowired
 	public PromotionDao(NamedParameterJdbcTemplate jdbc) {

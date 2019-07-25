@@ -15,7 +15,7 @@ import com.nts.reservation.service.ProductService;
 @RequestMapping(path = "/api")
 public class ProductApiController {
 	private ProductService productService;
-	private static final int DISPLAY_LIMIT = 4;
+	private static final int MAX_COUNT = 4;
 
 	@Autowired
 	public ProductApiController(ProductService productService) {
@@ -25,9 +25,9 @@ public class ProductApiController {
 	@GetMapping("/products")
 	public List<Product> getProductFromStartIdx(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
-		@RequestParam(name = "startIdx", required = false, defaultValue = "0") int startIdx) {
+		@RequestParam(name = "startIndex", required = false, defaultValue = "0") int startIndex) {
 
-		System.out.println(productService.getProductsFromStartIdx(categoryId, startIdx, DISPLAY_LIMIT));
-		return productService.getProductsFromStartIdx(categoryId, startIdx, DISPLAY_LIMIT);
+		System.out.println(productService.getProducts(categoryId, startIndex, MAX_COUNT));
+		return productService.getProducts(categoryId, startIndex, MAX_COUNT);
 	}
 }
