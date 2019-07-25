@@ -14,8 +14,6 @@ import com.nts.reservation.dto.Product;
 
 @Repository
 public class ProductDao {
-	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
 	private static final String SELECT_PRODUCTS = ""
 		+ "SELECT product.category_id category, product.id id, product.description description, product.content content, display_info.place_name placeName, file_info.save_file_name fileName "
 		+ "FROM product JOIN display_info ON product.id = display_info.product_id "
@@ -23,6 +21,8 @@ public class ProductDao {
 		+ "JOIN file_info ON product_image.file_id = file_info.id "
 		+ "WHERE(${dynamicQuery} product_image.type='th') "
 		+ "LIMIT :start , :limit; ";
+	private NamedParameterJdbcTemplate jdbc;
+	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
 
 	@Autowired
 	public ProductDao(NamedParameterJdbcTemplate jdbc) {

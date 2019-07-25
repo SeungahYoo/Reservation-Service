@@ -13,12 +13,12 @@ import com.nts.reservation.dto.Category;
 
 @Repository
 public class CategoryDao {
-	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<Category> rowMapper = BeanPropertyRowMapper.newInstance(Category.class);
 	private static final String SELECT_CATEGORIES = "SELECT id, name FROM category";
 	private static final String SELECT_CATEGORY_COUNT = "SELECT count(*) product_count FROM product "
 		+ "JOIN display_info ON product.id = display_info.product_id "
 		+ "WHERE(${dynamicQuery})";
+	private NamedParameterJdbcTemplate jdbc;
+	private RowMapper<Category> rowMapper = BeanPropertyRowMapper.newInstance(Category.class);
 
 	@Autowired
 	public CategoryDao(NamedParameterJdbcTemplate jdbc) {
