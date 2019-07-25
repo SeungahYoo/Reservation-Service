@@ -27,7 +27,6 @@ public class ProductApiController {
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
 		@RequestParam(name = "startIndex", required = false, defaultValue = "0") int startIndex) {
 
-		System.out.println(productService.getProducts(categoryId, startIndex, MAX_COUNT));
 		return productService.getProducts(categoryId, startIndex, MAX_COUNT);
 	}
 }

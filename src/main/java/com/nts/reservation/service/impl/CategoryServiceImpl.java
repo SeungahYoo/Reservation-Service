@@ -23,4 +23,9 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryDao.selectCategories();
 	}
 
+	@Override
+	public int getCategoryCoount(int categoryId) {
+		return categoryDao.selectCategoryCount(categoryId);
+	}
+
 }

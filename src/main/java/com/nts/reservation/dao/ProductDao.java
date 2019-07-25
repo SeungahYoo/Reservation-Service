@@ -16,11 +16,12 @@ import com.nts.reservation.dto.Product;
 public class ProductDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
-	private static final String SELECT_PRODUCTS = "SELECT product.category_id category, product.id id, product.description description, product.content content, display_info.place_name placeName, file_info.save_file_name fileName "
+	private static final String SELECT_PRODUCTS = ""
+		+ "SELECT product.category_id category, product.id id, product.description description, product.content content, display_info.place_name placeName, file_info.save_file_name fileName "
 		+ "FROM product JOIN display_info ON product.id = display_info.product_id "
 		+ "JOIN product_image ON product.id=product_image.product_id "
 		+ "JOIN file_info ON product_image.file_id = file_info.id "
-		+ "WHERE(product.category_id=:categoryId AND product_image.type='th') "
+		+ "WHERE(${dynamicQuery} product_image.type='th') "
 		+ "LIMIT :start , :limit; ";
 
 	@Autowired
@@ -30,15 +31,16 @@ public class ProductDao {
 
 	public List<Product> selectProducts(int categoryId, int startIndex, int maxCount) {
 		Map<String, Object> parameter = new HashMap<>();
-
-		if (categoryId <= 0) {
-
+		String dynamicQuery = "";
+		if (categoryId > 0) {
+			dynamicQuery = "product.category_id=:categoryId AND";
+			parameter.put("categoryId", categoryId);
 		}
-
-		parameter.put("categoryId", categoryId);
+		String new_SELECT_PRODUCTS = SELECT_PRODUCTS.replace("${dynamicQuery}", dynamicQuery);
 		parameter.put("start", startIndex);
 		parameter.put("limit", maxCount);
-
-		return jdbc.query(SELECT_PRODUCTS, parameter, rowMapper);
+		//		System.out.println(startIndex);
+		//		System.out.println(jdbc.query(new_SELECT_PRODUCTS, parameter, rowMapper));
+		return jdbc.query(new_SELECT_PRODUCTS, parameter, rowMapper);
 	}
 }
