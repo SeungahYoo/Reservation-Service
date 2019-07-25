@@ -13,10 +13,15 @@ let slide = (nowLi, beforeLi) => {
 
 let animatePromotion = (now) => {
 	// 2부터 시작
-	if (now == 1) before = imagesSize;
-	else before = now - 1;
+	if (now === 1) {
+		before = imagesSize;
+	}
+	else {
+		before = now - 1;
+	}
 
-	const nowLi = document.querySelector('.visual_img li:nth-child(' + now + ')');
+
+	const nowLi = document.querySelector(`.visual_img li:nth-child(${now})`);
 	const beforeLi = document.querySelector('.visual_img li:nth-child(' + before + ')');
 	setTimeout(() => {
 		slide(nowLi, beforeLi);
@@ -57,7 +62,7 @@ let loadPoromotions = () => {
 	let xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.onreadystatechange = () => {
 		if (xmlHttpRequest.status >= 400) {
-			//console.log("오류");
+			// console.log("오류");
 			alert("오류가 발생했습니다. 다시 시도해주세요.");
 			return;
 		}

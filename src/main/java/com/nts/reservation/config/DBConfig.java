@@ -18,18 +18,18 @@ public class DBConfig {
 	private String DB_DRIVER;
 
 	@Value("${db.url}")
-	private static String DB_URL;
+	private String DB_URL;
 
-	@Value("${db.user}")
-	private static String DB_USER;
+	@Value("${db.username}")
+	private String DB_USER;
 
 	@Value("${db.password}")
-	private static String DB_PASSWORD;
+	private String DB_PASSWORD;
 
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://10.113.116.52:13306/user10");
+		dataSource.setDriverClassName(DB_DRIVER);
+		dataSource.setUrl(DB_URL);
 		dataSource.setUsername(DB_USER);
 		dataSource.setPassword(DB_PASSWORD);
 		return dataSource;
