@@ -13,26 +13,14 @@ let slide = (nowLi, beforeLi) => {
 
 let animatePromotion = (now) => {
 	// 2부터 시작
-	if (now === 1) {
-		before = imagesSize;
-	}
-	else {
-		before = now - 1;
-	}
-
+	before = (now === 1)? imagesSize : now-1;
 
 	const nowLi = document.querySelector(`.visual_img li:nth-child(${now})`);
 	const beforeLi = document.querySelector('.visual_img li:nth-child(' + before + ')');
 	setTimeout(() => {
 		slide(nowLi, beforeLi);
-		if (now === (imagesSize + 1)) {
-			now = 1;
-		}
-		else {
-			now++;
-		}
+		now = (now===imagesSize+1)? 1 : now+1;
 		animatePromotion(now);
-
 	}, 2000);
 }
 
@@ -69,12 +57,10 @@ let loadPoromotions = () => {
 
 		if (xmlHttpRequest.readyState === 4) {
 			let imageList = JSON.parse(xmlHttpRequest.responseText);
-			console.log(imageList);
 			imageList.forEach((image) => {
 				promotionImageUrl.push(image.promotionImage);
 			});
 			imagesSize = promotionImageUrl.length;
-			console.log("imgsize: " + imagesSize); "src/main/webapp/WEB-INF/views/mainpage.jsp"
 			createPromotionTemplate();
 			animatePromotion(now);
 		}
@@ -107,10 +93,7 @@ let createProductTemplate = (CategorizedProducts) => {
 	let rightColumnHTML = "";
 
 	CategorizedProducts.forEach((product, index,products) => {
-		console.log(index);
 		if (index%2===0) { // 짝수번째 product는 왼쪽 컬럼
-			console.log("he");
-			console.log(product);
 			leftColumnHTML += replaceProductTemplate(product);
 		} else { // 홀수번째 product는 오른쪽 컬럼
 			rightColumnHTML += replaceProductTemplate(product);
@@ -130,7 +113,6 @@ let loadCategoryProducts = (categoryId, startIdx) => {
 		}
 		if (xmlHttpRequest.readyState === 4) {
 			let CategorizedProducts = JSON.parse(xmlHttpRequest.responseText);
-			// console.log(CategorizedProducts);
 			createProductTemplate(CategorizedProducts, event);
 
 		}
