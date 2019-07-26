@@ -15,23 +15,24 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class DBConfig {
 	@Value("${db.driver}")
-	private String DB_DRIVER;
+	private String dbDriver;
 
 	@Value("${db.url}")
-	private String DB_URL;
+	private String dbUrl;
 
 	@Value("${db.username}")
-	private String DB_USER;
+	private String dbUser;
 
 	@Value("${db.password}")
-	private String DB_PASSWORD;
+	private String dbPassword;
 
+	@Bean
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName(DB_DRIVER);
-		dataSource.setUrl(DB_URL);
-		dataSource.setUsername(DB_USER);
-		dataSource.setPassword(DB_PASSWORD);
+		dataSource.setDriverClassName(dbDriver);
+		dataSource.setUrl(dbUrl);
+		dataSource.setUsername(dbUser);
+		dataSource.setPassword(dbPassword);
 		return dataSource;
 	}
 

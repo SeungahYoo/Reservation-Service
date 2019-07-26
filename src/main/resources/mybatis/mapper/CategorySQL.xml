@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.reservation.mapper.CategoryMapper">
+	<select id="selectCategories" resultType="com.nts.reservation.dto.Category">
+		SELECT
+			id, name
+		FROM
+			category
+	</select>
+
+	<select id="selectCategoryCount" resultType="_int">
+		SELECT
+			count(*) product_count
+		FROM
+			product
+		JOIN
+			display_info
+		ON 
+			product.id = display_info.product_id
+		<if test="categoryId gt 0">
+		WHERE
+			product.category_id = ${categoryId}
+		</if>
+	</select>
+</mapper>
