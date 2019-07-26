@@ -29,7 +29,6 @@ let replacePromotionTemplate = (imageUrl) => {
 	return promotionTemplate.replace("{productImageUrl}", imageUrl);
 };
 
-
 let createPromotionTemplate = () => {
 	let visualImage = document.createElement("ul");
 	visualImage.classList.add("visual_img");
@@ -200,7 +199,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	loadPromotions();
 	addMoreButtonEventListener();
 });
-
 
 window.onload = function(){
 	document.querySelector(".active").click();
