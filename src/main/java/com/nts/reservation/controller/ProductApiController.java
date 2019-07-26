@@ -23,7 +23,7 @@ public class ProductApiController {
 	}
 
 	@GetMapping("/products")
-	public List<Product> getProductFromStartIndex(
+	public List<Product> getProducts(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
 		@RequestParam(name = "startIndex", required = false, defaultValue = "0") int startIndex) {
 
