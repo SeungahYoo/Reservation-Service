@@ -1,7 +1,7 @@
 let promotionImageUrl = [];
 let now = 1;
 let imagesSize = 0;
-let productListMaxIndex=0;
+let productListMaxIndex = 0;
 let currentCategoryCount = 0;
 
 let slide = (now, next) => {

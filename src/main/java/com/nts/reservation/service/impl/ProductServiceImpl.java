@@ -12,7 +12,7 @@ import com.nts.reservation.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-	private ProductMapper productMapper;
+	private final ProductMapper productMapper;
 
 	@Autowired
 	public ProductServiceImpl(ProductMapper productMapper) {
