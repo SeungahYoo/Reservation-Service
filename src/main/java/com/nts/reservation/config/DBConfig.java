@@ -34,10 +34,4 @@ public class DBConfig {
 
 		return dataSource;
 	}
-
-	@Bean
-	public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
-		return new NamedParameterJdbcTemplate(dataSource());
-	}
-
 }
