@@ -14,7 +14,7 @@ import com.nts.reservation.service.CategoryService;
 @RestController
 @RequestMapping(path = "/api")
 public class CategoryApiController {
-	private CategoryService categoryService;
+	private final CategoryService categoryService;
 
 	@Autowired
 	public CategoryApiController(CategoryService categoryService) {

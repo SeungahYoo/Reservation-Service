@@ -12,7 +12,7 @@ import com.nts.reservation.service.CategoryService;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-	private CategoryMapper categoryMapper;
+	private final CategoryMapper categoryMapper;
 
 	@Autowired
 	public CategoryServiceImpl(CategoryMapper categoryMapper) {

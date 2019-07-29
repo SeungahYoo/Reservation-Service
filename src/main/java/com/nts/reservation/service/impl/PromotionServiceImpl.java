@@ -11,7 +11,7 @@ import com.nts.reservation.service.PromotionService;
 
 @Service
 public class PromotionServiceImpl implements PromotionService {
-	private PromotionMapper promotionMapper;
+	private final PromotionMapper promotionMapper;
 
 	@Autowired
 	public PromotionServiceImpl(PromotionMapper promotionMapper) {

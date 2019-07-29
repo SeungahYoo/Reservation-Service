@@ -14,7 +14,7 @@ import com.nts.reservation.service.ProductService;
 @RestController
 @RequestMapping(path = "/api")
 public class ProductApiController {
-	private ProductService productService;
+	private final ProductService productService;
 	private static final int MAX_COUNT = 4;
 
 	@Autowired

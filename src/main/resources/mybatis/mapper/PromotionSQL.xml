@@ -9,16 +9,16 @@
 		JOIN
 			product_image
 		ON
-			file_info.id=product_image.file_id
+			file_info.id = product_image.file_id
 		JOIN
 			product
 		ON
-			product_image.product_id=product.id
+			product_image.product_id = product.id
 		JOIN
 			promotion
 		ON
-			product.id=promotion.product_id
+			product.id = promotion.product_id
 		WHERE
-			product_image.type='th'
+			product_image.type = 'th'
 	</select>
 </mapper>
