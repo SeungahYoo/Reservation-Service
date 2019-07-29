@@ -17,7 +17,7 @@
 		JOIN
 			display_info
 		ON
-		product.id = display_info.product_id
+	    	product.id = display_info.product_id
 		<if test="categoryId gt 0">
 		WHERE
 			product.category_id = ${categoryId}
