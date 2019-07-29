@@ -2,19 +2,19 @@ let promotionImageUrl = [];
 let now = 1;
 let imagesSize = 0;
 let productListMaxIndex=0;
-let categoryCount = new Map();
+let currentCategoryCount = 0;
 
 let slide = (now, next) => {
 		// 다음 사진을 앞으로 당기고 현재 사진은 제자리로 돌아간다.
-//		nowLi.style.left = (414 * (now - 2)) + "px"; // 대기줄로 이동
-//		beforeLi.style.left = "-414px";// 사라지기
-//		nowLi.style.left = "-414px"; // 보이기
+// nowLi.style.left = (414 * (now - 2)) + "px"; // 대기줄로 이동
+// beforeLi.style.left = "-414px";// 사라지기
+// nowLi.style.left = "-414px"; // 보이기
 	const nowLi = document.querySelector(`.visual_img li:nth-child(1)`);
 	const nextLi = document.querySelector(`.visual_img li:nth-child(2)`);
 	nowLi.style.transition = "transform 2s";
 	nextLi.style.transition = "transform 2s";
 	nowLi.style.transform = "translateX(-414px)";
-//	nextLi.style.transform = "translateX(-414px)";
+// nextLi.style.transform = "translateX(-414px)";
 	
 	nowLi.remove();
 	document.querySelector(".visual_img").appendChild(nowLi);
@@ -23,12 +23,12 @@ let slide = (now, next) => {
 }
 
 let animatePromotion = (now) => {
-//	let next = (now === 12)? 1 : now+1;
+// let next = (now === 12)? 1 : now+1;
 
 
 	setTimeout(() => {
 		slide();
-//		now = (now===imagesSize+1)? 1 : now+1;
+// now = (now===imagesSize+1)? 1 : now+1;
 		animatePromotion(now);
 	}, 2000);
 }
@@ -117,7 +117,7 @@ let createProductTemplate = (CategorizedProducts) => {
 	
 	productListMaxIndex += CategorizedProducts.length;
 	let moreButton = document.querySelector(".more>button");
-	if(productListMaxIndex == document.querySelector("#category_count").innerText){
+	if(productListMaxIndex == currentCategoryCount){
 		moreButton.style.visibility="hidden";
 	} else {
 		moreButton.style.visibility="visible";
@@ -149,8 +149,8 @@ let loadCategoryCount = (categoryId) => {
 			return;
 		}
 		if (xmlHttpRequest.readyState === 4) {
-			let categoryCount = JSON.parse(xmlHttpRequest.responseText);
-			document.querySelector("#category_count").innerText=categoryCount;
+			currentCategoryCount = JSON.parse(xmlHttpRequest.responseText);
+			document.querySelector("#category_count").innerText=currentCategoryCount;
 		}
 	}
 	xmlHttpRequest.open("GET", "/reservation/api/categories/count?categoryId=" + categoryId);
@@ -177,7 +177,6 @@ let createCategoryTemplate = (categories) => {
 	let resultHTML = "";
 	categories.forEach((category) => {
 		let tmpCode = `<li class='item' data-category=${category.id}><a class='anchor'><span>${category.name }</span></a></li>`;
-		categoryCount.set(category.id,category.productCount);
 		document.querySelector(".event_tab_lst").innerHTML += tmpCode;
 	});
 	addCategoriesEventListener();
