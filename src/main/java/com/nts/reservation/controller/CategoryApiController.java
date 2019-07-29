@@ -29,7 +29,6 @@ public class CategoryApiController {
 	@GetMapping("/categories/count")
 	public int getCategoryCount(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId) {
-		System.out.println("categoryController " + categoryService.getCategoryCount(categoryId));
 		return categoryService.getCategoryCount(categoryId);
 	}
 
