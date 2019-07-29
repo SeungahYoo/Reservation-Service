@@ -20,8 +20,6 @@ public class PromotionServiceImpl implements PromotionService {
 
 	@Override
 	public List<Promotion> getPromotions() {
-		System.out.println("promotion");
-		System.out.println(promotionMapper.selectPromotions());
 		return promotionMapper.selectPromotions();
 	}
 }
