@@ -81,7 +81,7 @@
 			</div>
 			<div class="section_event_lst">
 				<p class="event_lst_txt">
-					바로 예매 가능한 행사가 <span class="pink"><span class="category_count"></span>개</span> 있습니다
+					바로 예매 가능한 행사가 <span class="pink"><span id="category_count"></span>개</span> 있습니다
 				</p>
 				<div class="wrap_event_box">
 					<!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->

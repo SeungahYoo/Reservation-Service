@@ -117,7 +117,7 @@ let createProductTemplate = (CategorizedProducts) => {
 	
 	productListMaxIndex += CategorizedProducts.length;
 	let moreButton = document.querySelector(".more>button");
-	if(productListMaxIndex == document.querySelector(".category_count").innerText){
+	if(productListMaxIndex == document.querySelector("#category_count").innerText){
 		moreButton.style.visibility="hidden";
 	} else {
 		moreButton.style.visibility="visible";
@@ -150,7 +150,7 @@ let loadCategoryCount = (categoryId) => {
 		}
 		if (xmlHttpRequest.readyState === 4) {
 			let categoryCount = JSON.parse(xmlHttpRequest.responseText);
-			document.querySelector(".category_count").innerText=categoryCount;
+			document.querySelector("#category_count").innerText=categoryCount;
 		}
 	}
 	xmlHttpRequest.open("GET", "/reservation/api/categories/count?categoryId=" + categoryId);
