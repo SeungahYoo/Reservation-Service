@@ -20,7 +20,7 @@
 	    	product.id = display_info.product_id
 		<if test="categoryId gt 0">
 		WHERE
-			product.category_id = ${categoryId}
+			product.category_id = #{categoryId}
 		</if>
 	</select>
 </mapper>
