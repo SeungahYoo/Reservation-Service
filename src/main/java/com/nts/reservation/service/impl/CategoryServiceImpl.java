@@ -2,6 +2,7 @@ package com.nts.reservation.service.impl;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +21,11 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public List<Category> getCategories() {
-		System.out.println(categoryMapper.selectCategories());
 		return categoryMapper.selectCategories();
 	}
 
 	@Override
-	public int getCategoryCoount(int categoryId) {
-		System.out.println("count" + categoryMapper.selectCategoryCount(categoryId));
+	public int getCategoryCount(@Param("categoryId") int categoryId) {
 		return categoryMapper.selectCategoryCount(categoryId);
 	}
 

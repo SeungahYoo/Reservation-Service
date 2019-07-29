@@ -1,24 +1,34 @@
 let promotionImageUrl = [];
-let now = 2;
+let now = 1;
 let imagesSize = 0;
 let productListMaxIndex=0;
+let categoryCount = new Map();
 
-let slide = (nowLi, beforeLi) => {
-	// 다음 사진을 앞으로 당기고 현재 사진은 제자리로 돌아간다.
-	nowLi.style.left = (414 * (now - 2)) + "px"; // 대기줄로 이동
-	beforeLi.style.left = "-414px";// 사라지기
-	nowLi.style.left = "-414px"; // 보이기
+let slide = (now, next) => {
+		// 다음 사진을 앞으로 당기고 현재 사진은 제자리로 돌아간다.
+//		nowLi.style.left = (414 * (now - 2)) + "px"; // 대기줄로 이동
+//		beforeLi.style.left = "-414px";// 사라지기
+//		nowLi.style.left = "-414px"; // 보이기
+	const nowLi = document.querySelector(`.visual_img li:nth-child(1)`);
+	const nextLi = document.querySelector(`.visual_img li:nth-child(2)`);
+	nowLi.style.transition = "transform 2s";
+	nextLi.style.transition = "transform 2s";
+	nowLi.style.transform = "translateX(-414px)";
+//	nextLi.style.transform = "translateX(-414px)";
+	
+	nowLi.remove();
+	document.querySelector(".visual_img").appendChild(nowLi);
+	nowLi.style.removeProperty("transform");
+	nextLi.style.removeProperty("transform");
 }
 
 let animatePromotion = (now) => {
-	// 2부터 시작
-	before = (now === 1)? imagesSize : now-1;
-	const nowLi = document.querySelector(`.visual_img li:nth-child(${now})`);
-	const beforeLi = document.querySelector('.visual_img li:nth-child(' + before + ')');
+//	let next = (now === 12)? 1 : now+1;
+
 
 	setTimeout(() => {
-		slide(nowLi, beforeLi);
-		now = (now===imagesSize+1)? 1 : now+1;
+		slide();
+//		now = (now===imagesSize+1)? 1 : now+1;
 		animatePromotion(now);
 	}, 2000);
 }
@@ -60,6 +70,7 @@ let loadPromotions = () => {
 			imagesSize = promotionImageUrl.length;
 			createPromotionTemplate();
 			animatePromotion(now);
+		
 		}
 	}
 	xmlHttpRequest.open("GET", "/reservation/api/promotions");
@@ -134,7 +145,7 @@ let loadCategoryCount = (categoryId) => {
 	let xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.onreadystatechange = () => {
 		if (xmlHttpRequest.status >= 400) {
-			alert("오류가 발생했습니다");
+			console.log("오류가 발생했습니다");
 			return;
 		}
 		if (xmlHttpRequest.readyState === 4) {
@@ -166,6 +177,7 @@ let createCategoryTemplate = (categories) => {
 	let resultHTML = "";
 	categories.forEach((category) => {
 		let tmpCode = `<li class='item' data-category=${category.id}><a class='anchor'><span>${category.name }</span></a></li>`;
+		categoryCount.set(category.id,category.productCount);
 		document.querySelector(".event_tab_lst").innerHTML += tmpCode;
 	});
 	addCategoriesEventListener();
@@ -180,6 +192,7 @@ let loadCategories = () => {
 		}
 		if (xmlHttpRequest.readyState === 4) {
 			let categories = JSON.parse(xmlHttpRequest.responseText);
+			
 			createCategoryTemplate(categories);
 		}
 	}

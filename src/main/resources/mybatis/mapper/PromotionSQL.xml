@@ -3,7 +3,7 @@
 <mapper namespace="com.nts.reservation.mapper.PromotionMapper" >
 	<select id="selectPromotions" resultType="com.nts.reservation.dto.Promotion">
 		SELECT
-			save_file_name promotion_image 
+			save_file_name promotionImage 
 		FROM
 			file_info
 		JOIN
