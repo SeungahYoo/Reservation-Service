@@ -8,11 +8,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @PropertySource(value = {"classpath:/property/database.properties"})
-@EnableTransactionManagement
 public class DBConfig {
 	@Value("${db.driver}")
 	private String dbDriver;
@@ -33,6 +31,7 @@ public class DBConfig {
 		dataSource.setUrl(dbUrl);
 		dataSource.setUsername(dbUser);
 		dataSource.setPassword(dbPassword);
+
 		return dataSource;
 	}
 
