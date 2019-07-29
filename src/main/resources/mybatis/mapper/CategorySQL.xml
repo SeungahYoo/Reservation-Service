@@ -9,7 +9,7 @@
 			category
 	</select>
 
-	<select id="selectCategoryCount" resultType="_int">
+	<select id="selectCategoryCount" parameterType="int" resultType="_int">
 		SELECT
 			count(*)
 		FROM
