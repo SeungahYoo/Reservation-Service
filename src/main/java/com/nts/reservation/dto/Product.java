@@ -7,7 +7,6 @@ public class Product {
 	private String content;
 	private String placeName;
 	private String fileName;
-	private int productCountPerCategory;
 
 	public int getId() {
 		return id;
