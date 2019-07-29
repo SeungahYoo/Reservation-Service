@@ -5,17 +5,13 @@ let productListMaxIndex=0;
 let currentCategoryCount = 0;
 
 let slide = (now, next) => {
-		// 다음 사진을 앞으로 당기고 현재 사진은 제자리로 돌아간다.
-// nowLi.style.left = (414 * (now - 2)) + "px"; // 대기줄로 이동
-// beforeLi.style.left = "-414px";// 사라지기
-// nowLi.style.left = "-414px"; // 보이기
+	// 다음 사진을 앞으로 당기고 현재 사진은 제자리로 돌아간다.
 	const nowLi = document.querySelector(`.visual_img li:nth-child(1)`);
 	const nextLi = document.querySelector(`.visual_img li:nth-child(2)`);
 	nowLi.style.transition = "transform 2s";
 	nextLi.style.transition = "transform 2s";
 	nowLi.style.transform = "translateX(-414px)";
-// nextLi.style.transform = "translateX(-414px)";
-	
+	// nextLi.style.transform = "translateX(-414px)";
 	nowLi.remove();
 	document.querySelector(".visual_img").appendChild(nowLi);
 	nowLi.style.removeProperty("transform");
@@ -23,12 +19,8 @@ let slide = (now, next) => {
 }
 
 let animatePromotion = (now) => {
-// let next = (now === 12)? 1 : now+1;
-
-
 	setTimeout(() => {
 		slide();
-// now = (now===imagesSize+1)? 1 : now+1;
 		animatePromotion(now);
 	}, 2000);
 }
@@ -117,6 +109,7 @@ let createProductTemplate = (CategorizedProducts) => {
 	
 	productListMaxIndex += CategorizedProducts.length;
 	let moreButton = document.querySelector(".more>button");
+	
 	if(productListMaxIndex == currentCategoryCount){
 		moreButton.style.visibility="hidden";
 	} else {
@@ -145,7 +138,7 @@ let loadCategoryCount = (categoryId) => {
 	let xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.onreadystatechange = () => {
 		if (xmlHttpRequest.status >= 400) {
-			console.log("오류가 발생했습니다");
+			alert("오류가 발생했습니다");
 			return;
 		}
 		if (xmlHttpRequest.readyState === 4) {
@@ -191,7 +184,6 @@ let loadCategories = () => {
 		}
 		if (xmlHttpRequest.readyState === 4) {
 			let categories = JSON.parse(xmlHttpRequest.responseText);
-			
 			createCategoryTemplate(categories);
 		}
 	}
