@@ -4,22 +4,9 @@
 	<select id="selectCategories"
 		resultType="com.nts.reservation.dto.Category">
 		SELECT
-			category.id, category.name, count(*) productCount
+			id, name
 		FROM
 			category
-		JOIN
-			product
-		ON
-			category.id = product.category_id
-		JOIN
-			display_info
-		ON
-			product.id = display_info.product_id
-		GROUP BY
-			product.category_id
-		<if test="categoryId gt 0">
-			= ${categoryId}
-		</if>
 	</select>
 
 	<select id="selectCategoryCount" resultType="_int">
