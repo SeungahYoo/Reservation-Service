@@ -1,11 +1,11 @@
 package com.nts.reservation.dto;
 
 public class Product {
+	private String placeName;
+	private String content;
+	private String description;
 	private int id;
 	private int category;
-	private String description;
-	private String content;
-	private String placeName;
 	private String fileName;
 
 	public int getId() {
@@ -58,8 +58,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", category=" + category + ", description=" + description + ", content=" + content
-			+ ", placeName=" + placeName + ", fileName=" + fileName + "]";
+		return "Product [placeName=" + placeName + ", content=" + content + ", description=" + description + ", id="
+			+ id + ", category=" + category + ", fileName=" + fileName + "]";
 	}
-
 }

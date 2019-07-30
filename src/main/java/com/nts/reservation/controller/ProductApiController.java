@@ -25,8 +25,9 @@ public class ProductApiController {
 	@GetMapping("/products")
 	public List<Product> getProducts(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
-		@RequestParam(name = "startIndex", required = false, defaultValue = "0") int startIndex) {
+		@RequestParam(name = "startIndex", required = false, defaultValue = "0") int startIndex,
+		@RequestParam(name = "imageType", required = false, defaultValue = "th") String imageType) {
 
-		return productService.getProducts(categoryId, startIndex, MAX_COUNT);
+		return productService.getProducts(categoryId, startIndex, MAX_COUNT, imageType);
 	}
 }
