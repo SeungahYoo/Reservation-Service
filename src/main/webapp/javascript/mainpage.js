@@ -87,14 +87,14 @@ let clickedCategoryBefore = document.querySelector(".event_tab_lst").firstElemen
 
 let replaceProductTemplate = (product) => {
 	return `<li class="item">
-	            <a href="detail.jsp?id=${product.id}" class="item_book">
+	            <a href="/reservation/detail?id=${product.displayInfoId}" class="item_book">
 	                <div class="item_preview">
-	                    <img alt="${product.description}" class="img_thumb" src="http://127.0.0.1:8080/reservation/${product.fileName}">
+	                    <img alt="${product.description}" class="img_thumb" src="http://127.0.0.1:8080/reservation/${product.productImageUrl}">
 	                    <span class="img_border"></span>
 	                </div>
 	                <div class="event_txt">
-	                    <h4 class="event_txt_tit"> <span>${product.description}</span> <small class="sm">${product.placeName}</small> </h4>
-	                    <p class="event_txt_dsc">${product.content}</p>
+	                    <h4 class="event_txt_tit"> <span>${product.productDescription}</span> <small class="sm">${product.placeName}</small> </h4>
+	                    <p class="event_txt_dsc">${product.productContent}</p>
 	                </div>
 	            </a>
 			</li>`;
