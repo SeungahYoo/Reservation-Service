@@ -205,18 +205,7 @@
 
 
 	<script type="rv-template" id="promotionItem">
-    	<li class="item" id="promotionImage" style="background-image: url(http://127.0.0.1:8080/reservation/{productImageUrl});">
-        	<a href="#"> 
-				<span class="img_btm_border"></span> 
-				<span class="img_right_border"></span> 
-				<span class="img_bg_gra"></span>
-            	<div class="event_txt">
-                	<h4 class="event_txt_tit"></h4>
-                	<p class="event_txt_adr"></p>
-                	<p class="event_txt_dsc"></p>
-            	</div>
-        	</a>
-    	</li>
+
     </script>
 	<script src="javascript/mainpage.js"></script>
 </body>

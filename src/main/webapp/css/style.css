@@ -1286,7 +1286,8 @@ button {
 
 .group_visual .visual_img .item {
     overflow: hidden;
-    position: relative;
+    position: absolute;
+    left:414px;
     display: inline-block;
     white-space: normal;
     vertical-align: top;
@@ -2984,7 +2985,6 @@ button {
 
 .event .section_visual .group_visual .container_visual .visual_img .item {
     overflow: hidden;
-    position: relative;
     display: inline-block;
     width: 100%;
     height: 177px;

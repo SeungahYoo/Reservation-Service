@@ -4,31 +4,47 @@ let imagesSize = 0;
 let productListMaxIndex = 0;
 let currentCategoryCount = 0;
 
-let slide = (now, next) => {
-	// 다음 사진을 앞으로 당기고 현재 사진은 제자리로 돌아간다.
-	const nowLi = document.querySelector(`.visual_img li:nth-child(1)`);
-	const nextLi = document.querySelector(`.visual_img li:nth-child(2)`);
-	nowLi.style.transition = "transform 2s";
-	nextLi.style.transition = "transform 2s";
-	nowLi.style.transform = "translateX(-414px)";
-	// nextLi.style.transform = "translateX(-414px)";
-	nowLi.remove();
-	document.querySelector(".visual_img").appendChild(nowLi);
-	nowLi.style.removeProperty("transform");
-	nextLi.style.removeProperty("transform");
+let slide = (now) => {
+	let next = (now===imagesSize)? 1:now+1;
+	const nowLi = document.querySelector(`.visual_img li:nth-child(${now})`);
+	const nextLi = document.querySelector(`.visual_img li:nth-child(${next})`);
+	nowLi.style.transition = "left 2s";
+	nextLi.style.transition = "left 2s";
+	nowLi.style.left = "-414px";
+	nextLi.style.left = "0px";
+	
+	return next;
 }
 
 let animatePromotion = (now) => {
+	
+	let nextIndex = slide(now);
+
+	
 	setTimeout(() => {
-		slide();
-		animatePromotion(now);
-	}, 2000);
+		let before = (now===1)? imagesSize : now-1;
+		let nowLi = document.querySelector(`.visual_img li:nth-child(${before})`);
+		nowLi.style.removeProperty("transition");
+		nowLi.style.left="414px";
+
+		animatePromotion(nextIndex);
+	}, 3000);
+	
 }
 
-let replacePromotionTemplate = (imageUrl) => {
-	let promotionTemplate = document.querySelector("#promotionItem").innerHTML;
-
-	return promotionTemplate.replace("{productImageUrl}", imageUrl);
+let replacePromotionTemplate = (productImageUrl) => {
+	return `<li class="item" id="promotionImage" style="background-image: url(http://127.0.0.1:8080/reservation/${productImageUrl});">
+        		<a href="#"> 
+					<span class="img_btm_border"></span> 
+					<span class="img_right_border"></span> 
+					<span class="img_bg_gra"></span>
+            			<div class="event_txt">
+							<h4 class="event_txt_tit"></h4>
+                			<p class="event_txt_adr"></p>
+                			<p class="event_txt_dsc"></p>
+            			</div>
+        		</a>
+    		</li>`;
 };
 
 let createPromotionTemplate = () => {
@@ -61,6 +77,7 @@ let loadPromotions = () => {
 			});
 			imagesSize = promotionImageUrl.length;
 			createPromotionTemplate();
+			document.querySelector('.visual_img').firstElementChild.style.left="0px";
 			animatePromotion(now);
 		
 		}
@@ -205,5 +222,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 window.onload = function(){
-	document.querySelector(".active").click();
+	let activeCategory = document.querySelector(".active");
+	activeCategory.click();
 };
