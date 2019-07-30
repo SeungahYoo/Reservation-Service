@@ -17,9 +17,7 @@ let slide = (now) => {
 }
 
 let animatePromotion = (now) => {
-	
 	let nextIndex = slide(now);
-
 	
 	setTimeout(() => {
 		let before = (now===1)? imagesSize : now-1;
@@ -29,7 +27,6 @@ let animatePromotion = (now) => {
 
 		animatePromotion(nextIndex);
 	}, 3000);
-	
 }
 
 let replacePromotionTemplate = (productImageUrl) => {
@@ -79,7 +76,6 @@ let loadPromotions = () => {
 			createPromotionTemplate();
 			document.querySelector('.visual_img').firstElementChild.style.left="0px";
 			animatePromotion(now);
-		
 		}
 	}
 	xmlHttpRequest.open("GET", "/reservation/api/promotions");
