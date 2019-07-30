@@ -87,7 +87,7 @@ let clickedCategoryBefore = document.querySelector(".event_tab_lst").firstElemen
 
 let replaceProductTemplate = (product) => {
 	return `<li class="item">
-	            <a href="detail.html?id=${product.id}" class="item_book">
+	            <a href="detail.jsp?id=${product.id}" class="item_book">
 	                <div class="item_preview">
 	                    <img alt="${product.description}" class="img_thumb" src="http://127.0.0.1:8080/reservation/${product.fileName}">
 	                    <span class="img_border"></span>
@@ -143,7 +143,7 @@ let loadCategoryProducts = () => {
 		}
 	}
 	categoryId=document.querySelector(".active").closest("li").dataset.category;
-	xmlHttpRequest.open("GET", "/reservation/api/products?categoryId=" + categoryId + "&startIndex=" + productListMaxIndex);
+	xmlHttpRequest.open("GET", "/reservation/api/products?categoryId=" + categoryId + "&startIndex=" + productListMaxIndex + "&imageType=th");
 	xmlHttpRequest.send();
 };
 
