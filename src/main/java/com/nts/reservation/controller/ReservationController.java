@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ReservationController {
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
-	public String productDetail(@RequestParam(value = "id") int productId) {
-		System.out.println("here I am");
+	public String productDetail(@RequestParam(value = "id") int displayInfoId) {
 		return "detail";
 	}
 }
