@@ -189,6 +189,7 @@ let createCategoryTemplate = (categories) => {
 }
 
 let loadCategories = () => {
+	console.log("loadCategories");
 	let xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.onreadystatechange = () => {
 		if (xmlHttpRequest.status >= 400) {
@@ -217,7 +218,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	addMoreButtonEventListener();
 });
 
-window.onload = function(){
-	let activeCategory = document.querySelector(".active");
-	activeCategory.click();
-};
+let everythingLoaded = setInterval(() => {
+	if(/loaded|complete/.test(document.readyState)){
+		clearInterval(everythingLoaded);
+		document.querySelector(".active").click();
+	}
+},10);
