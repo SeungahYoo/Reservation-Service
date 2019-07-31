@@ -10,7 +10,7 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 <title>네이버 예약</title>
-<link href="../css/style.css" rel="stylesheet">
+<link href="/reservation/css/style.css" rel="stylesheet">
 <style>
 .container_visual {
 	height: 414px;
@@ -327,6 +327,27 @@
 	</footer>
 	<div id="photoviwer"></div>
 </body>
+<script type="text/javascript">
+let loadDisplayInfo = () => {
+	let xmlHttpRequest = new XMLHttpRequest();
+	xmlHttpRequest.onreadystatechange = () => {
+		if (xmlHttpRequest.status >= 400) {
+			alert("오류가 발생했습니다. 다시 시도해주세요.");
+			return;
+		}
+		if (xmlHttpRequest.readyState === 4) {
+			let productDetail = JSON.parse(xmlHttpRequest.responseText);
+			console.log(productDetail);
+		}
+	}
+	let url = new URL(location.href);
+	let displayInfoId = url.searchParams.get("id");
+	xmlHttpRequest.open("GET", "/reservation/api/detail?id="+displayInfoId);
+	xmlHttpRequest.send();
+}
 
-
+document.addEventListener("DOMContentLoaded", function() {
+	loadDisplayInfo();
+});
+</script>
 </html>
