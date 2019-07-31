@@ -32,28 +32,6 @@
 			LIMIT
 				#{startIndex} , #{maxCount}
 	</select>
+	
 
-	<select id="selectProductById" parameterType="map" resultType="com.nts.reservation.dto.Product">
-			SELECT 
-				product.id id, 
-				product.description description, 
-				product.content content, 
-				file_info.save_file_name fileName
-			FROM 
-				product 
-			JOIN 
-				display_info 
-			ON 
-				product.id = display_info.product_id
-			JOIN 
-				product_image 
-			ON
-				product.id=product_image.product_id
-			JOIN 
-				file_info 
-			ON
-				product_image.file_id = file_info.id
-			WHERE
-				product_image.type=#{imageType}
-	</select>
 </mapper>
