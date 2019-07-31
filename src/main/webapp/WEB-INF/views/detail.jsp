@@ -328,6 +328,7 @@
 	<div id="photoviwer"></div>
 </body>
 <script type="text/javascript">
+
 let loadDisplayInfo = () => {
 	let xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.onreadystatechange = () => {
@@ -338,6 +339,8 @@ let loadDisplayInfo = () => {
 		if (xmlHttpRequest.readyState === 4) {
 			let productDetail = JSON.parse(xmlHttpRequest.responseText);
 			console.log(productDetail);
+			loadProductInfo(productDetail.displayInfo.productId);
+			
 		}
 	}
 	let url = new URL(location.href);
@@ -347,7 +350,7 @@ let loadDisplayInfo = () => {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-	loadDisplayInfo();
+	const productId = loadDisplayInfo();
 });
 </script>
 </html>

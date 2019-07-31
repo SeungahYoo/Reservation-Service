@@ -222,5 +222,6 @@ let everythingLoaded = setInterval(() => {
 	if(/loaded|complete/.test(document.readyState)){
 		clearInterval(everythingLoaded);
 		document.querySelector(".active").click();
+		console.log("everythingLoaded");
 	}
 },10);

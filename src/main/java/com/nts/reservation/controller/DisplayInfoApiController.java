@@ -1,6 +1,7 @@
 package com.nts.reservation.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.dto.Comment;
+import com.nts.reservation.dto.CommentImage;
 import com.nts.reservation.dto.DisplayInfo;
 import com.nts.reservation.dto.DisplayInfoImage;
+import com.nts.reservation.dto.ProductImage;
 import com.nts.reservation.service.DisplayInfoService;
 
 @RestController
@@ -29,8 +33,25 @@ public class DisplayInfoApiController {
 
 		DisplayInfo displayInfo = displayInfoService.getDisplayInfo(displayInfoId);
 		DisplayInfoImage displayInfoImage = displayInfoService.getDisplayInfoImage(displayInfoId);
+
+		int productId = displayInfo.getProductId();
+		List<ProductImage> productImages = displayInfoService.getProductImages(productId);
+		//List<ProductPrice> productPrices = displayInfoService.getProductPrices(productId);
+
+		List<Comment> comments = displayInfoService.getComments(productId);
+		System.out.println(comments);
+
+		for (Comment comment : comments) {
+			int commentId = comment.getCommentId();
+			List<CommentImage> commentImages = displayInfoService.getCommentImages(commentId);
+			comment.setCommentImages(commentImages);
+		}
+
 		displayInfoMap.put("displayInfo", displayInfo);
 		displayInfoMap.put("displayInfoImage", displayInfoImage);
+		displayInfoMap.put("productImages", productImages);
+		//		displayInfoMap.put("productPrices", productPrices);
+		displayInfoMap.put("comments", comments);
 
 		return displayInfoMap;
 	}
