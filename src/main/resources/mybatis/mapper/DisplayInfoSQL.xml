@@ -79,7 +79,7 @@
 	<select id="selectProductPrices" parameterType="int" resultType="com.nts.reservation.dto.ProductPrice">
 	</select>
 	
-	<select id="selectComments" parameterType="int" resultType="com.nts.reservation.dto.Comment">
+	<select id="selectComments" parameterType="int" resultMap="commentsResult">
 		SELECT 
 			reservation_user_comment.comment 'comment', 
 			reservation_user_comment.id commentId,
@@ -123,4 +123,23 @@
 		WHERE
 			reservation_user_comment_image.reservation_user_comment_id = #{commentId}
 	</select>
+	
+	<resultMap id="commentsResult" type="com.nts.reservation.dto.Comment">
+		<result property="comment" column="comment"/>
+		<result property="commentId" column="commentId"/>
+		<result property="createDate" column="createDate"/>
+		<result property="modifyDate" column="modifyDate"/>
+		<result property="productId" column="productId"/>
+		<result property="reservationDate" column="reservationDate"/>
+		<result property="reservationEmail" column="reservationEmail"/>
+		<result property="reservationInfoId" column="reservationInfoId"/>
+		<result property="reservationName" column="reservationName"/>
+		<result property="reservationTelephone" column="resrvationTelephone"/>
+		<result property="score" column="score"/>
+		<collection property="commentImages" column="commentId" javaType="java.util.ArrayList" ofType="com.nts.reservation.dto.CommentImage" select="selectCommentImages"/>
+	</resultMap>
+
+
+
+
 </mapper>
