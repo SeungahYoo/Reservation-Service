@@ -3824,7 +3824,3 @@ button {
   font-size: 10px;
 }
 
-.sliding {
-	transform : translateX(-414px);
-	transition : transform 2s;
-}

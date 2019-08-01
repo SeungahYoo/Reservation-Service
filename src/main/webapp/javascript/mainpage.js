@@ -82,9 +82,6 @@ let loadPromotions = () => {
 	xmlHttpRequest.send();
 }
 
-
-
-
 let replaceProductTemplate = (product) => {
 	return `<li class="item">
 	            <a href="/reservation/detail?id=${product.displayInfoId}" class="item_book">

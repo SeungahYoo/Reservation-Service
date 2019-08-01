@@ -51,14 +51,14 @@
 					<div class="pagination">
 						<div class="bg_pagination"></div>
 						<div class="figure_pagination">
-							<span class="num">1</span> <span class="num off">/ <span>2</span></span>
+							<span id="image_num" class="num">1</span> <span class="num off">/ <span>2</span></span>
 						</div>
 					</div>
 					<div class="group_visual">
 						<div>
 							<div class="container_visual" style="width: 414px;">
 								<ul class="visual_img detail_swipe">
-									<li class="item" style="width: 414px;"><img alt=""
+									<!-- <li class="item" style="width: 414px;"><img alt=""
 										class="img_thumb" src=""> <span class="img_bg"></span>
 										<div class="visual_txt">
 											<div class="visual_txt_inn">
@@ -97,7 +97,7 @@
 												</h2>
 												<p class="visual_txt_dsc"></p>
 											</div>
-										</div></li>
+										</div></li> -->
 								</ul>
 							</div>
 							<div class="prev">
@@ -328,6 +328,119 @@
 	<div id="photoviwer"></div>
 </body>
 <script type="text/javascript">
+let now;
+
+let setNow = (n) => {
+	now = n;
+}
+
+let getNow = () => {
+	return now;
+}
+
+let slideNext = (now) => {
+	let next = (now === 2) ? 1 : 2;
+	const nowLi = document.querySelector('.visual_img li:nth-child('+now+')');
+	const nextLi = document.querySelector('.visual_img li:nth-child('+next+')');
+	nowLi.style.transition = "left 1s";
+	nextLi.style.transition = "left 1s";
+	nowLi.style.left = "414px";
+	nextLi.style.left = "0px";
+
+	return next;
+}
+
+let slidePrevious = (now) => {
+	let next = (now === 2) ? 1 : 2;
+	const nowLi = document.querySelector('.visual_img li:nth-child('+now+')');
+	const nextLi = document.querySelector('.visual_img li:nth-child('+next+')');
+	nowLi.style.transition = "left 1s";
+	nextLi.style.transition = "left 1s";
+	nowLi.style.left = "-414px";
+	nextLi.style.left = "0px";
+
+	return next;
+}
+
+let replaceProductImagesTemplate = (productImageUrl) => {
+	return (`<li class="item" style="width: 414px;">
+	<img class="img_thumb" src="http://127.0.0.1:8080/reservation/\${productImageUrl}"> <span class="img_bg"></span>
+	<div class="visual_txt">
+		<div class="visual_txt_inn">
+			<h2 class="visual_txt_tit">
+				<span></span>
+			</h2>
+			<p class="visual_txt_dsc"></p>
+		</div>
+	</div></li>`);
+}
+
+let addSlideButtonEventListener = () => {
+	let previousButton = document.querySelector('.btn_prev');
+	let nextButton = document.querySelector('.btn_nxt');
+
+	previousButton.style.visibility = "visible";
+	previousButton.style.visibility = "visible";
+	setNow(1);
+	
+	previousButton.addEventListener("click", function (event) {
+		before = (getNow() === 1)? 2 : 1;
+		let beforeLi = document.querySelector('.visual_img li:nth-child('+before+')');
+		beforeLi.style.removeProperty("transition");
+		beforeLi.style.left="414px";
+		
+
+		
+		setTimeout(() => { //왼쪽으로 옮겨진 image를 오른쪽으로 이동시킴 
+			nowVal = slidePrevious(getNow());
+			document.querySelector('#image_num').innerText = nowVal;
+			setNow(nowVal);
+		}, 300);
+	});
+
+	nextButton.addEventListener("click", function (event) {
+		before = (getNow() === 1)? 2 : 1;
+		let beforeLi = document.querySelector('.visual_img li:nth-child('+before+')');
+		beforeLi.style.removeProperty("transition");
+		beforeLi.style.left="-414px";
+		
+
+		
+		setTimeout(() => { //오른쪽으로 옮겨진 image를 왼쪽으로 이동시킴 
+			nowVal = slideNext(getNow());
+			document.querySelector('#image_num').innerText = nowVal;
+			setNow(nowVal);
+		}, 300);
+	});
+}
+
+let createProductImagesTemplate = (productImages) => {
+	let visualImage = document.createElement("ul");
+	visualImage.classList.add("visual_img");
+	visualImage.classList.add("detail_swipe");
+
+	let resultHTML = "";
+	let imageCount = (productImages.length == 1) ? 1 : 2;
+
+	for (let imageIndex = 0; imageIndex < imageCount; imageIndex++) {
+		let image = productImages[imageIndex];
+		resultHTML += replaceProductImagesTemplate(image.saveFileName);
+	}
+	visualImage.innerHTML = resultHTML;
+	let containerVisual = document.querySelector(".container_visual");
+	containerVisual.replaceChild(visualImage, document.querySelector(".visual_img"));
+	document.querySelector('.visual_img').firstElementChild.style.left = "0px";
+	if (imageCount === 2) {
+		addSlideButtonEventListener();
+	}
+
+}
+
+let setProductImages = (productImages) => {
+	let imageSize = productImages.length;
+	createProductImagesTemplate(productImages);
+}
+
 
 let loadDisplayInfo = () => {
 	let xmlHttpRequest = new XMLHttpRequest();
@@ -339,17 +452,16 @@ let loadDisplayInfo = () => {
 		if (xmlHttpRequest.readyState === 4) {
 			let productDetail = JSON.parse(xmlHttpRequest.responseText);
 			console.log(productDetail);
-			loadProductInfo(productDetail.displayInfo.productId);
-			
+			setProductImages(productDetail.productImages);
 		}
 	}
 	let url = new URL(location.href);
 	let displayInfoId = url.searchParams.get("id");
-	xmlHttpRequest.open("GET", "/reservation/api/detail?id="+displayInfoId);
+	xmlHttpRequest.open("GET", "/reservation/api/detail?id=" + displayInfoId);
 	xmlHttpRequest.send();
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 	const productId = loadDisplayInfo();
 });
 </script>
