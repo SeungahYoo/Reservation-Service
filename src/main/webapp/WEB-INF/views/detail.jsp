@@ -51,7 +51,7 @@
 					<div class="pagination">
 						<div class="bg_pagination"></div>
 						<div class="figure_pagination">
-							<span id="image_num" class="num">1</span> <span class="num off">/ <span>2</span></span>
+							<span id="image_num" class="num">1</span> <span class="num off">/ <span id="images_count">2</span></span>
 						</div>
 					</div>
 					<div class="group_visual">
@@ -362,13 +362,13 @@ let slidePrevious = (now) => {
 	return next;
 }
 
-let replaceProductImagesTemplate = (productImageUrl) => {
+let replaceProductImagesTemplate = (productDescription,productImageUrl) => {
 	return (`<li class="item" style="width: 414px;">
-	<img class="img_thumb" src="http://127.0.0.1:8080/reservation/\${productImageUrl}"> <span class="img_bg"></span>
+	<img class="img_thumb" alt="\${productDescription}" src="http://127.0.0.1:8080/reservation/\${productImageUrl}"> <span class="img_bg"></span>
 	<div class="visual_txt">
 		<div class="visual_txt_inn">
 			<h2 class="visual_txt_tit">
-				<span></span>
+				<span>\${productDescription}</span>
 			</h2>
 			<p class="visual_txt_dsc"></p>
 		</div>
@@ -380,7 +380,7 @@ let addSlideButtonEventListener = () => {
 	let nextButton = document.querySelector('.btn_nxt');
 
 	previousButton.style.visibility = "visible";
-	previousButton.style.visibility = "visible";
+	nextButton.style.visibility = "visible";
 	setNow(1);
 	
 	previousButton.addEventListener("click", function (event) {
@@ -414,7 +414,7 @@ let addSlideButtonEventListener = () => {
 	});
 }
 
-let createProductImagesTemplate = (productImages) => {
+let createProductImagesTemplate = (productDescription, productImages) => {
 	let visualImage = document.createElement("ul");
 	visualImage.classList.add("visual_img");
 	visualImage.classList.add("detail_swipe");
@@ -424,8 +424,9 @@ let createProductImagesTemplate = (productImages) => {
 
 	for (let imageIndex = 0; imageIndex < imageCount; imageIndex++) {
 		let image = productImages[imageIndex];
-		resultHTML += replaceProductImagesTemplate(image.saveFileName);
+		resultHTML += replaceProductImagesTemplate(productDescription,image.saveFileName);
 	}
+	document.querySelector('#images_count').innerText = imageCount;
 	visualImage.innerHTML = resultHTML;
 	let containerVisual = document.querySelector(".container_visual");
 	containerVisual.replaceChild(visualImage, document.querySelector(".visual_img"));
@@ -436,11 +437,22 @@ let createProductImagesTemplate = (productImages) => {
 
 }
 
-let setProductImages = (productImages) => {
-	let imageSize = productImages.length;
-	createProductImagesTemplate(productImages);
+let addMoreButtonEventListener = () => {
+	let openButton = document.querySelector('.bk_more._open');
+	let closeButton = document.querySelector('.bk_more._close');
+	
+	openButton.addEventListener("click", function (event) {
+		openButton.style.display = "none";
+		closeButton.style.display = "block";
+		document.querySelector('.close3').style.height="350px";
+	});
+	
+	closeButton.addEventListener("click", function (event) {
+		document.querySelector('.close3').style.height="74px";
+		closeButton.style.display = "none";
+		openButton.style.display = "block";
+	});
 }
-
 
 let loadDisplayInfo = () => {
 	let xmlHttpRequest = new XMLHttpRequest();
@@ -452,7 +464,9 @@ let loadDisplayInfo = () => {
 		if (xmlHttpRequest.readyState === 4) {
 			let productDetail = JSON.parse(xmlHttpRequest.responseText);
 			console.log(productDetail);
-			setProductImages(productDetail.productImages);
+			createProductImagesTemplate(productDetail.displayInfo.productDescription,productDetail.productImages);
+			document.querySelector('.close3').innerText=productDetail.displayInfo.productContent;
+			addMoreButtonEventListener();
 		}
 	}
 	let url = new URL(location.href);
