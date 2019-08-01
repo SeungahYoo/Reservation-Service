@@ -83,7 +83,7 @@ let loadPromotions = () => {
 }
 
 
-let clickedCategoryBefore = document.querySelector(".event_tab_lst").firstElementChild;
+
 
 let replaceProductTemplate = (product) => {
 	return `<li class="item">
@@ -165,9 +165,9 @@ let loadCategoryCount = (categoryId) => {
 
 let addCategoriesEventListener = () => {
 	const categoriesUl = document.querySelector(".event_tab_lst");
-	clickedCategoryBefore.firstElementChild.classList.add("active");
 	
 	categoriesUl.addEventListener("click", function (event) {
+		let clickedCategoryBefore = document.querySelector(".active").closest("li");
 		let clickedCategoryNow = event.target.closest("li");
 		productListMaxIndex=0;
 		
@@ -189,7 +189,6 @@ let createCategoryTemplate = (categories) => {
 }
 
 let loadCategories = () => {
-	console.log("loadCategories");
 	let xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.onreadystatechange = () => {
 		if (xmlHttpRequest.status >= 400) {
@@ -216,12 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	loadCategories();
 	loadPromotions();
 	addMoreButtonEventListener();
+	loadCategoryCount(0);
+	loadCategoryProducts(0, 0);
 });
 
-let everythingLoaded = setInterval(() => {
-	if(/loaded|complete/.test(document.readyState)){
-		clearInterval(everythingLoaded);
-		document.querySelector(".active").click();
-		console.log("everythingLoaded");
-	}
-},10);
