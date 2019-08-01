@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +21,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> getProducts(@Param("categoryId") int categoryId, @Param("startIndex") int startIndex,
-		@Param("maxCount") int maxCount, @Param("imageType") String imageType) {
+	public List<Product> getProducts(int categoryId, int startIndex,
+		int maxCount, String imageType) {
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("categoryId", categoryId);
 		parameters.put("startIndex", startIndex);
