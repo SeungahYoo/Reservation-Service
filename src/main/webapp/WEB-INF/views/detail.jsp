@@ -340,8 +340,8 @@ let getNow = () => {
 
 let slideNext = (now) => {
 	let next = (now === 2) ? 1 : 2;
-	const nowLi = document.querySelector('.visual_img li:nth-child('+now+')');
-	const nextLi = document.querySelector('.visual_img li:nth-child('+next+')');
+	const nowLi = document.querySelector('.visual_img li:nth-child(' + now + ')');
+	const nextLi = document.querySelector('.visual_img li:nth-child(' + next + ')');
 	nowLi.style.transition = "left 1s";
 	nextLi.style.transition = "left 1s";
 	nowLi.style.left = "414px";
@@ -352,8 +352,8 @@ let slideNext = (now) => {
 
 let slidePrevious = (now) => {
 	let next = (now === 2) ? 1 : 2;
-	const nowLi = document.querySelector('.visual_img li:nth-child('+now+')');
-	const nextLi = document.querySelector('.visual_img li:nth-child('+next+')');
+	const nowLi = document.querySelector('.visual_img li:nth-child(' + now + ')');
+	const nextLi = document.querySelector('.visual_img li:nth-child(' + next + ')');
 	nowLi.style.transition = "left 1s";
 	nextLi.style.transition = "left 1s";
 	nowLi.style.left = "-414px";
@@ -362,7 +362,7 @@ let slidePrevious = (now) => {
 	return next;
 }
 
-let replaceProductImagesTemplate = (productDescription,productImageUrl) => {
+let replaceProductImagesTemplate = (productDescription, productImageUrl) => {
 	return (`<li class="item" style="width: 414px;">
 	<img class="img_thumb" alt="\${productDescription}" src="http://127.0.0.1:8080/reservation/\${productImageUrl}"> <span class="img_bg"></span>
 	<div class="visual_txt">
@@ -382,15 +382,15 @@ let addSlideButtonEventListener = () => {
 	previousButton.style.visibility = "visible";
 	nextButton.style.visibility = "visible";
 	setNow(1);
-	
-	previousButton.addEventListener("click", function (event) {
-		before = (getNow() === 1)? 2 : 1;
-		let beforeLi = document.querySelector('.visual_img li:nth-child('+before+')');
-		beforeLi.style.removeProperty("transition");
-		beforeLi.style.left="414px";
-		
 
-		
+	previousButton.addEventListener("click", function (event) {
+		before = (getNow() === 1) ? 2 : 1;
+		let beforeLi = document.querySelector('.visual_img li:nth-child(' + before + ')');
+		beforeLi.style.removeProperty("transition");
+		beforeLi.style.left = "414px";
+
+
+
 		setTimeout(() => { //왼쪽으로 옮겨진 image를 오른쪽으로 이동시킴 
 			nowVal = slidePrevious(getNow());
 			document.querySelector('#image_num').innerText = nowVal;
@@ -399,13 +399,13 @@ let addSlideButtonEventListener = () => {
 	});
 
 	nextButton.addEventListener("click", function (event) {
-		before = (getNow() === 1)? 2 : 1;
-		let beforeLi = document.querySelector('.visual_img li:nth-child('+before+')');
+		before = (getNow() === 1) ? 2 : 1;
+		let beforeLi = document.querySelector('.visual_img li:nth-child(' + before + ')');
 		beforeLi.style.removeProperty("transition");
-		beforeLi.style.left="-414px";
-		
+		beforeLi.style.left = "-414px";
 
-		
+
+
 		setTimeout(() => { //오른쪽으로 옮겨진 image를 왼쪽으로 이동시킴 
 			nowVal = slideNext(getNow());
 			document.querySelector('#image_num').innerText = nowVal;
@@ -424,7 +424,7 @@ let createProductImagesTemplate = (productDescription, productImages) => {
 
 	for (let imageIndex = 0; imageIndex < imageCount; imageIndex++) {
 		let image = productImages[imageIndex];
-		resultHTML += replaceProductImagesTemplate(productDescription,image.saveFileName);
+		resultHTML += replaceProductImagesTemplate(productDescription, image.saveFileName);
 	}
 	document.querySelector('#images_count').innerText = imageCount;
 	visualImage.innerHTML = resultHTML;
@@ -440,18 +440,22 @@ let createProductImagesTemplate = (productDescription, productImages) => {
 let addMoreButtonEventListener = () => {
 	let openButton = document.querySelector('.bk_more._open');
 	let closeButton = document.querySelector('.bk_more._close');
-	
+
 	openButton.addEventListener("click", function (event) {
 		openButton.style.display = "none";
 		closeButton.style.display = "block";
-		document.querySelector('.close3').style.height="350px";
+		document.querySelector('.close3').style.height = "350px";
 	});
-	
+
 	closeButton.addEventListener("click", function (event) {
-		document.querySelector('.close3').style.height="74px";
+		document.querySelector('.close3').style.height = "74px";
 		closeButton.style.display = "none";
 		openButton.style.display = "block";
 	});
+}
+
+let createCommentsTemplate = (comments) => {
+
 }
 
 let loadDisplayInfo = () => {
@@ -464,9 +468,10 @@ let loadDisplayInfo = () => {
 		if (xmlHttpRequest.readyState === 4) {
 			let productDetail = JSON.parse(xmlHttpRequest.responseText);
 			console.log(productDetail);
-			createProductImagesTemplate(productDetail.displayInfo.productDescription,productDetail.productImages);
-			document.querySelector('.close3').innerText=productDetail.displayInfo.productContent;
+			createProductImagesTemplate(productDetail.displayInfo.productDescription, productDetail.productImages);
+			document.querySelector('.close3').innerText = productDetail.displayInfo.productContent;
 			addMoreButtonEventListener();
+			createCommentsTemplate(productDetail.comments);
 		}
 	}
 	let url = new URL(location.href);
