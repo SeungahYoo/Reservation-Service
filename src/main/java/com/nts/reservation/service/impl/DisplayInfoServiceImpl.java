@@ -2,7 +2,6 @@ package com.nts.reservation.service.impl;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +24,12 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	}
 
 	@Override
-	public DisplayInfo getDisplayInfo(@Param("displayInfoId") int displayInfoId) {
+	public DisplayInfo getDisplayInfo(int displayInfoId) {
 		return displayInfoMapper.selectDisplayInfo(displayInfoId);
 	}
 
 	@Override
-	public DisplayInfoImage getDisplayInfoImage(@Param("displayInfoId") int displayInfoId) {
+	public DisplayInfoImage getDisplayInfoImage(int displayInfoId) {
 		return displayInfoMapper.selectDisplayInfoImage(displayInfoId);
 	}
 
