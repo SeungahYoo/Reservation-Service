@@ -16,6 +16,7 @@ public class Comment {
 	private String reservationName;
 	private String reservationTelephone;
 	private int score;
+	private Double productScoreAverage;
 
 	public String getComment() {
 		return comment;
@@ -113,13 +114,21 @@ public class Comment {
 		this.score = score;
 	}
 
+	public Double getProductScoreAverage() {
+		return productScoreAverage;
+	}
+
+	public void setProductScoreAverage(Double productScoreAverage) {
+		this.productScoreAverage = productScoreAverage;
+	}
+
 	@Override
 	public String toString() {
 		return "Comment [comment=" + comment + ", commentId=" + commentId + ", commentImages=" + commentImages
 			+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", productId=" + productId
 			+ ", reservationDate=" + reservationDate + ", reservationEmail=" + reservationEmail + ", reservationInfoId="
 			+ reservationInfoId + ", reservationName=" + reservationName + ", reservationTelephone="
-			+ reservationTelephone + ", score=" + score + "]";
+			+ reservationTelephone + ", score=" + score + ", productScoreAverage=" + productScoreAverage + "]";
 	}
 
 }
