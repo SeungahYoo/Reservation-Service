@@ -27,7 +27,7 @@ public class DisplayInfoApiController {
 	}
 
 	@GetMapping("/detail")
-	public Map<String, Object> getDisplayInfo(@RequestParam(name = "id", required = true) int displayInfoId) {
+	public Map<String, Object> getDisplayInfo(@RequestParam(name = "id") int displayInfoId) {
 		Map<String, Object> displayInfoMap = new HashMap<>();
 
 		DisplayInfo displayInfo = displayInfoService.getDisplayInfo(displayInfoId);
