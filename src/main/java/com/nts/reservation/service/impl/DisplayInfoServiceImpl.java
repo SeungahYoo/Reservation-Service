@@ -24,7 +24,6 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 	@Override
 	public Map<String, Object> getDisplayInfoByID(int displayInfoId) {
-
 		DisplayInfo displayInfo = displayInfoMapper.selectDisplayInfo(displayInfoId);
 		int productId = displayInfo.getProductId();
 
@@ -33,7 +32,6 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		displayMap.put("displayInfoImage", productMapper.selectComments(productId));
 		displayMap.put("productImages", productMapper.selectProductImages(productId));
 		displayMap.put("comments", productMapper.selectComments(productId));
-		System.out.println(productMapper.selectComments(productId));
 		return displayMap;
 	}
 

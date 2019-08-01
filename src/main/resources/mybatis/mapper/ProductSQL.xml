@@ -52,6 +52,8 @@
 		ON 
 			file_info.id = product_image.file_id
 		WHERE 
+			product_image.type != 'th'
+		AND	
 			product_image.product_id = #{productId}
 	</select>
 	
