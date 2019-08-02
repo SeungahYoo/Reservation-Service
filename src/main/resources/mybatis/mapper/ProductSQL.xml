@@ -62,24 +62,24 @@
 	
 	<select id="selectComments" parameterType="int" resultMap="commentsResult">
 	SELECT 
-			reservation_user_comment.comment 'comment', 
-			reservation_user_comment.id commentId,
-			reservation_user_comment.create_date createDate,
-			reservation_user_comment.modify_date modifyDate,
+			Comment.comment 'comment', 
+			Comment.id commentId,
+			Comment.create_date createDate,
+			Comment.modify_date modifyDate,
 			reservation_info.product_id productId,
 			reservation_info.reservation_date reservationDate,
 			reservation_info.reservation_email reservationEmail,
 			reservation_info.id reservationInfoId,
 			reservation_info.reservation_name reservationName,
 			reservation_info.reservation_tel resrvationTelephone,
-			reservation_user_comment.score score,
+			Comment.score score,
             averages.productScoreAverage
 		FROM 
-			reservation_user_comment 
+			reservation_user_comment Comment
 		JOIN 
 			reservation_info 
 		ON 
-			reservation_user_comment.reservation_info_id = reservation_info.id
+			Comment.reservation_info_id = reservation_info.id
 		JOIN (
 			SELECT 
 				product_id, avg(score) productScoreAverage 
@@ -99,21 +99,21 @@
 			file_info.content_type contentType,
 			file_info.create_date createDate,
 			file_info.delete_flag deleteFlag,
-			reservation_user_comment_image.file_id fileId,
+			commentImage.file_id fileId,
 			file_info.file_name fileName,
 			reservation_user_comment_image.id imageId,
 			file_info.modify_date modifyDate,
-			reservation_user_comment_image.reservation_info_id reservationInfoId,
+			commentImage.reservation_info_id reservationInfoId,
 			file_info.save_file_name saveFileName,
-			reservation_user_comment_image.reservation_user_comment_id reservationUserCommentId
+			v.reservation_user_comment_id reservationUserCommentId
 		FROM 
-			reservation_user_comment_image
+			reservation_user_comment_image commentImage
 		JOIN 
 			file_info
 		ON 
-			reservation_user_comment_image.file_id = file_info.id
+			commentImage.file_id = file_info.id
 		WHERE
-			reservation_user_comment_image.reservation_user_comment_id = #{commentId}
+			commentImage.reservation_user_comment_id = #{commentId}
 	</select>
 	
 	<resultMap id="commentsResult" type="com.nts.reservation.dto.Comment">
