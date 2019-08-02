@@ -101,11 +101,11 @@
 			file_info.delete_flag deleteFlag,
 			commentImage.file_id fileId,
 			file_info.file_name fileName,
-			reservation_user_comment_image.id imageId,
+			commentImage.id imageId,
 			file_info.modify_date modifyDate,
 			commentImage.reservation_info_id reservationInfoId,
 			file_info.save_file_name saveFileName,
-			v.reservation_user_comment_id reservationUserCommentId
+			commentImage.reservation_user_comment_id reservationUserCommentId
 		FROM 
 			reservation_user_comment_image commentImage
 		JOIN 

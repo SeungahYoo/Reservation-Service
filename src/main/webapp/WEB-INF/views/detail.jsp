@@ -173,7 +173,7 @@
 								</strong> <span class="join_count"><em class="green">52건</em> 등록</span>
 							</div>
 							<ul class="list_short_review">
-								<li class="list_item">
+							<!-- 	<li class="list_item">
 									<div>
 										<div class="review_area">
 											<div class="thumb_area">
@@ -227,7 +227,7 @@
 											</div>
 										</div>
 									</div>
-								</li>
+								</li> -->
 							</ul>
 						</div>
 						<p class="guide">
@@ -364,7 +364,7 @@ let slidePrevious = (now) => {
 	return next;
 }
 
-let replaceProductImagesTemplate = (productDescription, productImageUrl) => {
+let replaceProductImageTemplate = (productDescription, productImageUrl) => {
 	return (`<li class="item" style="width: 414px;">
 	<img class="img_thumb" alt="\${productDescription}" src="http://127.0.0.1:8080/reservation/\${productImageUrl}"> <span class="img_bg"></span>
 	<div class="visual_txt">
@@ -412,29 +412,6 @@ let addSlideButtonEventListener = () => {
 	});
 }
 
-let createProductImagesTemplate = (productDescription, productImages) => {
-	let visualImage = document.createElement("ul");
-	visualImage.classList.add("visual_img");
-	visualImage.classList.add("detail_swipe");
-
-	let resultHTML = "";
-	let imageCount = (productImages.length == 1) ? 1 : 2;
-
-	for (let imageIndex = 0; imageIndex < imageCount; imageIndex++) {
-		let image = productImages[imageIndex];
-		resultHTML += replaceProductImagesTemplate(productDescription, image.saveFileName);
-	}
-	document.querySelector('#images_count').innerText = imageCount;
-	visualImage.innerHTML = resultHTML;
-	let containerVisual = document.querySelector(".container_visual");
-	containerVisual.replaceChild(visualImage, document.querySelector(".visual_img"));
-	document.querySelector('.visual_img').firstElementChild.style.left = "0px";
-	if (imageCount === 2) {
-		addSlideButtonEventListener();
-	}
-
-}
-
 let addMoreButtonEventListener = () => {
 	let openButton = document.querySelector('.bk_more._open');
 	let closeButton = document.querySelector('.bk_more._close');
@@ -452,8 +429,76 @@ let addMoreButtonEventListener = () => {
 	});
 }
 
-let createCommentsTemplate = (comments) => {
+let createProductImagesTemplate = (productDescription, productImages) => {
+	let visualImage = document.createElement("ul");
+	visualImage.classList.add("visual_img");
+	visualImage.classList.add("detail_swipe");
 
+	let resultHTML = "";
+	let imageCount = (productImages.length == 1) ? 1 : 2;
+
+	for (let imageIndex = 0; imageIndex < imageCount; imageIndex++) {
+		let image = productImages[imageIndex];
+		resultHTML += replaceProductImageTemplate(productDescription, image.saveFileName);
+	}
+	document.querySelector('#images_count').innerText = imageCount;
+	visualImage.innerHTML = resultHTML;
+	let containerVisual = document.querySelector(".container_visual");
+	containerVisual.replaceChild(visualImage, document.querySelector(".visual_img"));
+	document.querySelector('.visual_img').firstElementChild.style.left = "0px";
+	if (imageCount === 2) {
+		addSlideButtonEventListener();
+	}
+
+}
+
+let replaceShortReviewTemplate = (shortReview) => {
+	console.log(shortReview);
+	
+	let template = `	<div>
+		<div class="review_area">`;
+		
+	
+	if(shortReview.commentImages.length > 0){
+		template+=`
+			<div class="thumb_area">
+			<a href="#" class="thumb" title="이미지 크게 보기"> <img
+				width="90" height="90" class="img_vertical_top"
+				src="http://127.0.0.1:8080/reservation/\${shortReview.commentImages[0].saveFileName}"
+				alt="리뷰이미지">
+			</a> <span class="img_count" style="display: none;">\${shortReview.commentImages.length}</span>
+		</div>
+		`
+	}
+	template+=`			<h4 class="resoc_name"></h4>
+			<p class="review">\${shortReview.comment}</p>
+		</div>
+		<div class="info_area">
+			<div class="review_info">
+				<span class="grade">\${shortReview.score}</span> <span class="name">\${shortReview.reservationEmail}</span>
+				<span class="date">\${shortReview.createDate} 방문</span>
+			</div>
+		</div>
+	</div>
+</li>
+	`
+	return template;
+}
+
+
+let createCommentsTemplate = (comments) => {
+	let listShortReview = document.createElement("ul");
+	listShortReview.classList.add("list_short_review");
+
+	let resultHTML = "";
+
+	comments.forEach(comment => {
+		resultHTML += replaceShortReviewTemplate(comment);
+	});
+
+	listShortReview.innerHTML = resultHTML;
+	let containerShortReview = document.querySelector(".short_review_area");
+	containerShortReview.replaceChild(listShortReview, document.querySelector(".list_short_review"));
 }
 
 let loadDisplayInfo = () => {
