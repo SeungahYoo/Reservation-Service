@@ -326,6 +326,8 @@
 		</div>
 	</footer>
 	<div id="photoviwer"></div>
+	
+	<input id="display_info_id" type="hidden" value="<%= request.getParameter("id") %>">
 </body>
 <script type="text/javascript">
 let now;
@@ -389,8 +391,6 @@ let addSlideButtonEventListener = () => {
 		beforeLi.style.removeProperty("transition");
 		beforeLi.style.left = "414px";
 
-
-
 		setTimeout(() => { //왼쪽으로 옮겨진 image를 오른쪽으로 이동시킴 
 			nowVal = slidePrevious(getNow());
 			document.querySelector('#image_num').innerText = nowVal;
@@ -403,8 +403,6 @@ let addSlideButtonEventListener = () => {
 		let beforeLi = document.querySelector('.visual_img li:nth-child(' + before + ')');
 		beforeLi.style.removeProperty("transition");
 		beforeLi.style.left = "-414px";
-
-
 
 		setTimeout(() => { //오른쪽으로 옮겨진 image를 왼쪽으로 이동시킴 
 			nowVal = slideNext(getNow());
@@ -474,8 +472,8 @@ let loadDisplayInfo = () => {
 			createCommentsTemplate(productDetail.comments);
 		}
 	}
-	let url = new URL(location.href);
-	let displayInfoId = url.searchParams.get("id");
+
+	let displayInfoId = document.querySelector("#display_info_id").value;
 	xmlHttpRequest.open("GET", "/reservation/api/detail?id=" + displayInfoId);
 	xmlHttpRequest.send();
 }
