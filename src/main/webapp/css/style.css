@@ -2111,7 +2111,8 @@ button {
 
 .section_store_details .store_details {
     margin-bottom: 5px;
-    background-color: #fff
+    background-color: #fff;
+    padding : 10px 20px;
 }
 
 .section_store_details .store_details.close3 {
@@ -2122,7 +2123,7 @@ button {
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     display: -webkit-box!important;
-    padding : 10px 20px;
+    
 }
 
 .section_store_details .store_details .dsc {

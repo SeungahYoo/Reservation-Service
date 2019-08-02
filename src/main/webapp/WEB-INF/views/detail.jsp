@@ -444,11 +444,11 @@ let addMoreButtonEventListener = () => {
 	openButton.addEventListener("click", function (event) {
 		openButton.style.display = "none";
 		closeButton.style.display = "block";
-		document.querySelector('.close3').style.height = "350px";
+		document.querySelector('.store_details').classList.remove("close3");
 	});
 
 	closeButton.addEventListener("click", function (event) {
-		document.querySelector('.close3').style.height = "74px";
+		document.querySelector('.store_details').classList.add("close3");
 		closeButton.style.display = "none";
 		openButton.style.display = "block";
 	});
