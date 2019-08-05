@@ -62,36 +62,33 @@
 	
 	<select id="selectComments" parameterType="int" resultMap="commentsResult">
 	SELECT 
-			Comment.comment 'comment', 
-			Comment.id commentId,
-			Comment.create_date createDate,
-			Comment.modify_date modifyDate,
-			reservation_info.product_id productId,
-			reservation_info.reservation_date reservationDate,
-			reservation_info.reservation_email reservationEmail,
-			reservation_info.id reservationInfoId,
-			reservation_info.reservation_name reservationName,
-			reservation_info.reservation_tel resrvationTelephone,
-			Comment.score score,
-            averages.productScoreAverage
+		Comment.comment 'comment', 
+		Comment.id commentId,
+		Comment.create_date createDate,
+		Comment.modify_date modifyDate,
+		reservation_info.product_id productId,
+		reservation_info.reservation_date reservationDate,
+		reservation_info.reservation_email reservationEmail,
+		reservation_info.id reservationInfoId,
+		reservation_info.reservation_name reservationName,
+		reservation_info.reservation_tel resrvationTelephone,
+		Comment.score score,
+		averages.averageScore
+	FROM 
+		reservation_user_comment Comment, 
+		(SELECT 
+			AVG(score) averageScore, 
+			product_id 
 		FROM 
-			reservation_user_comment Comment
-		JOIN 
-			reservation_info 
-		ON 
-			Comment.reservation_info_id = reservation_info.id
-		JOIN (
-			SELECT 
-				product_id, avg(score) productScoreAverage 
-			FROM 
-				reservation_user_comment 
-			GROUP BY 
-				product_id
-			) AS averages
-		ON 
-			reservation_info.product_id = averages.product_id
-		WHERE
-			reservation_info.product_id = #{productId}
+			reservation_user_comment) averages 
+	JOIN 
+		reservation_info 
+	WHERE 
+		Comment.product_id=averages.product_id 
+	AND 
+		Comment.reservation_info_id=reservation_info.id
+	AND
+		Comment.product_id = #{productId}
 	</select>
 	
 	<select id="selectCommentImages"  parameterType="int" resultType="com.nts.reservation.dto.CommentImage">

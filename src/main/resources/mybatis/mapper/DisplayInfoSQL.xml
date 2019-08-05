@@ -53,9 +53,5 @@
 		WHERE
 			display_info_image.display_info_id = #{displayInfoId}
 	</select>
-	
-	
-
-
 
 </mapper>
