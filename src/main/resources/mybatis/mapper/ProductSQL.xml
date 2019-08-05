@@ -73,14 +73,14 @@
 		reservation_info.reservation_name reservationName,
 		reservation_info.reservation_tel resrvationTelephone,
 		Comment.score score,
-		averages.averageScore
+		Averages.averageScore
 	FROM 
 		reservation_user_comment Comment, 
 		(SELECT 
 			AVG(score) averageScore, 
 			product_id 
 		FROM 
-			reservation_user_comment) averages 
+			reservation_user_comment) Averages 
 	JOIN 
 		reservation_info 
 	WHERE 
