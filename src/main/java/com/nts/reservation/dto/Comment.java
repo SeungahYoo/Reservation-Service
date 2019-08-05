@@ -20,6 +20,7 @@ public class Comment {
 	private String reservationTelephone;
 	private int score;
 	private Double productScoreAverage;
+	private int commentsCount;
 
 	public String getComment() {
 		return comment;
@@ -143,8 +144,24 @@ public class Comment {
 		return productScoreAverage;
 	}
 
+	@JsonProperty("productScoreAverage")
+	public String getProductScoreAverageView() {
+		if (productScoreAverage != null) {
+			return String.format("%.2f", productScoreAverage);
+		}
+		return null;
+	}
+
 	public void setProductScoreAverage(Double productScoreAverage) {
 		this.productScoreAverage = productScoreAverage;
+	}
+
+	public int getCommentsCount() {
+		return commentsCount;
+	}
+
+	public void setCommentsCount(int commentsCount) {
+		this.commentsCount = commentsCount;
 	}
 
 	@Override

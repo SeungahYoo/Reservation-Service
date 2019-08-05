@@ -51,7 +51,9 @@
 					<div class="pagination">
 						<div class="bg_pagination"></div>
 						<div class="figure_pagination">
-							<span id="image_num" class="num">1</span> <span class="num off">/ <span id="images_count">2</span></span>
+							<span id="image_num" class="num">1</span> <span class="num off">/
+								<span id="images_count">2</span>
+							</span>
 						</div>
 					</div>
 					<div class="group_visual">
@@ -166,14 +168,13 @@
 						<div class="short_review_area">
 							<div class="grade_area">
 								<!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
-								<span class="graph_mask"> <em class="graph_value"
-									style="width: 84%;"></em>
-								</span> <strong class="text_value"> <span>4.2</span> <em
-									class="total">5.0</em>
-								</strong> <span class="join_count"><em class="green">52건</em> 등록</span>
+								<span class="graph_mask"> <em class="graph_value"></em>
+								</span> <strong class="text_value"> <span id="score_average"></span>
+									<em class="total">5.0</em>
+								</strong> <span class="join_count"><em class="green"><span id="commentsCount"></span>건</em> 등록</span>
 							</div>
 							<ul class="list_short_review">
-							<!-- 	<li class="list_item">
+								<!-- 	<li class="list_item">
 									<div>
 										<div class="review_area">
 											<div class="thumb_area">
@@ -235,7 +236,8 @@
 								이용자가 남긴 평가입니다.</span>
 						</p>
 					</div>
-					<a class="btn_review_more" href="./review.html"> <span>예매자
+					<a class="btn_review_more"
+						href="/reservation/review?id=${param.id}"> <span>예매자
 							한줄평 더보기</span> <i class="fn fn-forward1"></i>
 					</a>
 				</div>
@@ -326,8 +328,9 @@
 		</div>
 	</footer>
 	<div id="photoviwer"></div>
-	
+
 	<input id="display_info_id" type="hidden" value="${param.id }">
 </body>
 <script src="javascript/detail.js"></script>
+<script src="javascript/comment.js"></script>
 </html>

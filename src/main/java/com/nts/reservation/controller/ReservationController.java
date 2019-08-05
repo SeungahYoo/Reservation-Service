@@ -15,6 +15,11 @@ public class ReservationController {
 		return "detail";
 	}
 
+	@GetMapping("review")
+	public String review(@RequestParam(value = "id") int displayInfoId) {
+		return "review";
+	}
+
 	@ExceptionHandler({MethodArgumentTypeMismatchException.class})
 	public String handleMethodArgumentTypeMismatch(
 		MethodArgumentTypeMismatchException ex, WebRequest request) {

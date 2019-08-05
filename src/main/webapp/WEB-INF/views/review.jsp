@@ -10,7 +10,7 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 <title>네이버 예약</title>
-<link href="../css/style.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -33,11 +33,11 @@
 			<div class="wrap_review_list">
 				<div class="review_header">
 					<div class="top_title gr">
-						<a href="./detail.html" class="btn_back" title="이전 화면으로 이동"> <i
-							class="fn fn-backward1"></i>
+						<a href="/reservation/detail?id=${param.id}" class="btn_back"
+							title="이전 화면으로 이동"> <i class="fn fn-backward1"></i>
 						</a>
 						<h2>
-							<a class="title" href="#">오디컴퍼니 주식회사</a>
+							<a class="title" href="#" id="product_title"></a>
 						</h2>
 					</div>
 				</div>
@@ -46,14 +46,13 @@
 						<h3 class="title_h3">예매자 한줄평</h3>
 						<div class="short_review_area">
 							<div class="grade_area">
-								<span class="graph_mask"> <em class="graph_value"
-									style="width: 88%;"></em>
-								</span> <strong class="text_value"> <span>4.4</span> <em
-									class="total">5.0</em>
-								</strong> <span class="join_count"><em class="green">20건</em> 등록</span>
+								<span class="graph_mask"> <em class="graph_value"></em>
+								</span> <strong class="text_value"> <span id="score_average"></span>
+									<em class="total">5.0</em>
+								</strong> <span class="join_count"><em class="green"><span id="commentsCount"></span>건</em> 등록</span>
 							</div>
 							<ul class="list_short_review">
-								<li class="list_item">
+								<!-- <li class="list_item">
 									<div>
 										<div class="review_area no_img">
 											<h4 class="resoc_name">뮤지컬_드림걸즈(DREAMGIRLS)_최초_내한</h4>
@@ -220,7 +219,7 @@
 											</div>
 										</div>
 									</div>
-								</li>
+								</li> -->
 							</ul>
 						</div>
 						<p class="guide">
@@ -244,6 +243,9 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	<input id="display_info_id" type="hidden" value="${param.id }">
 </body>
+<script src="javascript/review.js"></script>
+<script src="javascript/comment.js"></script>
 
 </html>

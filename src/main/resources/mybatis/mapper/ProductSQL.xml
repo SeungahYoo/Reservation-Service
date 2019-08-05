@@ -73,22 +73,36 @@
 		reservation_info.reservation_name reservationName,
 		reservation_info.reservation_tel resrvationTelephone,
 		Comment.score score,
-		averages.averageScore
-	FROM 
-		reservation_user_comment Comment, 
 		(SELECT 
-			AVG(score) averageScore, 
-			product_id 
+			avg(score)  
 		FROM 
-			reservation_user_comment) averages 
+			reservation_user_comment 
+		WHERE	
+			Comment.product_id = product_id
+		GROUP BY 
+			product_id
+		) AS productScoreAverage,
+		(SELECT 
+			count(*)
+		FROM 
+			reservation_user_comment 
+		WHERE	
+			Comment.product_id = product_id
+		GROUP BY 
+			product_id
+		) AS commentsCount
+	FROM 
+		reservation_user_comment Comment 
 	JOIN 
 		reservation_info 
-	WHERE 
-		Comment.product_id=averages.product_id 
-	AND 
-		Comment.reservation_info_id=reservation_info.id
+	ON 
+		Comment.reservation_info_id = reservation_info.id
 	AND
 		Comment.product_id = #{productId}
+	<if test="isDetail">
+	LIMIT 3
+	</if>
+
 	</select>
 	
 	<select id="selectCommentImages"  parameterType="int" resultType="com.nts.reservation.dto.CommentImage">
