@@ -1,14 +1,14 @@
 let nowImage;
 
-let setNowImage = (n) => {
+const setNowImage = (n) => {
 	nowImage = n;
 }
 
-let getNowImage = () => {
+const getNowImage = () => {
 	return nowImage;
 }
 
-let slideNext = (nowImage) => {
+const slideNext = (nowImage) => {
 	let nextImage = (nowImage === 2) ? 1 : 2;
 	const nowLi = document.querySelector('.visual_img li:nth-child(' + nowImage + ')');
 	const nextLi = document.querySelector('.visual_img li:nth-child(' + nextImage + ')');
@@ -20,7 +20,7 @@ let slideNext = (nowImage) => {
 	return nextImage;
 }
 
-let slidePrevious = (nowImage) => {
+const slidePrevious = (nowImage) => {
 	let nextImage = (nowImage === 2) ? 1 : 2;
 	const nowLi = document.querySelector('.visual_img li:nth-child(' + nowImage + ')');
 	const nextLi = document.querySelector('.visual_img li:nth-child(' + nextImage + ')');
@@ -32,7 +32,7 @@ let slidePrevious = (nowImage) => {
 	return nextImage;
 }
 
-let replaceProductImageTemplate = (productDescription, productImageUrl) => {
+const replaceProductImageTemplate = (productDescription, productImageUrl) => {
 	return (`<li class="item" style="width: 414px;">
 	<img class="img_thumb" alt="${productDescription}" src="http://127.0.0.1:8080/reservation/${productImageUrl}"> <span class="img_bg"></span>
 	<div class="visual_txt">
@@ -45,7 +45,7 @@ let replaceProductImageTemplate = (productDescription, productImageUrl) => {
 	</div></li>`);
 }
 
-let addSlideButtonEventListener = () => {
+const addSlideButtonEventListener = () => {
 	let previousButton = document.querySelector('.btn_prev');
 	let nextButton = document.querySelector('.btn_nxt');
 
@@ -80,10 +80,11 @@ let addSlideButtonEventListener = () => {
 	});
 }
 
-let addButtonEventListener = () => {
+const addButtonEventListener = () => {
 	let openButton = document.querySelector('.bk_more._open');
 	let closeButton = document.querySelector('.bk_more._close');
 	let reviewMoreButton = document.querySelector('.btn_review_more');
+	let infoTabButton = document.querySelector('.info_tab_lst');
 
 	openButton.addEventListener("click", function (event) {
 		openButton.style.display = "none";
@@ -97,13 +98,26 @@ let addButtonEventListener = () => {
 		openButton.style.display = "block";
 	});
 
-	reviewMoreButton.addEventListener("click", function (event) {
+	infoTabButton.addEventListener("click", function (event) {
+		let beforeClickedTab = document.querySelector('li.active');
+		beforeClickedTab.classList.remove('active');
+		beforeClickedTab.firstChild.classList.remove('active');
 
+		let nowClickedTab = event.target.closest("li");
+		nowClickedTab.classList.add('active');
+		nowClickedTab.firstChild.classList.add('active');
+
+		if (nowClickedTab.classList.contains("_detail")) {
+			document.querySelector('.detail_location').classList.add("hide");
+			document.querySelector('.detail_area_wrap').classList.remove("hide");
+		} else if (nowClickedTab.classList.contains("_path")) {
+			document.querySelector('.detail_location').classList.remove("hide");
+			document.querySelector('.detail_area_wrap').classList.add("hide");
+		}
 	})
-
 }
 
-let createProductImagesTemplate = (productDescription, productImages) => {
+const createProductImagesTemplate = (productDescription, productImages) => {
 	let visualImage = document.createElement("ul");
 	visualImage.classList.add("visual_img");
 	visualImage.classList.add("detail_swipe");
@@ -126,7 +140,21 @@ let createProductImagesTemplate = (productDescription, productImages) => {
 
 }
 
-let loadDisplayInfo = () => {
+const setInfoTab = (displayInfo, displayInfoImage) => {
+	//상세정보 
+	document.querySelector('.detail_info_lst .in_dsc').innerHTML = displayInfo.productContent;
+
+	//오시는길
+	document.querySelector('.store_map').src = "http://127.0.0.1:8080/reservation/" + displayInfoImage.saveFileName;
+	document.querySelector('.store_name').innerHTML = displayInfo.placeName;
+	document.querySelector('.store_addr_bold').innerHTML = displayInfo.placeStreet;
+	document.querySelector('.addr_old_detail').innerHTML = displayInfo.placeLot;
+	document.querySelector('.addr_detail').innerHTML = displayInfo.placeName;
+	document.querySelector('.store_tel').innerHTML = displayInfo.telephone;
+	document.querySelector('.store_tel').href = "tel:" + displayInfo.telephone
+}
+
+const loadDisplayInfo = () => {
 	let xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.onreadystatechange = () => {
 		if (xmlHttpRequest.status >= 400) {
@@ -135,11 +163,18 @@ let loadDisplayInfo = () => {
 		}
 		if (xmlHttpRequest.readyState === 4) {
 			let productDetail = JSON.parse(xmlHttpRequest.responseText);
-			console.log(productDetail);
 			document.querySelector('.close3').innerText = productDetail.displayInfo.productContent;
 			createProductImagesTemplate(productDetail.displayInfo.productDescription, productDetail.productImages);
 			addButtonEventListener();
-			createCommentsTemplate(productDetail.displayInfo.productDescription, productDetail.comments);
+			if (productDetail.comments.length != 0) {
+				createCommentsTemplate(productDetail.displayInfo.productDescription, productDetail.comments);
+			} else {
+				document.querySelector('#score_average').innerHTML = "0.0";
+				document.querySelector('.graph_value').style.width = "0%";
+				document.querySelector('#commentsCount').innerHTML = "0";
+				document.querySelector('.btn_review_more').style.display = "none";
+			}
+			setInfoTab(productDetail.displayInfo, productDetail.displayInfoImage);
 		}
 	}
 
