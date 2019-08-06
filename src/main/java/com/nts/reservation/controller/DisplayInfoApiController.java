@@ -23,7 +23,6 @@ public class DisplayInfoApiController {
 	@GetMapping("/detail")
 	public Map<String, Object> getDisplayInfo(@RequestParam(name = "id") int displayInfoId,
 		@RequestParam(name = "is-detail") boolean isDetail) {
-		System.out.println(isDetail);
 		return this.displayInfoService.getDisplayInfoByID(displayInfoId, isDetail);
 	}
 
