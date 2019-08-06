@@ -2,7 +2,7 @@ let replaceShortReviewTemplate = (productDescription, shortReview) => {
 	let template = "";
 
 	if (shortReview.commentImages.length > 0) {
-		template += `<div>
+		template += `<li class="list_item"><div>
 		<div class="review_area">
 			<div class="thumb_area">
 			<a href="#" class="thumb" title="이미지 크게 보기"> <img
@@ -13,7 +13,7 @@ let replaceShortReviewTemplate = (productDescription, shortReview) => {
 		</div>
 		`
 	} else {
-		template += `<div>
+		template += `<li class="list_item"><div>
 		<div class="review_area no_img">`
 	}
 	template += `			<h4 class="resoc_name">${productDescription}</h4>
