@@ -79,8 +79,6 @@
 			reservation_user_comment 
 		WHERE	
 			Comment.product_id = product_id
-		GROUP BY 
-			product_id
 		) AS productScoreAverage,
 		(SELECT 
 			count(*)
@@ -88,8 +86,6 @@
 			reservation_user_comment 
 		WHERE	
 			Comment.product_id = product_id
-		GROUP BY 
-			product_id
 		) AS commentsCount
 	FROM 
 		reservation_user_comment Comment 
@@ -102,7 +98,6 @@
 	<if test="isDetail">
 	LIMIT 3
 	</if>
-
 	</select>
 	
 	<select id="selectCommentImages"  parameterType="int" resultType="com.nts.reservation.dto.CommentImage">
