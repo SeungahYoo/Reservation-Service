@@ -97,7 +97,7 @@
 		reservation_info 
 	ON 
 		Comment.reservation_info_id = reservation_info.id
-	AND
+	WHERE
 		Comment.product_id = #{productId}
 	<if test="isDetail">
 	LIMIT 3
