@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ReservationController {
+	@GetMapping("mainpage")
+	public String mainpage() {
+		return "mainpage";
+	}
 
 	@GetMapping("detail")
 	public String productDetail(@RequestParam(value = "id") int displayInfoId) {
