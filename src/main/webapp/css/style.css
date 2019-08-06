@@ -2156,7 +2156,8 @@ button {
 .section_info_tab .info_tab_lst .item>.anchor {
     display: inline-block;
     padding: 10px 6px;
-    white-space: nowrap
+    white-space: nowrap;
+    cursor: pointer;
 }
 
 .section_info_tab .info_tab_lst .item>.anchor.active {
