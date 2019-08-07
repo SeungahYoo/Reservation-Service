@@ -2,35 +2,66 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nts.reservation.mapper.ProductMapper" >
 	<select id="selectProducts" parameterType="map" resultType="com.nts.reservation.dto.Product">
-			SELECT 
-				display_info.id displayInfoId,
-				product.id id, 
-				product.description productDescription, 
-				product.content productContent, 
-				display_info.place_name placeName, 
-				file_info.save_file_name productImageUrl
+		SELECT 
+			display_info.id displayInfoId,
+			product.id id, 
+			product.description productDescription, 
+			product.content productContent, 
+			display_info.place_name placeName, 
+			file_info.save_file_name productImageUrl
+		FROM 
+			product 
+		JOIN 
+			display_info 
+		ON 
+			product.id = display_info.product_id
+		JOIN 
+			product_image 
+		ON
+			product.id=product_image.product_id
+		JOIN 
+			file_info 
+		ON
+			product_image.file_id = file_info.id
+		WHERE
+			product_image.type=#{imageType}
+		<if test="categoryId  gt 0">
+		AND
+			product.category_id=#{categoryId}
+		</if>
+		LIMIT
+			#{startIndex} , #{maxCount}
+	</select>
+	
+	<select id="selectProduct" parameterType="int" resultType="com.nts.reservation.dto.Product">
+		SELECT 
+			display_info.id displayInfoId,
+			product.id id, 
+			product.description productDescription, 
+			product.content productContent, 
+			(SELECT 
+				avg(score)  
 			FROM 
-				product 
-			JOIN 
-				display_info 
-			ON 
-				product.id = display_info.product_id
-			JOIN 
-				product_image 
-			ON
-				product.id=product_image.product_id
-			JOIN 
-				file_info 
-			ON
-				product_image.file_id = file_info.id
-			WHERE
-				product_image.type=#{imageType}
-			<if test="categoryId  gt 0">
-			AND
-				product.category_id=#{categoryId}
-			</if>
-			LIMIT
-				#{startIndex} , #{maxCount}
+				reservation_user_comment 
+			WHERE	
+				product.id = product_id) 
+			AS productScoreAverage,
+			(SELECT 
+				count(*)
+			FROM 
+				reservation_user_comment 
+			WHERE	
+				product.id = product_id
+			) AS commentsCount
+
+		FROM 
+			product 
+		JOIN 
+			display_info 
+		ON 
+			product.id = display_info.product_id
+		WHERE
+			product.id =  #{productId}
 	</select>
 	
 	<select id="selectProductImages" parameterType="int" resultType="com.nts.reservation.dto.ProductImage">
@@ -84,21 +115,7 @@
 		reservation_info.id reservationInfoId,
 		reservation_info.reservation_name reservationName,
 		reservation_info.reservation_tel resrvationTelephone,
-		Comment.score score,
-		(SELECT 
-			avg(score)  
-		FROM 
-			reservation_user_comment 
-		WHERE	
-			Comment.product_id = product_id
-		) AS productScoreAverage,
-		(SELECT 
-			count(*)
-		FROM 
-			reservation_user_comment 
-		WHERE	
-			Comment.product_id = product_id
-		) AS commentsCount
+		Comment.score score
 	FROM 
 		reservation_user_comment Comment 
 	JOIN 
@@ -146,7 +163,6 @@
 		<result property="reservationName" column="reservationName"/>
 		<result property="reservationTelephone" column="resrvationTelephone"/>
 		<result property="score" column="score"/>
-		<result property="productScoreAverage" column="productScoreAverage"/>
 		<collection property="commentImages" column="commentId" javaType="java.util.ArrayList" ofType="com.nts.reservation.dto.CommentImage" select="selectCommentImages"/>
 	</resultMap>
 

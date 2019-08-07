@@ -168,12 +168,14 @@ const loadDisplayInfo = () => {
 			document.querySelector('.close3').innerText = productDetail.displayInfo.productContent;
 			createProductImagesTemplate(productDetail.displayInfo.productDescription, productDetail.productImages);
 			addButtonEventListener();
-			if (productDetail.comments.length != 0) {
+			
+			document.querySelector('#score_average').innerHTML = productDetail.productScoreAverage;
+			document.querySelector('.graph_value').style.width = productDetail.productScoreAverage*20+"%";
+			document.querySelector('#commentsCount').innerHTML = productDetail.commentsCount;
+
+			if (productDetail.commentsCount != 0) {
 				createCommentsTemplate(productDetail.displayInfo.productDescription, productDetail.comments);
 			} else {
-				document.querySelector('#score_average').innerHTML = "0.0";
-				document.querySelector('.graph_value').style.width = "0%";
-				document.querySelector('#commentsCount').innerHTML = "0";
 				document.querySelector('.btn_review_more').style.display = "none";
 			}
 			setInfoTab(productDetail.displayInfo, productDetail.displayInfoImage);

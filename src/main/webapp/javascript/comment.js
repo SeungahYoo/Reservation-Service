@@ -44,9 +44,10 @@ let createCommentsTemplate = (productDescription, comments) => {
 	listShortReview.innerHTML = resultHTML;
 	let containerShortReview = document.querySelector(".short_review_area");
 	containerShortReview.replaceChild(listShortReview, document.querySelector(".list_short_review"));
-
-	document.querySelector('#score_average').innerHTML=comments[0].productScoreAverage;
-	document.querySelector('.graph_value').style.width=comments[0].productScoreAverage*20+"%";
-	document.querySelector('#commentsCount').innerHTML=comments[0].commentsCount;
 }
 
+let setProductDetail = (productScoreAverage, commentsCount) => {
+	document.querySelector('#score_average').innerHTML = productScoreAverage;
+	document.querySelector('.graph_value').style.width = productScoreAverage*20+"%";
+	document.querySelector('#commentsCount').innerHTML = commentsCount;
+}

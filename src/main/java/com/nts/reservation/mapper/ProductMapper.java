@@ -23,4 +23,6 @@ public interface ProductMapper {
 	public List<Comment> selectComments(@Param("productId") int productId, @Param("isDetail") boolean isDetail);
 
 	public List<CommentImage> selectCommentImages(int commentId);
+
+	public Product selectProduct(int productId);
 }
