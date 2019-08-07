@@ -159,7 +159,7 @@ const loadDisplayInfo = () => {
 	xmlHttpRequest.onreadystatechange = () => {
 		if (xmlHttpRequest.status >= 400) {
 			alert("오류가 발생했습니다. 다시 시도해주세요.");
-			window.location.href="/reservation/mainpage";
+			window.location.replace("/reservation/mainpage");
 			return;
 		}
 		if (xmlHttpRequest.readyState === 4) {
