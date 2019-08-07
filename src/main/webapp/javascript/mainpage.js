@@ -140,7 +140,7 @@ let loadCategoryProducts = () => {
 		}
 	}
 	categoryId = document.querySelector(".active").closest("li").dataset.category;
-	xmlHttpRequest.open("GET", "/reservation/api/products?categoryId=" + categoryId + "&startIndex=" + productListMaxIndex + "&imageType=th");
+	xmlHttpRequest.open("GET", `/reservation/api/products?categoryId=${categoryId}&startIndex=${productListMaxIndex}&imageType=th`);
 	xmlHttpRequest.send();
 };
 
@@ -156,7 +156,7 @@ let loadCategoryCount = (categoryId) => {
 			document.querySelector("#category_count").innerText = currentCategoryCount;
 		}
 	}
-	xmlHttpRequest.open("GET", "/reservation/api/categories/count?categoryId=" + categoryId);
+	xmlHttpRequest.open("GET", `/reservation/api/categories/count?categoryId=${categoryId}`);
 	xmlHttpRequest.send();
 }
 

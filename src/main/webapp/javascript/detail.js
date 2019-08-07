@@ -10,8 +10,8 @@ const getNowImage = () => {
 
 const slideNext = (nowImage) => {
 	let nextImage = (nowImage === 2) ? 1 : 2;
-	const nowLi = document.querySelector('.visual_img li:nth-child(' + nowImage + ')');
-	const nextLi = document.querySelector('.visual_img li:nth-child(' + nextImage + ')');
+	const nowLi = document.querySelector(`.visual_img li:nth-child(${nowImage})`);
+	const nextLi = document.querySelector(`.visual_img li:nth-child(${nextImage})`);
 	nowLi.style.transition = "left 1s";
 	nextLi.style.transition = "left 1s";
 	nowLi.style.left = "414px";
@@ -22,8 +22,8 @@ const slideNext = (nowImage) => {
 
 const slidePrevious = (nowImage) => {
 	let nextImage = (nowImage === 2) ? 1 : 2;
-	const nowLi = document.querySelector('.visual_img li:nth-child(' + nowImage + ')');
-	const nextLi = document.querySelector('.visual_img li:nth-child(' + nextImage + ')');
+	const nowLi = document.querySelector(`.visual_img li:nth-child(${nowImage })`);
+	const nextLi = document.querySelector(`.visual_img li:nth-child(${nextImage})`);
 	nowLi.style.transition = "left 1s";
 	nextLi.style.transition = "left 1s";
 	nowLi.style.left = "-414px";
@@ -55,7 +55,7 @@ const addSlideButtonEventListener = () => {
 
 	previousButton.addEventListener("click", function (event) {
 		before = (getNowImage() === 1) ? 2 : 1;
-		let beforeLi = document.querySelector('.visual_img li:nth-child(' + before + ')');
+		let beforeLi = document.querySelector(`.visual_img li:nth-child(${before})`);
 		beforeLi.style.removeProperty("transition");
 		beforeLi.style.left = "414px";
 
@@ -68,7 +68,7 @@ const addSlideButtonEventListener = () => {
 
 	nextButton.addEventListener("click", function (event) {
 		before = (getNowImage() === 1) ? 2 : 1;
-		let beforeLi = document.querySelector('.visual_img li:nth-child(' + before + ')');
+		let beforeLi = document.querySelector(`.visual_img li:nth-child(${before})`);
 		beforeLi.style.removeProperty("transition");
 		beforeLi.style.left = "-414px";
 
@@ -145,7 +145,7 @@ const setInfoTab = (displayInfo, displayInfoImage) => {
 	document.querySelector('.detail_info_lst .in_dsc').innerHTML = displayInfo.productContent;
 
 	//오시는길
-	document.querySelector('.store_map').src = "http://127.0.0.1:8080/reservation/" + displayInfoImage.saveFileName;
+	document.querySelector('.store_map').src = `http://127.0.0.1:8080/reservation/${displayInfoImage.saveFileName}`;
 	document.querySelector('.store_name').innerHTML = displayInfo.placeName;
 	document.querySelector('.store_addr_bold').innerHTML = displayInfo.placeStreet;
 	document.querySelector('.addr_old_detail').innerHTML = displayInfo.placeLot;
@@ -181,7 +181,7 @@ const loadDisplayInfo = () => {
 	}
 
 	let displayInfoId = document.querySelector("#display_info_id").value;
-	xmlHttpRequest.open("GET", "/reservation/api/detail?id=" + displayInfoId + "&is-detail=true");
+	xmlHttpRequest.open("GET", `/reservation/api/detail?id=${displayInfoId}&is-detail=true`);
 	xmlHttpRequest.send();
 }
 

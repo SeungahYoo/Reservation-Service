@@ -26,12 +26,12 @@ public class ReservationController {
 
 	@GetMapping("reserve")
 	public String reserve(@RequestParam(value = "id") int displayInfoId) {
-		return "review";
+		return "reserve";
 	}
 
 	@GetMapping("myreservation")
-	public String myreservation(@RequestParam(value = "id") int displayInfoId) {
-		return "review";
+	public String myreservation() {
+		return "myreservation";
 	}
 
 }
