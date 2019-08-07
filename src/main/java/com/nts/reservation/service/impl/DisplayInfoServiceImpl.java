@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dto.DisplayInfo;
 import com.nts.reservation.dto.DisplayInfoImage;
+import com.nts.reservation.dto.Product;
 import com.nts.reservation.mapper.DisplayInfoMapper;
 import com.nts.reservation.mapper.ProductMapper;
 import com.nts.reservation.service.DisplayInfoService;
@@ -27,6 +28,10 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	public Map<String, Object> getDisplayInfoByID(int displayInfoId, boolean isDetail) {
 		DisplayInfo displayInfo = displayInfoMapper.selectDisplayInfo(displayInfoId);
 		DisplayInfoImage displayInfoImage = displayInfoMapper.selectDisplayInfoImage(displayInfoId);
+		if (displayInfo == null) {
+			throw new IllegalAccessError();
+		}
+
 		int productId = displayInfo.getProductId();
 
 		Map<String, Object> displayMap = new HashMap<>();
@@ -35,6 +40,10 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		displayMap.put("productImages", productMapper.selectProductImages(productId));
 		displayMap.put("productPrices", productMapper.selectProductPrices(productId));
 		displayMap.put("comments", productMapper.selectComments(productId, isDetail));
+
+		Product product = productMapper.selectProduct(productId);
+		displayMap.put("productScoreAverage", product.getProductScoreAverageView());
+		displayMap.put("commentsCount", product.getCommentsCount());
 		return displayMap;
 	}
 

@@ -2,6 +2,8 @@ package com.nts.reservation.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Product {
 	private int displayInfoId;
 	private String placeName;
@@ -10,6 +12,8 @@ public class Product {
 	private int productId;
 	private String productImageUrl;
 	private List<ProductPrice> productPrices;
+	private Double productScoreAverage;
+	private int commentsCount;
 
 	public int getDisplayInfoId() {
 		return displayInfoId;
@@ -65,6 +69,30 @@ public class Product {
 
 	public void setProductPrices(List<ProductPrice> productPrices) {
 		this.productPrices = productPrices;
+	}
+
+	public Double getProductScoreAverage() {
+		return productScoreAverage;
+	}
+
+	@JsonProperty("productScoreAverage")
+	public String getProductScoreAverageView() {
+		if (productScoreAverage != null) {
+			return String.format("%.2f", productScoreAverage);
+		}
+		return null;
+	}
+
+	public void setProductScoreAverage(Double productScoreAverage) {
+		this.productScoreAverage = productScoreAverage;
+	}
+
+	public int getCommentsCount() {
+		return commentsCount;
+	}
+
+	public void setCommentsCount(int commentsCount) {
+		this.commentsCount = commentsCount;
 	}
 
 	@Override
