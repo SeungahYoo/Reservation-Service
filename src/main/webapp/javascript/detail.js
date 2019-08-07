@@ -164,6 +164,7 @@ const loadDisplayInfo = () => {
 		}
 		if (xmlHttpRequest.readyState === 4) {
 			let productDetail = JSON.parse(xmlHttpRequest.responseText);
+			console.log(productDetail);
 			document.querySelector('.close3').innerText = productDetail.displayInfo.productContent;
 			createProductImagesTemplate(productDetail.displayInfo.productDescription, productDetail.productImages);
 			addButtonEventListener();

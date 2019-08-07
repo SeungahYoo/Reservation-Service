@@ -1,5 +1,7 @@
 package com.nts.reservation.dto;
 
+import java.util.List;
+
 public class Product {
 	private int displayInfoId;
 	private String placeName;
@@ -7,6 +9,7 @@ public class Product {
 	private String productDescription;
 	private int productId;
 	private String productImageUrl;
+	private List<ProductPrice> productPrices;
 
 	public int getDisplayInfoId() {
 		return displayInfoId;
@@ -56,11 +59,19 @@ public class Product {
 		this.productImageUrl = productImageUrl;
 	}
 
+	public List<ProductPrice> getProductPrices() {
+		return productPrices;
+	}
+
+	public void setProductPrices(List<ProductPrice> productPrices) {
+		this.productPrices = productPrices;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [displayInfoId=" + displayInfoId + ", placeName=" + placeName + ", productContent="
 			+ productContent + ", productDescription=" + productDescription + ", productId=" + productId
-			+ ", productImageUrl=" + productImageUrl + "]";
+			+ ", productImageUrl=" + productImageUrl + ", productPrices=" + productPrices + "]";
 	}
 
 }

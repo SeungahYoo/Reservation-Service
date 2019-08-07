@@ -33,6 +33,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		displayMap.put("displayInfo", displayInfo);
 		displayMap.put("displayInfoImage", displayInfoImage);
 		displayMap.put("productImages", productMapper.selectProductImages(productId));
+		displayMap.put("productPrices", productMapper.selectProductPrices(productId));
 		displayMap.put("comments", productMapper.selectComments(productId, isDetail));
 		return displayMap;
 	}
