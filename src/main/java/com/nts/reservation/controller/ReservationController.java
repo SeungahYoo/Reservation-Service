@@ -13,6 +13,9 @@ public class ReservationController {
 
 	@GetMapping("detail")
 	public String productDetail(@RequestParam(value = "id") int displayInfoId) {
+		if (displayInfoId <= 0) {
+			throw new IllegalArgumentException("DisplayInfoId is below 0.");
+		}
 		return "detail";
 	}
 
