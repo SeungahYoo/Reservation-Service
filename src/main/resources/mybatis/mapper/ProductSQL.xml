@@ -58,6 +58,18 @@
 	</select>
 	
 	<select id="selectProductPrices" parameterType="int" resultType="com.nts.reservation.dto.ProductPrice">
+		SELECT
+			create_date createDate, 
+			discount_rate discountRate, 
+			modify_date modifyDate, 
+			price, 
+			price_type_name priceTypeName,
+			product_id productId, 
+			id productPriceId
+		FROM 
+			product_price
+		WHERE
+			product_id = #{productId};
 	</select>
 	
 	<select id="selectComments" parameterType="int" resultMap="commentsResult">
@@ -121,7 +133,7 @@
 		WHERE
 			commentImage.reservation_user_comment_id = #{commentId}
 	</select>
-	
+
 	<resultMap id="commentsResult" type="com.nts.reservation.dto.Comment">
 		<result property="comment" column="comment"/>
 		<result property="commentId" column="commentId"/>

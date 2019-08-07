@@ -24,4 +24,14 @@ public class ReservationController {
 		return "review";
 	}
 
+	@GetMapping("reserve")
+	public String reserve(@RequestParam(value = "id") int displayInfoId) {
+		return "review";
+	}
+
+	@GetMapping("myreservation")
+	public String myreservation(@RequestParam(value = "id") int displayInfoId) {
+		return "review";
+	}
+
 }
