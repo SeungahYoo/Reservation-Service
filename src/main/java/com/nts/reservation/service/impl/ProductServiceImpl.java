@@ -1,8 +1,9 @@
 package com.nts.reservation.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +21,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> getProducts(@Param("categoryId") int categoryId, @Param("startIndex") int startIndex,
-		@Param("maxCount") int maxCount) {
-		return productMapper.selectProducts(categoryId, startIndex, maxCount);
+	public List<Product> getProducts(int categoryId, int startIndex,
+		int maxCount, String imageType) {
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("categoryId", categoryId);
+		parameters.put("startIndex", startIndex);
+		parameters.put("maxCount", maxCount);
+		parameters.put("imageType", imageType);
+		return productMapper.selectProducts(parameters);
 	}
-
 }
