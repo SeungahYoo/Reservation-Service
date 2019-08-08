@@ -16,7 +16,7 @@
 		<jcloverslf4j.version>1.7.6</jcloverslf4j.version>
 		<logback.version>1.1.1</logback.version>
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -30,12 +30,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
-		<exclusions>
-			<exclusion>
-				<groupId>commons-logging</groupId>
-				<artifactId>commons-logging</artifactId>
-			</exclusion>
-		</exclusions>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -86,7 +86,7 @@
 			<artifactId>mybatis</artifactId>
 			<version>3.5.0</version>
 		</dependency>
-		
+
 		<!-- Mybatis Spring -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -113,8 +113,8 @@
 			<artifactId>jackson-datatype-jdk8</artifactId>
 			<version>${jackson2.version}</version>
 		</dependency>
-		
-		<!-- Logback --> 
+
+		<!-- Logback -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
@@ -124,6 +124,12 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
 		</dependency>
 	</dependencies>
 	<build>
