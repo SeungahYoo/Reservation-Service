@@ -54,19 +54,19 @@
 	
 		<error-page>
 		<error-code>403</error-code>
-		<location>/WEB-INF/views/error.jsp</location>
+		<location>/error/error.html</location>
 	</error-page>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/views/error.jsp</location>
+		<location>/error/error.html</location>
 	</error-page>
 	<error-page>
 		<error-code>405</error-code>
-		<location>/WEB-INF/views/error.jsp</location>
+		<location>/error/error.html</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/WEB-INF/views/error.jsp</location>
+		<location>/error/error.html</location>
 	</error-page>
 	
 </web-app>
