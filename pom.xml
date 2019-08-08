@@ -30,7 +30,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
-			
 		<exclusions>
 			<exclusion>
 				<groupId>commons-logging</groupId>
@@ -43,7 +42,6 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
 		<!-- Servlet JSP JSTL -->
 		<dependency>
 			<groupId>javax.servlet</groupId>

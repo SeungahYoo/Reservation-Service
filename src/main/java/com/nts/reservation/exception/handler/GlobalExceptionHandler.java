@@ -1,7 +1,8 @@
-package com.nts.reservation.controller;
+package com.nts.reservation.exception.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,13 +15,13 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler({MethodArgumentTypeMismatchException.class, IllegalArgumentException.class})
 	public String handleMethodArgumentTypeMismatch(Exception e) {
-		LOGGER.error(e.getMessage());
+		LOGGER.error(e.getMessage(), e);
 		return "mainpage";
 	}
 
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler({NullPointerException.class})
-	public void handleNullPointerException(Exception e) {
-		LOGGER.error(e.getMessage());
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler({DataRetrievalFailureException.class})
+	public void handleResourceNotFoundException(Exception e) {
+		LOGGER.error(e.getMessage(), e);
 	}
 }
