@@ -1,35 +1,169 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nts.reservation.mapper.ProductMapper" >
-	<select id="selectProducts" parameterType="int" resultType="com.nts.reservation.dto.Product">
-			SELECT 
-				product.category_id category, 
-				product.id id, 
-				product.description description, 
-				product.content content, 
-				display_info.place_name placeName, 
-				file_info.save_file_name fileName
-			FROM 
-				product 
-			JOIN 
-				display_info 
-			ON 
-				product.id = display_info.product_id
-			JOIN 
-				product_image 
-			ON
-				product.id=product_image.product_id
-			JOIN 
-				file_info 
-			ON
-				product_image.file_id = file_info.id
-			WHERE
-				product_image.type='th'
-			<if test="categoryId  gt 0">
-			AND
-				product.category_id=#{categoryId}
-			</if>
-			LIMIT
-				#{startIndex} , #{maxCount}
+	<select id="selectProducts" parameterType="map" resultType="com.nts.reservation.dto.Product">
+		SELECT 
+			display_info.id displayInfoId,
+			product.id id, 
+			product.description productDescription, 
+			product.content productContent, 
+			display_info.place_name placeName, 
+			file_info.save_file_name productImageUrl
+		FROM 
+			product 
+		JOIN 
+			display_info 
+		ON 
+			product.id = display_info.product_id
+		JOIN 
+			product_image 
+		ON
+			product.id=product_image.product_id
+		JOIN 
+			file_info 
+		ON
+			product_image.file_id = file_info.id
+		WHERE
+			product_image.type=#{imageType}
+		<if test="categoryId  gt 0">
+		AND
+			product.category_id=#{categoryId}
+		</if>
+		LIMIT
+			#{startIndex} , #{maxCount}
 	</select>
+	
+	<select id="selectProduct" parameterType="int" resultType="com.nts.reservation.dto.Product">
+		SELECT 
+			display_info.id displayInfoId,
+			product.id id, 
+			product.description productDescription, 
+			product.content productContent, 
+			(SELECT 
+				avg(score)  
+			FROM 
+				reservation_user_comment 
+			WHERE	
+				product.id = product_id) 
+			AS productScoreAverage,
+			(SELECT 
+				count(*)
+			FROM 
+				reservation_user_comment 
+			WHERE	
+				product.id = product_id
+			) AS commentsCount
+
+		FROM 
+			product 
+		JOIN 
+			display_info 
+		ON 
+			product.id = display_info.product_id
+		WHERE
+			product.id =  #{productId}
+	</select>
+	
+	<select id="selectProductImages" parameterType="int" resultType="com.nts.reservation.dto.ProductImage">
+		SELECT 
+			file_info.content_type contentType,
+			file_info.create_date createDate,
+			file_info.delete_flag deleteFlag,
+			file_info.id fileInfoId,
+			file_info.file_name fileName,
+			file_info.modify_date modifyDate,
+			product_image.product_id productId,
+			product_image.id productImageId,
+			file_info.save_file_name saveFileName,
+			product_image.type 'type'
+		FROM 
+			file_info
+		JOIN 
+			product_image
+		ON 
+			file_info.id = product_image.file_id
+		WHERE 
+			product_image.type != 'th'
+		AND	
+			product_image.product_id = #{productId}
+	</select>
+	
+	<select id="selectProductPrices" parameterType="int" resultType="com.nts.reservation.dto.ProductPrice">
+		SELECT
+			create_date createDate, 
+			discount_rate discountRate, 
+			modify_date modifyDate, 
+			price, 
+			price_type_name priceTypeName,
+			product_id productId, 
+			id productPriceId
+		FROM 
+			product_price
+		WHERE
+			product_id = #{productId};
+	</select>
+	
+	<select id="selectComments" parameterType="int" resultMap="commentsResult">
+	SELECT 
+		Comment.comment 'comment', 
+		Comment.id commentId,
+		Comment.create_date createDate,
+		Comment.modify_date modifyDate,
+		reservation_info.product_id productId,
+		reservation_info.reservation_date reservationDate,
+		reservation_info.reservation_email reservationEmail,
+		reservation_info.id reservationInfoId,
+		reservation_info.reservation_name reservationName,
+		reservation_info.reservation_tel resrvationTelephone,
+		Comment.score score
+	FROM 
+		reservation_user_comment Comment 
+	JOIN 
+		reservation_info 
+	ON 
+		Comment.reservation_info_id = reservation_info.id
+	WHERE
+		Comment.product_id = #{productId}
+	<if test="isDetail">
+	LIMIT 3
+	</if>
+	</select>
+	
+	<select id="selectCommentImages"  parameterType="int" resultType="com.nts.reservation.dto.CommentImage">
+		SELECT 
+			file_info.content_type contentType,
+			file_info.create_date createDate,
+			file_info.delete_flag deleteFlag,
+			commentImage.file_id fileId,
+			file_info.file_name fileName,
+			commentImage.id imageId,
+			file_info.modify_date modifyDate,
+			commentImage.reservation_info_id reservationInfoId,
+			file_info.save_file_name saveFileName,
+			commentImage.reservation_user_comment_id reservationUserCommentId
+		FROM 
+			reservation_user_comment_image commentImage
+		JOIN 
+			file_info
+		ON 
+			commentImage.file_id = file_info.id
+		WHERE
+			commentImage.reservation_user_comment_id = #{commentId}
+	</select>
+
+	<resultMap id="commentsResult" type="com.nts.reservation.dto.Comment">
+		<result property="comment" column="comment"/>
+		<result property="commentId" column="commentId"/>
+		<result property="createDate" column="createDate"/>
+		<result property="modifyDate" column="modifyDate"/>
+		<result property="productId" column="productId"/>
+		<result property="reservationDate" column="reservationDate"/>
+		<result property="reservationEmail" column="reservationEmail"/>
+		<result property="reservationInfoId" column="reservationInfoId"/>
+		<result property="reservationName" column="reservationName"/>
+		<result property="reservationTelephone" column="resrvationTelephone"/>
+		<result property="score" column="score"/>
+		<collection property="commentImages" column="commentId" javaType="java.util.ArrayList" ofType="com.nts.reservation.dto.CommentImage" select="selectCommentImages"/>
+	</resultMap>
+
 </mapper>

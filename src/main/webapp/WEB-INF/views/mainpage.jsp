@@ -202,11 +202,6 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
-
-
-	<script type="rv-template" id="promotionItem">
-
-    </script>
-	<script src="javascript/mainpage.js"></script>
 </body>
+<script src="javascript/mainpage.js"></script>
 </html>
