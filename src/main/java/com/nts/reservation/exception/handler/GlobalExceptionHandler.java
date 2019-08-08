@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 	@ExceptionHandler({MethodArgumentTypeMismatchException.class, IllegalArgumentException.class})
-	public String handleMethodArgumentTypeMismatch(Exception e) {
+	public String handleInvalidArgumentException(Exception e) {
 		LOGGER.error(e.getMessage(), e);
 		return "mainpage";
 	}
