@@ -164,14 +164,14 @@
 							<div class="agreement_nessasary help_txt">
 								<span class="spr_book ico_nessasary"></span> <span>필수입력</span>
 							</div>
-							<form class="form_horizontal">
+							<form class="form_horizontal" action="/reservation/reserve" method="post">
 								<div class="inline_form">
 									<label class="label" for="name"> <span
 										class="spr_book ico_nessasary">필수</span> <span>예매자</span>
 									</label>
 									<div class="inline_control">
 										<input type="text" name="name" id="name" class="text"
-											placeholder="네이버" maxlength="17">
+											placeholder="네이버" maxlength="17" required>
 									</div>
 								</div>
 								<div class="inline_form">
@@ -180,7 +180,7 @@
 									</label>
 									<div class="inline_control tel_wrap">
 										<input type="tel" name="tel" id="tel" class="tel" value=""
-											placeholder="휴대폰 입력 시 예매내역 문자발송">
+											placeholder="휴대폰 입력 시 예매내역 문자발송" required">
 										<div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
 									</div>
 								</div>
@@ -190,14 +190,14 @@
 									</label>
 									<div class="inline_control">
 										<input type="email" name="email" id="email" class="email"
-											value="" placeholder="crong@codesquad.kr" maxlength="50">
+											value="" placeholder="crong@codesquad.kr" maxlength="50" required>
 									</div>
 								</div>
 								<div class="inline_form last">
 									<label class="label" for="message">예매내용</label>
 									<div class="inline_control">
 										<p class="inline_txt selected">
-											2017.2.17, 총 <span id="totalCount">16</span>매
+											2017.2.17, 총 <span id="totalCount">0</span>매
 										</p>
 									</div>
 								</div>
@@ -260,7 +260,7 @@
 				<div class="box_bk_btn">
 					<!-- [D] 약관 전체 동의가 되면 disable 제거 -->
 					<div class="bk_btn_wrap disable">
-						<button type="button" class="bk_btn">
+						<button type="submit" class="bk_btn">
 							<i class="spr_book ico_naver_s"></i> <span>예약하기</span>
 						</button>
 					</div>

@@ -1,3 +1,5 @@
+let totalCount = 0;
+
 const replaceBookingTicketTemplate = (productPrice) => {
 	return `						<div class="qty">
 	<div class="count_control" data-price="${productPrice.price}">
@@ -46,6 +48,9 @@ function addAmountButtonEventListener() {
 				button.classList.add("disabled");
 				amountBox.querySelector('.count_control_input').classList.add("disabled");
 			}
+
+			totalCount--;
+			document.querySelector('#totalCount').innerText=totalCount;
 		})
 	})
 
@@ -70,6 +75,9 @@ function addAmountButtonEventListener() {
 			if (amount + 1 >= 99) {
 				button.classList.add("disabled");
 			}
+
+			totalCount++;
+			document.querySelector('#totalCount').innerText=totalCount;
 		})
 	})
 }
