@@ -42,7 +42,7 @@
 				<div class="group_visual">
 					<div class="container_visual" style="width: 414px;">
 						<ul class="visual_img">
-							<li class="item" style="width: 414px;"><img alt=""
+							<li class="item" id="displayImage" style="width: 414px;"><img alt=""
 								class="img_thumb"
 								src="https://ssl.phinf.net/naverbooking/20170217_264/1487312141947lTddT_JPEG/%B3%D7%C0%CC%B9%F6.jpg?type=ff1242_816">
 								<span class="img_bg"></span>

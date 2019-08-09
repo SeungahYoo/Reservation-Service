@@ -3,29 +3,26 @@ package com.nts.reservation.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dto.DisplayInfo;
-import com.nts.reservation.dto.Product;
 import com.nts.reservation.mapper.DisplayInfoMapper;
 import com.nts.reservation.mapper.ProductMapper;
-import com.nts.reservation.service.DisplayInfoService;
+import com.nts.reservation.service.ReserveService;
 
 @Service
-public class DisplayInfoServiceImpl implements DisplayInfoService {
+public class ReserveServiceImpl implements ReserveService {
 	private final DisplayInfoMapper displayInfoMapper;
 	private final ProductMapper productMapper;
 
-	@Autowired
-	public DisplayInfoServiceImpl(DisplayInfoMapper displayInfoMapper, ProductMapper productMapper) {
+	public ReserveServiceImpl(DisplayInfoMapper displayInfoMapper, ProductMapper productMapper) {
 		this.displayInfoMapper = displayInfoMapper;
 		this.productMapper = productMapper;
 	}
 
 	@Override
-	public Map<String, Object> getDisplayInfoByID(int displayInfoId, boolean isDetail) {
+	public Map<String, Object> getReserveInfo(int displayInfoId) {
 		DisplayInfo displayInfo = displayInfoMapper.selectDisplayInfo(displayInfoId);
 		if (displayInfo == null) {
 			throw new DataRetrievalFailureException(
@@ -35,16 +32,9 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 		Map<String, Object> displayMap = new HashMap<>();
 		displayMap.put("displayInfo", displayInfo);
-		System.out.println(displayInfo);
-		displayMap.put("displayInfoImage", displayInfoMapper.selectDisplayInfoImage(displayInfoId));
 		displayMap.put("productImages", productMapper.selectProductImages(productId));
 		displayMap.put("productPrices", productMapper.selectProductPrices(productId));
-		displayMap.put("comments", productMapper.selectComments(productId, isDetail));
 
-		Product product = productMapper.selectProduct(productId);
-		displayMap.put("productScoreAverage", product.getProductScoreAverageView());
-		displayMap.put("commentsCount", product.getCommentsCount());
 		return displayMap;
 	}
-
 }
