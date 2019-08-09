@@ -2,6 +2,8 @@ package com.nts.reservation.dto;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ProductPrice {
 	private LocalDateTime createDate;
 	private int discountRate;
@@ -45,6 +47,33 @@ public class ProductPrice {
 
 	public String getPriceTypeName() {
 		return priceTypeName;
+	}
+
+	@JsonProperty("priceTypeName")
+	public String getPriceTypeNameView() {
+		switch (priceTypeName) {
+			case "A":
+				return "성인";
+			case "Y":
+				return "청소년";
+			case "B":
+				return "유아";
+			case "S":
+				return "셋트";
+			case "D":
+				return "장애인";
+			case "C":
+				return "지역주민";
+			case "E":
+				return "얼리버드";
+			case "V":
+				return "VIP";
+			case "R":
+				return "R석";
+			default:
+				return "";
+		}
+
 	}
 
 	public void setPriceTypeName(String priceTypeName) {
