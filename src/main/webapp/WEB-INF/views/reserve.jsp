@@ -157,6 +157,7 @@
 						</div>
 					</div>
 				</div>
+				<form action="/reservation/api/reserve" method="post">
 				<div class="section_booking_form">
 					<div class="booking_form_wrap">
 						<div class="form_wrap">
@@ -164,13 +165,13 @@
 							<div class="agreement_nessasary help_txt">
 								<span class="spr_book ico_nessasary"></span> <span>필수입력</span>
 							</div>
-							<form class="form_horizontal" action="/reservation/reserve" method="post">
+							<div class="form_horizontal">
 								<div class="inline_form">
 									<label class="label" for="name"> <span
 										class="spr_book ico_nessasary">필수</span> <span>예매자</span>
 									</label>
 									<div class="inline_control">
-										<input type="text" name="name" id="name" class="text"
+										<input type="text" name="reservationName" id="name" class="text"
 											placeholder="네이버" maxlength="17" required>
 									</div>
 								</div>
@@ -179,7 +180,7 @@
 										class="spr_book ico_nessasary">필수</span> <span>연락처</span>
 									</label>
 									<div class="inline_control tel_wrap">
-										<input type="tel" name="tel" id="tel" class="tel" value=""
+										<input type="tel" name="reservationTelephone" id="tel" class="tel" value=""
 											placeholder="휴대폰 입력 시 예매내역 문자발송" required">
 										<div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
 									</div>
@@ -189,7 +190,7 @@
 										class="spr_book ico_nessasary">필수</span> <span>이메일</span>
 									</label>
 									<div class="inline_control">
-										<input type="email" name="email" id="email" class="email"
+										<input type="email" name="reservationEmail" id="email" class="email"
 											value="" placeholder="crong@codesquad.kr" maxlength="50" required>
 									</div>
 								</div>
@@ -201,7 +202,7 @@
 										</p>
 									</div>
 								</div>
-							</form>
+							</div>
 						</div>
 					</div>
 					<div class="section_booking_agreement">
@@ -265,6 +266,7 @@
 						</button>
 					</div>
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>

@@ -1,13 +1,13 @@
 let totalCount = 0;
 
-const replaceBookingTicketTemplate = (productPrice) => {
+const replaceBookingTicketTemplate = (productPrice, priceIndex) => {
 	return `						<div class="qty">
 	<div class="count_control" data-price="${productPrice.price}">
 		<div class="clearfix">
 			<a 
 				class="btn_plus_minus spr_book2 ico_minus3 disabled"
 				title="빼기"> </a> <input type="tel"
-				class="count_control_input disabled" value="0" readonly
+				class="count_control_input disabled" name="prices[${priceIndex}].count" value="0" readonly
 				title="수량"> <a 
 				class="btn_plus_minus spr_book2 ico_plus3" title="더하기"> </a>
 		</div>
@@ -50,7 +50,7 @@ function addAmountButtonEventListener() {
 			}
 
 			totalCount--;
-			document.querySelector('#totalCount').innerText=totalCount;
+			document.querySelector('#totalCount').innerText = totalCount;
 		})
 	})
 
@@ -77,7 +77,7 @@ function addAmountButtonEventListener() {
 			}
 
 			totalCount++;
-			document.querySelector('#totalCount').innerText=totalCount;
+			document.querySelector('#totalCount').innerText = totalCount;
 		})
 	})
 }
@@ -88,8 +88,8 @@ const createBookingTicketTemplate = (productPrices) => {
 
 	let resultHTML = "";
 
-	productPrices.forEach(productPrice => {
-		resultHTML += replaceBookingTicketTemplate(productPrice);
+	productPrices.forEach((productPrice, index, productPrices) => {
+		resultHTML += replaceBookingTicketTemplate(productPrice, index);
 	});
 
 	ticketBody.innerHTML = resultHTML;
