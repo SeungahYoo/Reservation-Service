@@ -5,20 +5,35 @@
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
 			reservation_info
-			(product_id, display_info_id, reservation_name, reservation_tel,
-			reservation_email, reservation_date,
-			create_date, modify_date )
+			(product_id, 
+			display_info_id, 
+			reservation_name, 
+			reservation_tel,
+			reservation_email, 
+			reservation_date,
+			create_date, 
+			modify_date )
 		VALUES
-			(#{productId}, #{displayInfoId}, #{reservationName}, #{reservationTelephone},
-			#{reservationEmail},now(), now(), now());
+			(#{productId}, 
+			#{displayInfoId}, 
+			#{reservationName}, 
+			#{reservationTelephone},
+			#{reservationEmail},
+			now(), 
+			now(), 
+			now());
 	</insert>
 
 	<insert id="insertReservationInfoPrice"
 		parameterType="com.nts.reservation.dto.Price">
 		INSERT INTO 
 			reservation_info_price 
-			(reservation_info_id,product_price_id, count) 
+			(reservation_info_id,
+			product_price_id, 
+			count) 
 		VALUES 
-			(#{reservationInfoId}, #{productPriceId}, #{count});
+			(#{reservationInfoId}, 
+			#{productPriceId}, 
+			#{count});
 	</insert>
 </mapper>
