@@ -109,6 +109,33 @@ function addAmountButtonEventListener() {
 	})
 }
 
+function addAgreementButtonEventListener() {
+	let buttonAgreements = document.querySelectorAll('.btn_agreement')
+
+	buttonAgreements.forEach(button => {
+		button.addEventListener("click", function (click) {
+			if (button.closest(".agreement").classList.contains("open")) {
+				button.closest(".agreement").classList.remove("open");
+				button.querySelector(".btn_text").innerText = "열기";
+			} else {
+				button.closest(".agreement").classList.add("open");
+				button.querySelector(".btn_text").innerText = "접기";
+			}
+		})
+	})
+
+	document.querySelector('.label.chk_txt_label').addEventListener("click", function (click) {
+		if (document.querySelector('#chk3').checked) {
+			document.querySelector('.bk_btn_wrap').classList.add("disable");
+			//document.querySelector('button.bk_btn').setAttribute("disabled", true);
+		} else {
+			document.querySelector('.bk_btn_wrap').classList.remove("disable");
+			//document.querySelector('button.bk_btn').setAttribute("disabled", false);
+		}
+	})
+
+}
+
 const createBookingTicketTemplate = (productPrices, displayInfo) => {
 	let ticketBody = document.createElement("div");
 	ticketBody.classList.add("ticket_body");
@@ -152,6 +179,8 @@ const loadDisplayInfo = () => {
 			document.querySelector('.store_details').innerHTML = replaceStoreDetailsTemplate(productDetail.displayInfo, productDetail.productPrices);
 
 			createBookingTicketTemplate(productDetail.productPrices, productDetail.displayInfo);
+
+			addAgreementButtonEventListener();
 		}
 	}
 
