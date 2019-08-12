@@ -35,7 +35,6 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 		Map<String, Object> displayMap = new HashMap<>();
 		displayMap.put("displayInfo", displayInfo);
-		System.out.println(displayInfo);
 		displayMap.put("displayInfoImage", displayInfoMapper.selectDisplayInfoImage(displayInfoId));
 		displayMap.put("productImages", productMapper.selectProductImages(productId));
 		displayMap.put("productPrices", productMapper.selectProductPrices(productId));
