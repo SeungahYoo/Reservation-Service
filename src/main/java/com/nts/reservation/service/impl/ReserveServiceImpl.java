@@ -7,6 +7,7 @@ import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dto.DisplayInfo;
+import com.nts.reservation.dto.Price;
 import com.nts.reservation.dto.ReservationParam;
 import com.nts.reservation.mapper.DisplayInfoMapper;
 import com.nts.reservation.mapper.ProductMapper;
@@ -46,6 +47,11 @@ public class ReserveServiceImpl implements ReserveService {
 	@Override
 	public void saveReserveInfo(ReservationParam reservationParam) {
 		reserveMapper.insertReserveInfo(reservationParam);
+		int reservationInfoId = reservationParam.getId();
+		for (Price price : reservationParam.getPrices()) {
+			price.setReservationInfoId(reservationInfoId);
+			reserveMapper.insertReservationInfoPrice(price);
+		}
 	}
 
 }

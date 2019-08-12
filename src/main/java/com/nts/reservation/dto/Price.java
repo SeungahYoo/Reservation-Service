@@ -1,6 +1,6 @@
 package com.nts.reservation.dto;
 
-public class price {
+public class Price {
 	private int count;
 	private int productPriceId;
 	private int reservationInfoId;
