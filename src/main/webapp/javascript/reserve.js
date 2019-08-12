@@ -21,7 +21,32 @@ const replaceBookingTicketTemplate = (productPrice, priceIndex) => {
 			<span class="price_type">원</span>
 		</strong> <em class="product_dsc">${productPrice.price}원 (${productPrice.discountRate}% 할인가)</em>
 	</div>
-</div>`;
+</div>
+<input type="hidden" name="prices[${priceIndex}].productPriceId" value="${productPrice.productPriceId}"/>
+`;
+}
+
+const replaceStoreDetailsTemplate = (displayInfo, productPrices) => {
+	let priceTemplate = "";
+
+	productPrices.forEach(productPrice => {
+		priceTemplate += `${productPrice.priceTypeName} ${productPrice.price}원 /<br>`;
+	});
+
+	return `
+	<h3 class="in_tit">장소</h3>
+	<p class="dsc">
+		${displayInfo.placeStreet}
+	</p>
+	<h3 class="in_tit">관람시간</h3>
+	<p class="dsc">
+		${displayInfo.openingHours}
+	</p>
+	<h3 class="in_tit">요금</h3>
+	<p class="dsc">
+	${priceTemplate}
+	</p>
+	`;
 }
 
 function addAmountButtonEventListener() {
@@ -47,6 +72,7 @@ function addAmountButtonEventListener() {
 			if (amount - 1 <= 0) {
 				button.classList.add("disabled");
 				amountBox.querySelector('.count_control_input').classList.add("disabled");
+				amountBox.querySelector('.individual_price').classList.remove("on_color");
 			}
 
 			totalCount--;
@@ -66,6 +92,7 @@ function addAmountButtonEventListener() {
 			if (amountBox.querySelector('.btn_plus_minus.ico_minus3').classList.contains("disabled")) {
 				amountBox.querySelector('.btn_plus_minus.ico_minus3').classList.remove("disabled");
 				amountBox.querySelector('.count_control_input').classList.remove("disabled");
+				amountBox.querySelector('.individual_price').classList.add("on_color");
 			}
 
 			const price = amountBox.dataset.price;
@@ -82,7 +109,7 @@ function addAmountButtonEventListener() {
 	})
 }
 
-const createBookingTicketTemplate = (productPrices) => {
+const createBookingTicketTemplate = (productPrices, displayInfo) => {
 	let ticketBody = document.createElement("div");
 	ticketBody.classList.add("ticket_body");
 
@@ -92,12 +119,16 @@ const createBookingTicketTemplate = (productPrices) => {
 		resultHTML += replaceBookingTicketTemplate(productPrice, index);
 	});
 
+	resultHTML += `	<input type="hidden" name="displayInfoId" value="${displayInfo.displayInfoId}"/>
+	<input type="hidden" name="productId" value="${displayInfo.productId}"/>`
 	ticketBody.innerHTML = resultHTML;
 	let containerTicketBody = document.querySelector(".section_booking_ticket");
 	containerTicketBody.replaceChild(ticketBody, document.querySelector(".ticket_body"));
 
 	addAmountButtonEventListener();
 }
+
+
 
 const loadDisplayInfo = () => {
 	let xmlHttpRequest = new XMLHttpRequest();
@@ -117,11 +148,10 @@ const loadDisplayInfo = () => {
 			displayImage.style.position = "relative";
 			displayImage.style.left = "0px";
 			displayImage.querySelector('.img_thumb').src = `http://127.0.0.1:8080/reservation/${productDetail.productImages[0].saveFileName}`;
-			displayImage.querySelector('.preview_txt_tit').innerText = productDetail.displayInfo.productDescription;;
-			// displayImage.querySelector('preview_txt_dsc')
-			// displayImage.querySelector('preview_txt_dsc')
+			displayImage.querySelector('.preview_txt_tit').innerText = productDetail.displayInfo.productDescription;
+			document.querySelector('.store_details').innerHTML = replaceStoreDetailsTemplate(productDetail.displayInfo, productDetail.productPrices);
 
-			createBookingTicketTemplate(productDetail.productPrices);
+			createBookingTicketTemplate(productDetail.productPrices, productDetail.displayInfo);
 		}
 	}
 

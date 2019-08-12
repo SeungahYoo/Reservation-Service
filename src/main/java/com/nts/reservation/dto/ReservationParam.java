@@ -2,12 +2,10 @@ package com.nts.reservation.dto;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
-@Repository
 public class ReservationParam {
+	private int id;
 	private int displayInfoId;
-	private List<price> prices;
+	private List<Price> prices;
 	private int productId;
 	private String reservationEmail;
 	private String reservationName;
@@ -18,15 +16,23 @@ public class ReservationParam {
 		return displayInfoId;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public void setDisplayInfoId(int displayInfoId) {
 		this.displayInfoId = displayInfoId;
 	}
 
-	public List<price> getPrices() {
+	public List<Price> getPrices() {
 		return prices;
 	}
 
-	public void setPrices(List<price> prices) {
+	public void setPrices(List<Price> prices) {
 		this.prices = prices;
 	}
 
@@ -72,8 +78,8 @@ public class ReservationParam {
 
 	@Override
 	public String toString() {
-		return "reservationParam [displayInfoId=" + displayInfoId + ", prices=" + prices + ", productId=" + productId
-			+ ", reservationEmail=" + reservationEmail + ", reservationName=" + reservationName
+		return "ReservationParam [id=" + id + ", displayInfoId=" + displayInfoId + ", prices=" + prices + ", productId="
+			+ productId + ", reservationEmail=" + reservationEmail + ", reservationName=" + reservationName
 			+ ", reservationTelephone=" + reservationTelephone + ", reservationYearMonthDay=" + reservationYearMonthDay
 			+ "]";
 	}
