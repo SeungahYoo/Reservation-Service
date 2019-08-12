@@ -111,8 +111,14 @@ function addAmountButtonEventListener() {
 	})
 }
 
-function addAgreementButtonEventListener() {
+function addButtonEventListener() {
 	let buttonAgreements = document.querySelectorAll('.btn_agreement')
+	document.querySelector('#chk3').checked = false;
+	document.querySelector('button.bk_btn').disabled = true;
+
+	if (!document.querySelector('.bk_btn_wrap').classList.contains("disable")) {
+		document.querySelector('.bk_btn_wrap').classList.add("disable");
+	}
 
 	buttonAgreements.forEach(button => {
 		button.addEventListener("click", function (click) {
@@ -126,13 +132,20 @@ function addAgreementButtonEventListener() {
 		})
 	})
 
-	document.querySelector('.label.chk_txt_label').addEventListener("click", function (click) {
+	document.querySelector('.label.chk_txt_label').addEventListener('click', function (click) {
 		if (document.querySelector('#chk3').checked) {
 			document.querySelector('.bk_btn_wrap').classList.add("disable");
-			//document.querySelector('button.bk_btn').setAttribute("disabled", true);
+			document.querySelector('button.bk_btn').disabled = true;
 		} else {
 			document.querySelector('.bk_btn_wrap').classList.remove("disable");
-			//document.querySelector('button.bk_btn').setAttribute("disabled", false);
+			document.querySelector('button.bk_btn').disabled = false;
+		}
+	})
+
+	document.querySelector('.bk_btn').addEventListener('click', function (click) {
+		if(Number(document.querySelector('#totalCount').innerText) <= 0){
+			alert('티켓을 선택해주세요');
+			return;
 		}
 	})
 
@@ -157,8 +170,6 @@ const createBookingTicketTemplate = (productPrices, displayInfo) => {
 	addAmountButtonEventListener();
 }
 
-
-
 const loadDisplayInfo = () => {
 	let xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.onreadystatechange = () => {
@@ -172,17 +183,15 @@ const loadDisplayInfo = () => {
 			console.log(productDetail);
 
 			document.querySelector('#productDescription').innerText = productDetail.displayInfo.productDescription;
-
 			const displayImage = document.querySelector('#displayImage');
 			displayImage.style.position = "relative";
 			displayImage.style.left = "0px";
 			displayImage.querySelector('.img_thumb').src = `http://127.0.0.1:8080/reservation/${productDetail.productImages[0].saveFileName}`;
 			displayImage.querySelector('.preview_txt_tit').innerText = productDetail.displayInfo.productDescription;
 			document.querySelector('.store_details').innerHTML = replaceStoreDetailsTemplate(productDetail.displayInfo, productDetail.productPrices);
-
 			createBookingTicketTemplate(productDetail.productPrices, productDetail.displayInfo);
 
-			addAgreementButtonEventListener();
+			addButtonEventListener();
 		}
 	}
 
