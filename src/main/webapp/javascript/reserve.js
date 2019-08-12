@@ -66,10 +66,11 @@ function addAmountButtonEventListener() {
 				amountBox.querySelector('.btn_plus_minus.ico_plus3').classList.remove("disabled");
 			}
 
+			amount -= 1;
 			const price = amountBox.dataset.price;
-			amountBox.querySelector('.count_control_input').value = amount - 1;
-			amountBox.querySelector('.total_price').innerText = price * (amount - 1);
-			if (amount - 1 <= 0) {
+			amountBox.querySelector('.count_control_input').value = amount;
+			amountBox.querySelector('.total_price').innerText = price * (amount);
+			if (amount <= 0) {
 				button.classList.add("disabled");
 				amountBox.querySelector('.count_control_input').classList.add("disabled");
 				amountBox.querySelector('.individual_price').classList.remove("on_color");
@@ -95,11 +96,12 @@ function addAmountButtonEventListener() {
 				amountBox.querySelector('.individual_price').classList.add("on_color");
 			}
 
+			amount += 1;
 			const price = amountBox.dataset.price;
-			amountBox.querySelector('.count_control_input').value = amount + 1;
-			amountBox.querySelector('.total_price').innerText = price * (amount + 1);
+			amountBox.querySelector('.count_control_input').value = amount;
+			amountBox.querySelector('.total_price').innerText = price * (amount);
 
-			if (amount + 1 >= 99) {
+			if (amount >= 99) {
 				button.classList.add("disabled");
 			}
 
