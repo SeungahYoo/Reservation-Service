@@ -198,8 +198,8 @@
 										</label>
 										<div class="inline_control">
 											<input type="email" name="reservationEmail" id="email"
-												class="email" value="" pattern="^[a-zA-Z0-9]+@[a-zA-Z0-9]+$" placeholder="crong@codesquad.kr"
-												maxlength="50" pattern="" required>
+												class="email" value="" placeholder="crong@codesquad.kr"
+												maxlength="50" required>
 										</div>
 									</div>
 									<div class="inline_form last">
