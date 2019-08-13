@@ -1,8 +1,12 @@
 package com.nts.reservation.service.impl;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
@@ -50,9 +54,13 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	@Transactional
 	public void saveReserveInfo(ReservationParam reservationParam) {
+		LocalDate nowDate = LocalDate.now();
+//		long randomEpochDay = ThreadLocalRandom.current().longs(nowDate.toEpochDay(),nowDate.plusDays(5).toEpochDay()).findAny().getAsLong();
+//		
+//		reservationParam.setReservationDate(LocalDate.ofEpochDay(randomEpochDay));
+
 		reservationMapper.insertReserveInfo(reservationParam);
 		int reservationInfoId = reservationParam.getId();
-		System.out.println("reservationInfoId: " + reservationInfoId);
 		List<Price> reservationPrices = reservationParam.getPrices();
 		for (Price price : reservationParam.getPrices()) {
 			price.setReservationInfoId(reservationInfoId);
