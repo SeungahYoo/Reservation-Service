@@ -186,7 +186,7 @@ const loadDisplayInfo = () => {
 			const displayImage = document.querySelector('#displayImage');
 			displayImage.style.position = "relative";
 			displayImage.style.left = "0px";
-			displayImage.querySelector('.img_thumb').src = `http://127.0.0.1:8080/reservation/${productDetail.productImages[0].saveFileName}`;
+			displayImage.querySelector('.img_thumb').src = `${productDetail.productImages[0].saveFileName}`;
 			displayImage.querySelector('.preview_txt_tit').innerText = productDetail.displayInfo.productDescription;
 			document.querySelector('.store_details').innerHTML = replaceStoreDetailsTemplate(productDetail.displayInfo, productDetail.productPrices);
 			createBookingTicketTemplate(productDetail.productPrices, productDetail.displayInfo);

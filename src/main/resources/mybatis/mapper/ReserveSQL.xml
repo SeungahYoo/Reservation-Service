@@ -24,16 +24,23 @@
 			now());
 	</insert>
 
-	<insert id="insertReservationInfoPrice"
+	<insert id="insertReservationInfoPrices"
 		parameterType="com.nts.reservation.dto.Price">
 		INSERT INTO 
 			reservation_info_price 
-			(reservation_info_id,
-			product_price_id, 
-			count) 
+				(reservation_info_id,
+				product_price_id, 
+				count) 
 		VALUES 
-			(#{reservationInfoId}, 
-			#{productPriceId}, 
-			#{count});
+			<foreach
+				collection = "reservationPrices"
+				item = "reservationPrice"
+				separator = ",">
+					(
+						#{reservationPrice.reservationInfoId}, 
+						#{reservationPrice.productPriceId}, 
+						#{reservationPrice.count}
+					)
+			</foreach>
 	</insert>
 </mapper>
