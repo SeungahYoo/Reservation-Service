@@ -19,7 +19,7 @@
 			#{reservationName}, 
 			#{reservationTelephone},
 			#{reservationEmail},
-			now(), 
+			#{reservationDate}, 
 			now(), 
 			now());
 	</insert>
@@ -70,7 +70,7 @@
 		WHERE 
 			reservation_email = #{reservationEmail}
 		GROUP BY
-			displayInfoId;
+			reservation_info.id;
 	</select>
 	
 	<resultMap type="com.nts.reservation.dto.Reservation" id="ReservationsResult">

@@ -10,7 +10,7 @@ public class ReservationParam {
 	private String reservationEmail;
 	private String reservationName;
 	private String reservationTelephone;
-	private String reservationYearMonthDay;
+	private String reservationDate;
 
 	public int getDisplayInfoId() {
 		return displayInfoId;
@@ -68,20 +68,20 @@ public class ReservationParam {
 		this.reservationTelephone = reservationTelephone;
 	}
 
-	public String getReservationYearMonthDay() {
-		return reservationYearMonthDay;
+	public String getReservationDate() {
+		return reservationDate;
 	}
 
-	public void setReservationYearMonthDay(String reservationYearMonthDay) {
-		this.reservationYearMonthDay = reservationYearMonthDay;
+	public void setReservationDate(String reservationDate) {
+		this.reservationDate = reservationDate;
 	}
 
 	@Override
 	public String toString() {
 		return "ReservationParam [id=" + id + ", displayInfoId=" + displayInfoId + ", prices=" + prices + ", productId="
-			+ productId + ", reservationEmail=" + reservationEmail + ", reservationName=" + reservationName
-			+ ", reservationTelephone=" + reservationTelephone + ", reservationYearMonthDay=" + reservationYearMonthDay
-			+ "]";
+				+ productId + ", reservationEmail=" + reservationEmail + ", reservationName=" + reservationName
+				+ ", reservationTelephone=" + reservationTelephone + ", reservationDate=" + reservationDate + "]";
 	}
 
+	
 }
