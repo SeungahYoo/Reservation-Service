@@ -34,7 +34,7 @@ const slidePrevious = (nowImage) => {
 
 const replaceProductImageTemplate = (productDescription, productImageUrl) => {
 	return (`<li class="item" style="width: 414px;">
-	<img class="img_thumb" alt="${productDescription}" src="http://127.0.0.1:8080/reservation/${productImageUrl}"> <span class="img_bg"></span>
+	<img class="img_thumb" alt="${productDescription}" src="${productImageUrl}"> <span class="img_bg"></span>
 	<div class="visual_txt">
 		<div class="visual_txt_inn">
 			<h2 class="visual_txt_tit">
@@ -145,7 +145,7 @@ const setInfoTab = (displayInfo, displayInfoImage) => {
 	document.querySelector('.detail_info_lst .in_dsc').innerHTML = displayInfo.productContent;
 
 	//오시는길
-	document.querySelector('.store_map').src = `http://127.0.0.1:8080/reservation/${displayInfoImage.saveFileName}`;
+	document.querySelector('.store_map').src = `${displayInfoImage.saveFileName}`;
 	document.querySelector('.store_name').innerHTML = displayInfo.placeName;
 	document.querySelector('.store_addr_bold').innerHTML = displayInfo.placeStreet;
 	document.querySelector('.addr_old_detail').innerHTML = displayInfo.placeLot;

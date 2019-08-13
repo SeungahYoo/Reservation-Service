@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class ReservationController {
+public class MainController {
 	@GetMapping("mainpage")
-	public String mainpage() {
+	public String mainpage(@CookieValue(value = "email", required = false) String email) {
 		return "mainpage";
 	}
 
@@ -31,22 +31,39 @@ public class ReservationController {
 	}
 
 	@GetMapping("reserve")
-	public String reserve(@RequestParam(value = "id") int displayInfoId) {
+	public String reserve(@RequestParam(value = "id") int displayInfoId,
+		@CookieValue(value = "email", required = false) String email) {
 		return "reserve";
 	}
 
 	@GetMapping("my-reservation")
-	public String myReservation(@CookieValue(value = "email", required = false) String email, HttpServletResponse response) {
-		if(email == null) {
-			return "bookinglogin";
-		}
-		
+	public String myReservation(@CookieValue(value = "email", required = false) String email) {
+		//쿠키값 넘기기
+		System.out.println("myReservation cookieEmail : " + email);
 		return "myreservation";
 	}
-	
+
+	@GetMapping("user-check")
+	public String userCheck(@CookieValue(value = "email", required = false) String email) {
+		if (email == null) {
+			return "redirect:booking-login";
+		} else {
+			return "redirect:my-reservation";
+		}
+	}
+
 	@GetMapping("booking-login")
-	public String bookinglogin() {
+	public String bookingLogin() {
 		return "bookinglogin";
+	}
+
+	@PostMapping("booking-login")
+	public String loginProcess(HttpServletRequest request, HttpServletResponse response) {
+		String email = request.getParameter("resrv_email");
+		System.out.println("loginProcess, " + email);
+		response.addCookie(new Cookie("email", email));
+
+		return "redirect:user-check";
 	}
 
 }
