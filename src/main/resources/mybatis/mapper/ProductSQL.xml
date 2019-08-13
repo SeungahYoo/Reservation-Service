@@ -152,8 +152,8 @@
 	</select>
 
 	<resultMap id="commentsResult" type="com.nts.reservation.dto.Comment">
+		<id property="commentId" column="commentId"/>
 		<result property="comment" column="comment"/>
-		<result property="commentId" column="commentId"/>
 		<result property="createDate" column="createDate"/>
 		<result property="modifyDate" column="modifyDate"/>
 		<result property="productId" column="productId"/>
