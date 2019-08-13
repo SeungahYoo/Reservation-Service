@@ -68,7 +68,9 @@
 		ON 
 			product_price.id = reservationPrice.product_price_id
 		WHERE 
-			reservation_email = #{reservationEmail};
+			reservation_email = #{reservationEmail}
+		GROUP BY
+			displayInfoId;
 	</select>
 	
 	<resultMap type="com.nts.reservation.dto.Reservation" id="ReservationsResult">
