@@ -1,10 +1,12 @@
 package com.nts.reservation.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dto.DisplayInfo;
 import com.nts.reservation.dto.Price;
@@ -45,13 +47,19 @@ public class ReserveServiceImpl implements ReserveService {
 	}
 
 	@Override
+	@Transactional
 	public void saveReserveInfo(ReservationParam reservationParam) {
 		reserveMapper.insertReserveInfo(reservationParam);
 		int reservationInfoId = reservationParam.getId();
+		System.out.println("reservationInfoId: " + reservationInfoId);
+		List<Price> reservationPrices = reservationParam.getPrices();
 		for (Price price : reservationParam.getPrices()) {
 			price.setReservationInfoId(reservationInfoId);
-			reserveMapper.insertReservationInfoPrice(price);
 		}
+		System.out.println(reservationPrices);
+
+		reserveMapper.insertReservationInfoPrices(reservationPrices);
+
 	}
 
 }
