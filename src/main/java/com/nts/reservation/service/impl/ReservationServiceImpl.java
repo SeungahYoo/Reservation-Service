@@ -10,23 +10,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dto.DisplayInfo;
 import com.nts.reservation.dto.Price;
+import com.nts.reservation.dto.Reservation;
 import com.nts.reservation.dto.ReservationParam;
 import com.nts.reservation.mapper.DisplayInfoMapper;
 import com.nts.reservation.mapper.ProductMapper;
-import com.nts.reservation.mapper.ReserveMapper;
-import com.nts.reservation.service.ReserveService;
+import com.nts.reservation.mapper.ReservationMapper;
+import com.nts.reservation.service.ReservationService;
 
 @Service
-public class ReserveServiceImpl implements ReserveService {
+public class ReservationServiceImpl implements ReservationService {
 	private final DisplayInfoMapper displayInfoMapper;
 	private final ProductMapper productMapper;
-	private final ReserveMapper reserveMapper;
+	private final ReservationMapper reservationMapper;
 
-	public ReserveServiceImpl(DisplayInfoMapper displayInfoMapper, ProductMapper productMapper,
-		ReserveMapper reserveMapper) {
+	public ReservationServiceImpl(DisplayInfoMapper displayInfoMapper, ProductMapper productMapper,
+		ReservationMapper reservationMapper) {
 		this.displayInfoMapper = displayInfoMapper;
 		this.productMapper = productMapper;
-		this.reserveMapper = reserveMapper;
+		this.reservationMapper = reservationMapper;
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class ReserveServiceImpl implements ReserveService {
 	@Override
 	@Transactional
 	public void saveReserveInfo(ReservationParam reservationParam) {
-		reserveMapper.insertReserveInfo(reservationParam);
+		reservationMapper.insertReserveInfo(reservationParam);
 		int reservationInfoId = reservationParam.getId();
 		System.out.println("reservationInfoId: " + reservationInfoId);
 		List<Price> reservationPrices = reservationParam.getPrices();
@@ -58,8 +59,15 @@ public class ReserveServiceImpl implements ReserveService {
 		}
 		System.out.println(reservationPrices);
 
-		reserveMapper.insertReservationInfoPrices(reservationPrices);
+		reservationMapper.insertReserveInfoPrices(reservationPrices);
 
+	}
+
+	@Override
+	public List<Reservation> getMyReservations(String reservationEmail) {
+		System.out.println("ReservationServiceImpl email: " + reservationEmail);
+		System.out.println(reservationMapper.selectReservations(reservationEmail));
+		return reservationMapper.selectReservations(reservationEmail);
 	}
 
 }

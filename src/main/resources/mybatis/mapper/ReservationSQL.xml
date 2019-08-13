@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.reservation.mapper.ReservationMapper">
+	<insert id="insertReserveInfo" parameterType="com.nts.reservation.dto.ReservationParam"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+			reservation_info
+				(product_id, 
+				display_info_id, 
+				reservation_name, 
+				reservation_tel,
+				reservation_email, 
+				reservation_date,
+				create_date, 
+				modify_date )
+		VALUES
+			(#{productId}, 
+			#{displayInfoId}, 
+			#{reservationName}, 
+			#{reservationTelephone},
+			#{reservationEmail},
+			now(), 
+			now(), 
+			now());
+	</insert>
+
+	<insert id="insertReserveInfoPrices"
+		parameterType="com.nts.reservation.dto.Price">
+		INSERT INTO 
+			reservation_info_price 
+				(reservation_info_id,
+				product_price_id, 
+				count) 
+		VALUES 
+			<foreach
+				collection = "reservationPrices"
+				item = "reservationPrice"
+				separator = ",">
+					(
+						#{reservationPrice.reservationInfoId}, 
+						#{reservationPrice.productPriceId}, 
+						#{reservationPrice.count}
+					)
+			</foreach>
+	</insert>
+	
+	<select id="selectReservations" parameterType="String" resultMap="ReservationsResult">
+		SELECT 
+			reservation_info.cancel_flag cancelYn,
+		    reservation_info.create_date createDate,
+		    reservation_info.display_info_id displayInfoId,
+		    reservation_info.modify_date modifyDate,
+		    reservation_info.product_id productId,
+		    reservation_info.reservation_date reservationDate,
+			reservation_info.reservation_email reservationEmail,
+		    reservation_info.id reservationInfoId,
+		    reservation_info.reservation_name reservationName,
+		    reservation_info.reservation_tel reservationTelephone,
+			sum(product_price.price*(100-product_price.discount_rate)/100) totalPrice
+		FROM 
+			reservation_info
+		JOIN
+			reservation_info_price as reservationPrice
+		ON
+			reservationPrice.reservation_info_id = reservation_info.id
+		JOIN
+			product_price
+		ON 
+			product_price.id = reservationPrice.product_price_id
+		WHERE 
+			reservation_email = #{reservationEmail};
+	</select>
+	
+	<resultMap type="com.nts.reservation.dto.Reservation" id="ReservationsResult">
+		<id property="reservationInfoId" column="reservationInfoId"/>
+		<result property="cancelYn" column="cancelYn"/>
+		<result property="createDate" column="createDate"/>
+		<result property="displayInfoId" column="displayInfoId"/>
+		<result property="modifyDate" column="modifyDate"/>
+		<result property="productId" column="productId"/>
+		<result property="reservationDate" column="reservationDate"/>
+		<result property="reservationEmail" column="reservationEmail"/>
+		<result property="reservationInfoId" column="reservationInfoId"/>
+		<result property="reservationName" column="reservationName"/>
+		<result property="reservationTelephone" column="reservationTelephone"/>
+		<result property="totalPrice" column="totalPrice"/>
+		<collection property="displayInfo" column="displayInfoId" ofType="com.nts.reservation.dto.DisplayInfo" select="com.nts.reservation.mapper.DisplayInfoMapper.selectDisplayInfo"></collection>
+	</resultMap>
+</mapper>
