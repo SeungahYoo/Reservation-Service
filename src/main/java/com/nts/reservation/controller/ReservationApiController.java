@@ -1,6 +1,6 @@
 package com.nts.reservation.controller;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +34,8 @@ public class ReservationApiController {
 	}
 
 	@GetMapping("my-reservation")
-	public List<Reservation> getMyReservations(@RequestParam(name = "email") String reservationEmail) {
+	public Map<String, ArrayList<Reservation>> getMyReservations(
+		@RequestParam(name = "email") String reservationEmail) {
 		System.out.println("reservation api controller, email: " + reservationEmail);
 		return reservationService.getMyReservations(reservationEmail);
 	}
