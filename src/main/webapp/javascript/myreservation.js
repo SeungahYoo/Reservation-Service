@@ -8,7 +8,10 @@ const loadReservations = (reservationEmail) => {
 		}
 		if (xmlHttpRequest.readyState === 4) {
 			let reservations = JSON.parse(xmlHttpRequest.responseText);
-			console.log(reservations);
+			
+			reservations.array.forEach(element => {
+				
+			});
 		}
 	}
 
@@ -16,8 +19,8 @@ const loadReservations = (reservationEmail) => {
 	xmlHttpRequest.send();
 }
 
-var getCookie = function(name) {
-	var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+const getCookie = function(name) {
+	const value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
 	return value? value[2] : null;
   };
 
@@ -25,6 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	let reservationEmail = getCookie('email');
 	console.log(reservationEmail);
 
-	const MyReservations = loadReservations(reservationEmail);
-	console.log(MyReservations)
+	loadReservations(reservationEmail);
+
 });
