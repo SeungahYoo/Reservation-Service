@@ -1,6 +1,11 @@
 package com.nts.reservation.dto;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.apache.commons.lang3.ObjectUtils;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Reservation {
 	private int reservationInfoId;
@@ -70,6 +75,12 @@ public class Reservation {
 
 	public void setProductId(int productId) {
 		this.productId = productId;
+	}
+
+	@JsonProperty("reservationDate")
+	public String getReservationDateView() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.");
+		return ObjectUtils.defaultIfNull(reservationDate.format(formatter), null);
 	}
 
 	public LocalDateTime getReservationDate() {
