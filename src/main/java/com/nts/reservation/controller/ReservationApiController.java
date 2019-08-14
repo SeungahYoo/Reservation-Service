@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nts.reservation.dto.Reservation;
 import com.nts.reservation.dto.ReservationParam;
@@ -24,8 +25,9 @@ public class ReservationApiController {
 	}
 
 	@PostMapping("reserve")
-	public void saveReserveInfo(@ModelAttribute("reservationParam") ReservationParam reservationParam) {
+	public ModelAndView saveReserveInfo(@ModelAttribute("reservationParam") ReservationParam reservationParam) {
 		reservationService.saveReserveInfo(reservationParam);
+		return new ModelAndView("redirect:/user-check");
 	}
 
 	@GetMapping("reserve")

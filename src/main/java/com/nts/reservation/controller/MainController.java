@@ -59,7 +59,10 @@ public class MainController {
 	public String loginProcess(HttpServletRequest request, HttpServletResponse response) {
 		String email = request.getParameter("resrv_email");
 		System.out.println("loginProcess, " + email);
-		response.addCookie(new Cookie("email", email));
+		Cookie cookie = new Cookie("email", email);
+		cookie.setMaxAge(-1);
+		cookie.setPath("/");
+		response.addCookie(cookie);
 
 		return "redirect:user-check";
 	}
