@@ -1,7 +1,6 @@
 package com.nts.reservation.controller;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -56,9 +55,7 @@ public class MainController {
 	}
 
 	@PostMapping("booking-login")
-	public String loginProcess(HttpServletRequest request, HttpServletResponse response) {
-		String email = request.getParameter("resrv_email");
-		System.out.println("loginProcess, " + email);
+	public String loginProcess(@RequestParam("resrv_email") String email, HttpServletResponse response) {
 		Cookie cookie = new Cookie("email", email);
 		cookie.setMaxAge(-1);
 		cookie.setPath("/");
