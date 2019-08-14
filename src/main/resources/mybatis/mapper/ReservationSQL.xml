@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nts.reservation.mapper.ReservationMapper">
+	<resultMap type="com.nts.reservation.dto.Reservation" id="ReservationsResult">
+		<id property="reservationInfoId" column="reservationInfoId"/>
+		<result property="cancelYn" column="cancelYn"/>
+		<result property="createDate" column="createDate"/>
+		<result property="displayInfoId" column="displayInfoId"/>
+		<result property="modifyDate" column="modifyDate"/>
+		<result property="productId" column="productId"/>
+		<result property="reservationDate" column="reservationDate"/>
+		<result property="reservationEmail" column="reservationEmail"/>
+		<result property="reservationInfoId" column="reservationInfoId"/>
+		<result property="reservationName" column="reservationName"/>
+		<result property="reservationTelephone" column="reservationTelephone"/>
+		<result property="totalPrice" column="totalPrice"/>
+		<collection property="displayInfo" column="displayInfoId" ofType="com.nts.reservation.dto.DisplayInfo" select="com.nts.reservation.mapper.DisplayInfoMapper.selectDisplayInfo"></collection>
+	</resultMap>
 	<insert id="insertReserveInfo" parameterType="com.nts.reservation.dto.ReservationParam"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
@@ -25,7 +40,7 @@
 	</insert>
 
 	<insert id="insertReserveInfoPrices"
-		parameterType="com.nts.reservation.dto.Price">
+		parameterType="com.nts.reservation.dto.ReservationParam">
 		INSERT INTO 
 			reservation_info_price 
 				(reservation_info_id,
@@ -33,11 +48,11 @@
 				count) 
 		VALUES 
 			<foreach
-				collection = "reservationPrices"
+				collection = "reservationParam.prices"
 				item = "reservationPrice"
 				separator = ",">
 					(
-						#{reservationPrice.reservationInfoId}, 
+						#{reservationParam.id}, 
 						#{reservationPrice.productPriceId}, 
 						#{reservationPrice.count}
 					)
@@ -83,19 +98,5 @@
 			reservation_info.id;
 	</select>
 	
-	<resultMap type="com.nts.reservation.dto.Reservation" id="ReservationsResult">
-		<id property="reservationInfoId" column="reservationInfoId"/>
-		<result property="cancelYn" column="cancelYn"/>
-		<result property="createDate" column="createDate"/>
-		<result property="displayInfoId" column="displayInfoId"/>
-		<result property="modifyDate" column="modifyDate"/>
-		<result property="productId" column="productId"/>
-		<result property="reservationDate" column="reservationDate"/>
-		<result property="reservationEmail" column="reservationEmail"/>
-		<result property="reservationInfoId" column="reservationInfoId"/>
-		<result property="reservationName" column="reservationName"/>
-		<result property="reservationTelephone" column="reservationTelephone"/>
-		<result property="totalPrice" column="totalPrice"/>
-		<collection property="displayInfo" column="displayInfoId" ofType="com.nts.reservation.dto.DisplayInfo" select="com.nts.reservation.mapper.DisplayInfoMapper.selectDisplayInfo"></collection>
-	</resultMap>
+
 </mapper>

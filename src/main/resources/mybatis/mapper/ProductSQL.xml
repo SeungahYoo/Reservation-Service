@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nts.reservation.mapper.ProductMapper" >
+	
+	<resultMap id="commentsResult" type="com.nts.reservation.dto.Comment">
+		<id property="commentId" column="commentId"/>
+		<result property="comment" column="comment"/>
+		<result property="createDate" column="createDate"/>
+		<result property="modifyDate" column="modifyDate"/>
+		<result property="productId" column="productId"/>
+		<result property="reservationDate" column="reservationDate"/>
+		<result property="reservationEmail" column="reservationEmail"/>
+		<result property="reservationInfoId" column="reservationInfoId"/>
+		<result property="reservationName" column="reservationName"/>
+		<result property="reservationTelephone" column="resrvationTelephone"/>
+		<result property="score" column="score"/>
+		<collection property="commentImages" column="commentId" javaType="java.util.ArrayList" ofType="com.nts.reservation.dto.CommentImage" select="selectCommentImages"/>
+	</resultMap>
+	
 	<select id="selectProducts" parameterType="map" resultType="com.nts.reservation.dto.Product">
 		SELECT 
 			display_info.id displayInfoId,
@@ -150,20 +166,5 @@
 		WHERE
 			commentImage.reservation_user_comment_id = #{commentId}
 	</select>
-
-	<resultMap id="commentsResult" type="com.nts.reservation.dto.Comment">
-		<id property="commentId" column="commentId"/>
-		<result property="comment" column="comment"/>
-		<result property="createDate" column="createDate"/>
-		<result property="modifyDate" column="modifyDate"/>
-		<result property="productId" column="productId"/>
-		<result property="reservationDate" column="reservationDate"/>
-		<result property="reservationEmail" column="reservationEmail"/>
-		<result property="reservationInfoId" column="reservationInfoId"/>
-		<result property="reservationName" column="reservationName"/>
-		<result property="reservationTelephone" column="resrvationTelephone"/>
-		<result property="score" column="score"/>
-		<collection property="commentImages" column="commentId" javaType="java.util.ArrayList" ofType="com.nts.reservation.dto.CommentImage" select="selectCommentImages"/>
-	</resultMap>
-
+	
 </mapper>

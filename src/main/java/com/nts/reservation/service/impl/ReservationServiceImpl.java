@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dto.DisplayInfo;
-import com.nts.reservation.dto.Price;
 import com.nts.reservation.dto.Reservation;
 import com.nts.reservation.dto.ReservationParam;
 import com.nts.reservation.mapper.DisplayInfoMapper;
@@ -55,6 +54,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Transactional
 	public void saveReserveInfo(ReservationParam reservationParam) {
 		LocalDate nowDate = LocalDate.now();
+
 		long randomEpochDay = ThreadLocalRandom.current()
 			.longs(nowDate.toEpochDay(), nowDate.plusDays(5).toEpochDay())
 			.findAny().getAsLong();
@@ -62,15 +62,7 @@ public class ReservationServiceImpl implements ReservationService {
 		reservationParam.setReservationDate(LocalDate.ofEpochDay(randomEpochDay));
 
 		reservationMapper.insertReserveInfo(reservationParam);
-		int reservationInfoId = reservationParam.getId();
-		List<Price> reservationPrices = reservationParam.getPrices();
-		for (Price price : reservationParam.getPrices()) {
-			price.setReservationInfoId(reservationInfoId);
-		}
-		System.out.println(reservationPrices);
-
-		reservationMapper.insertReserveInfoPrices(reservationPrices);
-
+		reservationMapper.insertReserveInfoPrices(reservationParam);
 	}
 
 	@Override
@@ -84,13 +76,13 @@ public class ReservationServiceImpl implements ReservationService {
 		for (Reservation reservation : myReservations) {
 			if (reservation.isCancelYn()) {
 				canceledReservations.add(reservation);
-				continue;
+			} else {
+				if (reservation.getReservationDate().isBefore(LocalDateTime.now())) {
+					usedReservations.add(reservation);
+				} else {
+					confirmedReservations.add(reservation);
+				}
 			}
-			if (reservation.getReservationDate().isBefore(LocalDateTime.now())) {
-				usedReservations.add(reservation);
-				continue;
-			}
-			confirmedReservations.add(reservation);
 		}
 
 		Map<String, ArrayList<Reservation>> reservationsMap = new HashMap<>();
