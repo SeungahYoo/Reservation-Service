@@ -1,6 +1,6 @@
 package com.nts.reservation.service;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.nts.reservation.dto.Reservation;
@@ -11,5 +11,5 @@ public interface ReservationService {
 
 	public void saveReserveInfo(ReservationParam reservationParam);
 
-	public List<Reservation> getMyReservations(String reservationEmail);
+	public Map<String, ArrayList<Reservation>> getMyReservations(String reservationEmail);
 }

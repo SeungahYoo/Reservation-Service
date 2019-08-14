@@ -1,5 +1,6 @@
 package com.nts.reservation.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class ReservationParam {
@@ -10,7 +11,7 @@ public class ReservationParam {
 	private String reservationEmail;
 	private String reservationName;
 	private String reservationTelephone;
-	private String reservationDate;
+	private LocalDate reservationDate;
 
 	public int getDisplayInfoId() {
 		return displayInfoId;
@@ -68,20 +69,19 @@ public class ReservationParam {
 		this.reservationTelephone = reservationTelephone;
 	}
 
-	public String getReservationDate() {
+	public LocalDate getReservationDate() {
 		return reservationDate;
 	}
 
-	public void setReservationDate(String reservationDate) {
+	public void setReservationDate(LocalDate reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 
 	@Override
 	public String toString() {
 		return "ReservationParam [id=" + id + ", displayInfoId=" + displayInfoId + ", prices=" + prices + ", productId="
-				+ productId + ", reservationEmail=" + reservationEmail + ", reservationName=" + reservationName
-				+ ", reservationTelephone=" + reservationTelephone + ", reservationDate=" + reservationDate + "]";
+			+ productId + ", reservationEmail=" + reservationEmail + ", reservationName=" + reservationName
+			+ ", reservationTelephone=" + reservationTelephone + ", reservationDate=" + reservationDate + "]";
 	}
 
-	
 }

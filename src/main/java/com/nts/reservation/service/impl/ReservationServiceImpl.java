@@ -2,7 +2,7 @@ package com.nts.reservation.service.impl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,9 +55,11 @@ public class ReservationServiceImpl implements ReservationService {
 	@Transactional
 	public void saveReserveInfo(ReservationParam reservationParam) {
 		LocalDate nowDate = LocalDate.now();
-//		long randomEpochDay = ThreadLocalRandom.current().longs(nowDate.toEpochDay(),nowDate.plusDays(5).toEpochDay()).findAny().getAsLong();
-//		
-//		reservationParam.setReservationDate(LocalDate.ofEpochDay(randomEpochDay));
+		long randomEpochDay = ThreadLocalRandom.current()
+			.longs(nowDate.toEpochDay(), nowDate.plusDays(5).toEpochDay())
+			.findAny().getAsLong();
+
+		reservationParam.setReservationDate(LocalDate.ofEpochDay(randomEpochDay));
 
 		reservationMapper.insertReserveInfo(reservationParam);
 		int reservationInfoId = reservationParam.getId();
@@ -72,10 +74,32 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<Reservation> getMyReservations(String reservationEmail) {
-		System.out.println("ReservationServiceImpl email: " + reservationEmail);
-		System.out.println(reservationMapper.selectReservations(reservationEmail));
-		return reservationMapper.selectReservations(reservationEmail);
+	public Map<String, ArrayList<Reservation>> getMyReservations(String reservationEmail) {
+		List<Reservation> myReservations = reservationMapper.selectReservations(reservationEmail);
+
+		ArrayList<Reservation> canceledReservations = new ArrayList<>();
+		ArrayList<Reservation> confirmedReservations = new ArrayList<>();
+		ArrayList<Reservation> usedReservations = new ArrayList<>();
+
+		for (Reservation reservation : myReservations) {
+			if (reservation.isCancelYn()) {
+				canceledReservations.add(reservation);
+				continue;
+			}
+			if (reservation.getReservationDate().isBefore(LocalDateTime.now())) {
+				usedReservations.add(reservation);
+				continue;
+			}
+			confirmedReservations.add(reservation);
+		}
+
+		Map<String, ArrayList<Reservation>> reservationsMap = new HashMap<>();
+
+		reservationsMap.put("canceledReservations", canceledReservations);
+		reservationsMap.put("confirmedReservations", confirmedReservations);
+		reservationsMap.put("usedReservations", usedReservations);
+
+		return reservationsMap;
 	}
 
 }
