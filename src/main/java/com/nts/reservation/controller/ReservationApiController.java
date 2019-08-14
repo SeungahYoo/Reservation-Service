@@ -36,8 +36,12 @@ public class ReservationApiController {
 	@GetMapping("my-reservation")
 	public Map<String, ArrayList<Reservation>> getMyReservations(
 		@RequestParam(name = "email") String reservationEmail) {
-		System.out.println("reservation api controller, email: " + reservationEmail);
 		return reservationService.getMyReservations(reservationEmail);
+	}
+
+	@GetMapping("cancel")
+	public void cancelReservation(@RequestParam(name = "id") int reservationInfoId) {
+		reservationService.cancelReservation(reservationInfoId);
 	}
 
 }

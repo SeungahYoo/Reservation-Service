@@ -39,20 +39,20 @@
 						<li class="item">
 							<!--[D] 선택 후 .on 추가 link_summary_board --> <a href="#"
 							class="link_summary_board on"> <i class="spr_book2 ico_book2"></i>
-								<em class="tit">전체</em> <span class="figure">6</span>
+								<em class="tit">전체</em> <span id="total_count" class="figure">6</span>
 						</a>
 						</li>
 						<li class="item"><a href="#" class="link_summary_board">
 								<i class="spr_book2 ico_book_ss"></i> <em class="tit">이용예정</em>
-								<span class="figure">2</span>
+								<span id="confirmed_count" class="figure">2</span>
 						</a></li>
 						<li class="item"><a href="#" class="link_summary_board">
-								<i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> <span
-								class="figure">2</span>
+								<i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> 
+								<span id="used_count" class="figure">2</span>
 						</a></li>
 						<li class="item"><a href="#" class="link_summary_board">
-								<i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em> <span
-								class="figure">2</span>
+								<i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em> 
+								<span id="cancel_count" class="figure">2</span>
 						</a></li>
 					</ul>
 				</div>
@@ -74,7 +74,7 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							<article class="card_item">
+							<!-- <article class="card_item">
 								<a href="#" class="link_booking_details">
 									<div class="card_body">
 										<div class="left"></div>
@@ -98,7 +98,7 @@
 														class="unit">원</span>
 													</em>
 												</div>
-												<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
+												[D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화
 												<div class="booking_cancel">
 													<button class="btn">
 														<span>취소</span>
@@ -140,7 +140,7 @@
 														class="unit">원</span>
 													</em>
 												</div>
-												<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
+												[D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화
 												<div class="booking_cancel">
 													<button class="btn">
 														<span>취소</span>
@@ -157,7 +157,9 @@
 									</div>
 								</a> <a href="#" class="fn fn-share1 naver-splugin btn_goto_share"
 									title="공유하기"></a>
-							</article>
+							</article> -->
+								<div class="card_list">
+							</div>
 						</li>
 						<li class="card confirmed">
 							<div class="link_booking_details">
@@ -171,7 +173,7 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							<article class="card_item">
+							<!-- <article class="card_item">
 								<a href="#" class="link_booking_details">
 									<div class="card_body">
 										<div class="left"></div>
@@ -195,7 +197,7 @@
 														class="unit">원</span>
 													</em>
 												</div>
-												<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
+												[D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화
 												<div class="booking_cancel">
 													<button class="btn">
 														<span>취소</span>
@@ -238,7 +240,7 @@
 														class="unit">원</span>
 													</em>
 												</div>
-												<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
+												[D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화
 												<div class="booking_cancel">
 													<button class="btn">
 														<span>취소</span>
@@ -256,7 +258,9 @@
 									</div>
 								</a> <a href="#" class="fn fn-share1 naver-splugin btn_goto_share"
 									title="공유하기"></a>
-							</article>
+							</article> -->
+							<div class="card_list">
+							</div>
 						</li>
 						<li class="card used">
 							<div class="link_booking_details">
@@ -270,7 +274,7 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							<article class="card_item">
+							<!-- <article class="card_item">
 								<a href="#" class="link_booking_details">
 									<div class="card_body">
 										<div class="left"></div>
@@ -348,8 +352,11 @@
 										<div class="middle"></div>
 										<div class="right"></div>
 									</div>
+
 								</a>
-							</article>
+							</article> -->
+							<div class="card_list">
+							</div>
 						</li>
 						<li class="card used cancel">
 							<div class="link_booking_details">
@@ -363,7 +370,7 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							<article class="card_item">
+							<!-- <article class="card_item">
 								<a href="#" class="link_booking_details">
 									<div class="card_body">
 										<div class="left"></div>
@@ -432,7 +439,9 @@
 										<div class="right"></div>
 									</div>
 								</a>
-							</article>
+							</article> -->
+							<div class="card_list">
+							</div>
 						</li>
 					</ul>
 				</div>

@@ -44,6 +44,15 @@
 			</foreach>
 	</insert>
 	
+	<update id="updateReservationCanceled" parameterType="int">
+		UPDATE 
+			reservation_info
+		SET 
+			cancel_flag = 1
+		WHERE 
+			id = #{reservationInfoId};
+	</update>
+	
 	<select id="selectReservations" parameterType="String" resultMap="ReservationsResult">
 		SELECT 
 			reservation_info.cancel_flag cancelYn,

@@ -143,7 +143,7 @@ function addButtonEventListener() {
 	})
 
 	document.querySelector('.bk_btn').addEventListener('click', function (click) {
-		if(Number(document.querySelector('#totalCount').innerText) <= 0){
+		if (Number(document.querySelector('#totalCount').innerText) <= 0) {
 			alert('티켓을 선택해주세요');
 			return;
 		}
