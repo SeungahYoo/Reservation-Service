@@ -16,4 +16,6 @@ public interface ReservationMapper {
 	void insertReserveInfoPrices(@Param("reservationPrices") List<Price> reservationPrices);
 
 	List<Reservation> selectReservations(String reservationEmail);
+
+	void updateReservationCanceled(int reservationInfoId);
 }

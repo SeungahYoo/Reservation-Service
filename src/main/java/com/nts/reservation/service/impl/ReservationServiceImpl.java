@@ -102,4 +102,9 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationsMap;
 	}
 
+	@Override
+	public void cancelReservation(int reservationInfoId) {
+		reservationMapper.updateReservationCanceled(reservationInfoId);
+	}
+
 }

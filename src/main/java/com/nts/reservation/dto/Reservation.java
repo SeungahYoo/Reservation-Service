@@ -3,6 +3,7 @@ package com.nts.reservation.dto;
 import java.time.LocalDateTime;
 
 public class Reservation {
+	private int reservationInfoId;
 	private boolean cancelYn;
 	private LocalDateTime createDate;
 	private DisplayInfo displayInfo;
@@ -11,10 +12,17 @@ public class Reservation {
 	private int productId;
 	private LocalDateTime reservationDate;
 	private String reservationEmail;
-	private int reservationInfoId;
 	private String reservationName;
 	private String reservationTelephone;
 	private int totalPrice;
+
+	public int getReservationInfoId() {
+		return reservationInfoId;
+	}
+
+	public void setReservationInfoId(int reservationInfoId) {
+		this.reservationInfoId = reservationInfoId;
+	}
 
 	public boolean isCancelYn() {
 		return cancelYn;
@@ -78,14 +86,6 @@ public class Reservation {
 
 	public void setReservationEmail(String reservationEmail) {
 		this.reservationEmail = reservationEmail;
-	}
-
-	public int getReservationInfoId() {
-		return reservationInfoId;
-	}
-
-	public void setReservationInfoId(int reservationInfoId) {
-		this.reservationInfoId = reservationInfoId;
 	}
 
 	public String getReservationName() {

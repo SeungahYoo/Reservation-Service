@@ -38,8 +38,6 @@ public class MainController {
 
 	@GetMapping("my-reservation")
 	public String myReservation(@CookieValue(value = "email", required = false) String email) {
-		//쿠키값 넘기기
-		System.out.println("myReservation cookieEmail : " + email);
 		return "myreservation";
 	}
 
