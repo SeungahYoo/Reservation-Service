@@ -1,5 +1,6 @@
 package com.nts.reservation.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -20,6 +21,9 @@ public class Reservation {
 	private String reservationName;
 	private String reservationTelephone;
 	private int totalPrice;
+	
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 
 	public int getReservationInfoId() {
 		return reservationInfoId;
@@ -79,16 +83,15 @@ public class Reservation {
 
 	@JsonProperty("reservationDate")
 	public String getReservationDateView() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.");
-		return ObjectUtils.defaultIfNull(reservationDate.format(formatter), null);
+		return (reservationDate != null)? reservationDate.format(formatter) : "";
 	}
 
 	public LocalDateTime getReservationDate() {
 		return reservationDate;
 	}
-
+	
 	public void setReservationDate(LocalDateTime reservationDate) {
-		this.reservationDate = reservationDate;
+		this.reservationDate =reservationDate;
 	}
 
 	public String getReservationEmail() {

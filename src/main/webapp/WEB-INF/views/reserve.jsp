@@ -206,7 +206,7 @@
 										<label class="label" for="message">예매내용</label>
 										<div class="inline_control">
 											<p class="inline_txt selected">
-												2017.2.17, 총 <span id="totalCount">0</span>매
+												<input id="reservation_date" name="reservationDate" value="" readonly/>, 총 <span id="totalCount">0</span>매
 											</p>
 										</div>
 									</div>

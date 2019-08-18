@@ -1,6 +1,7 @@
 package com.nts.reservation.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,8 @@ public class ReservationApiController {
 
 	@PostMapping("reserve")
 	public ModelAndView saveReserveInfo(@ModelAttribute("reservationParam") ReservationParam reservationParam) {
+		System.out.println(reservationParam);
+		
 		reservationService.saveReserveInfo(reservationParam);
 		return new ModelAndView("redirect:/user-check");
 	}
@@ -36,7 +39,7 @@ public class ReservationApiController {
 	}
 
 	@GetMapping("my-reservation")
-	public Map<String, ArrayList<Reservation>> getMyReservations(
+	public Map<String, List<Reservation>> getMyReservations(
 		@RequestParam(name = "email") String reservationEmail) {
 		return reservationService.getMyReservations(reservationEmail);
 	}

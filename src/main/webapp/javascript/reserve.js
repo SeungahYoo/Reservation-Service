@@ -189,6 +189,7 @@ const loadDisplayInfo = () => {
 			displayImage.querySelector('.img_thumb').src = `${productDetail.productImages[0].saveFileName}`;
 			displayImage.querySelector('.preview_txt_tit').innerText = productDetail.displayInfo.productDescription;
 			document.querySelector('.store_details').innerHTML = replaceStoreDetailsTemplate(productDetail.displayInfo, productDetail.productPrices);
+			document.querySelector('#reservation_date').value = productDetail.reservationDate;
 			createBookingTicketTemplate(productDetail.productPrices, productDetail.displayInfo);
 
 			addButtonEventListener();
