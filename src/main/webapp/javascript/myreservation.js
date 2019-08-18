@@ -6,10 +6,10 @@ const replaceCardItemTemplate = (key, reservation) => {
 			<div class="middle">
 				<div class="card_detail">
 					<em class="booking_number">No.${reservation.reservationInfoId}</em>
-					<h4 class="tit">${reservation.displayInfo.productDescription}</h4>
+					<h4 class="tit" id="title">${reservation.displayInfo.productDescription}</h4>
 					<ul class="detail">
 						<li class="item"><span class="item_tit">일정</span> <em
-							class="item_dsc"> ${reservation.reservationDate} </em></li>
+							class="item_dsc" id="reservation_date"> ${reservation.reservationDate} </em></li>
 						<li class="item"><span class="item_tit">내역</span> <em
 							class="item_dsc"> 내역이 없습니다. </em></li>
 						<li class="item"><span class="item_tit">장소</span> <em
@@ -78,11 +78,20 @@ const loadReservations = (reservationEmail) => {
 			let canceledCount = Myreservations.canceledReservations.length;
 			let confirmedCount = Myreservations.confirmedReservations.length;
 			let usedCount = Myreservations.usedReservations.length;
+			let totalCount = canceledCount + confirmedCount + usedCount;
 
-			document.querySelector('#total_count').innerText = canceledCount + confirmedCount + usedCount;
+			document.querySelector('#total_count').innerText = totalCount;
 			document.querySelector('#cancel_count').innerText = canceledCount;
 			document.querySelector('#confirmed_count').innerText = confirmedCount;
 			document.querySelector('#used_count').innerText = usedCount;
+
+			if (totalCount <= 0) {
+				document.querySelector('li.card.confirmed').style.display = "none"
+				document.querySelector('li.card.used').style.display = "none"
+				document.querySelector('li.card.cancel').style.display = "none"
+				document.querySelector(".err").style.display = "block";
+				return;
+			}
 
 			Myreservations.canceledReservations.forEach(reservation => {
 				canceledHTML += replaceCardItemTemplate("canceled", reservation);
@@ -130,11 +139,29 @@ const cancelReservation = (reservationInfoId) => {
 	xmlHttpRequest.send();
 }
 
+const showCancelPopup = (card) => {
+	let popup = document.querySelector('.popup_booking_wrapper');
+	popup.querySelector('.pop_tit #title').innerText = card.querySelector('#title').innerText;
+	popup.querySelector('.pop_tit #reservation_date').innerText = card.querySelector('#reservation_date').innerText;
+	popup.querySelector('.btn_green').dataset.id = card.dataset.id;
+	popup.style.display = "block";
+}
+
+const isCanceled = (canceled) => {
+	if (canceled) {
+		debugger;
+		cancelReservation(event.target.closest('.btn_green').dataset.id);
+	} else {
+		document.querySelector('.popup_booking_wrapper').style.display = "none";
+	}
+}
+
 const addButtonEventListener = () => {
 	let cancelButtons = document.querySelectorAll('.btn.cancel');
 	cancelButtons.forEach(button => {
 		button.addEventListener("click", function (event) {
-			cancelReservation(button.closest('article').dataset.id);
+			debugger;
+			showCancelPopup(event.target.closest('article'));
 		})
 	});
 }
