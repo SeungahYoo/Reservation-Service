@@ -448,7 +448,7 @@
 				<!--// 내 예약 리스트 -->
 
 				<!-- 예약 리스트 없음 -->
-				<div class="err">
+				<div class="err" style="display: none">
 					<i class="spr_book ico_info_nolist"></i>
 					<h1 class="tit">예약 리스트가 없습니다</h1>
 				</div>
@@ -475,21 +475,21 @@
 		<div class="dimm_dark" style="display: block"></div>
 		<div class="popup_booking refund">
 			<h1 class="pop_tit">
-				<span>서비스명/상품명</span> <small class="sm">2000.0.00.(월)2000.0.00.(일)</small>
+				<span id="title">서비스명/상품명</span> <small class="sm" id="reservation_date">2000.0.00.(월)</small>
 			</h1>
 			<div class="nomember_alert">
 				<p>취소하시겠습니까?</p>
 			</div>
 			<div class="pop_bottom_btnarea">
 				<div class="btn_gray">
-					<a href="#" class="btn_bottom"><span>아니오</span></a>
+					<a onclick="isCanceled(false);" class="btn_bottom"><span>아니오</span></a>
 				</div>
 				<div class="btn_green">
-					<a href="#" class="btn_bottom"><span>예</span></a>
+					<a onclick="isCanceled(true);" class="btn_bottom"><span>예</span></a>
 				</div>
 			</div>
 			<!-- 닫기 -->
-			<a href="#" class="popup_btn_close" title="close"> <i
+			<a onclick="isCanceled(false);" class="popup_btn_close" title="close"> <i
 				class="spr_book2 ico_cls"></i>
 			</a>
 			<!--// 닫기 -->
