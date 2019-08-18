@@ -499,4 +499,5 @@
 
 </body>
 <script src="javascript/myreservation.js"></script>
+<script src="javascript/cookie.js"></script>
 </html>

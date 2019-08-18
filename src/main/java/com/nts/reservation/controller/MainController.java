@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
 	@GetMapping("mainpage")
-	public String mainpage(@CookieValue(value = "email", required = false) String email) {
+	public String mainpage() {
 		return "mainpage";
 	}
 
@@ -36,7 +36,7 @@ public class MainController {
 	}
 
 	@GetMapping("my-reservation")
-	public String myReservation(@CookieValue(value = "email", required = false) String email) {
+	public String myReservation() {
 		return "myreservation";
 	}
 

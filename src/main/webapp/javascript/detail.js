@@ -189,4 +189,5 @@ const loadDisplayInfo = () => {
 
 document.addEventListener("DOMContentLoaded", function () {
 	const productId = loadDisplayInfo();
+	getCookie('email');
 });

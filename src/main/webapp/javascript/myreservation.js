@@ -135,7 +135,7 @@ const cancelReservation = (reservationInfoId) => {
 		}
 	}
 
-	xmlHttpRequest.open("GET", "/reservation/api/cancel?id=" + reservationInfoId);
+	xmlHttpRequest.open("PUT", "/reservation/api/cancel?id=" + reservationInfoId);
 	xmlHttpRequest.send();
 }
 
@@ -165,11 +165,6 @@ const addButtonEventListener = () => {
 		})
 	});
 }
-
-const getCookie = function (name) {
-	const value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-	return value ? value[2] : null;
-};
 
 document.addEventListener("DOMContentLoaded", function () {
 	let reservationEmail = getCookie('email');
