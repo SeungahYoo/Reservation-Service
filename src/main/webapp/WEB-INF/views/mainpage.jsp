@@ -204,4 +204,5 @@
 	</footer>
 </body>
 <script src="javascript/mainpage.js"></script>
+<script src="javascript/cookie.js"></script>
 </html>

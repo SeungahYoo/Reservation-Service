@@ -1,12 +1,12 @@
 package com.nts.reservation.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,8 +43,8 @@ public class ReservationApiController {
 		@RequestParam(name = "email") String reservationEmail) {
 		return reservationService.getMyReservations(reservationEmail);
 	}
-
-	@GetMapping("cancel")
+	
+	@PutMapping("cancel")
 	public void cancelReservation(@RequestParam(name = "id") int reservationInfoId) {
 		reservationService.cancelReservation(reservationInfoId);
 	}

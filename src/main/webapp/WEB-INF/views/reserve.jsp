@@ -42,21 +42,20 @@
 				<div class="group_visual">
 					<div class="container_visual" style="width: 414px;">
 						<ul class="visual_img">
-							<li class="item" id="displayImage" style="width: 414px;"><img
-								alt="" class="img_thumb"
+							<li class="item" id="display_image" style="width: 414px;"><img
+								alt="" class="img_thumb" id="img_thumb"
 								src="https://ssl.phinf.net/naverbooking/20170217_264/1487312141947lTddT_JPEG/%B3%D7%C0%CC%B9%F6.jpg?type=ff1242_816">
 								<span class="img_bg"></span>
 								<div class="preview_txt">
-									<h2 class="preview_txt_tit"></h2>
-									<em class="preview_txt_dsc">₩12,000 ~ </em><em
-										class="preview_txt_dsc">2017.2.17.(금)~2017.4.18.(화), 잔여티켓
-										2769매</em>
+									<h2 class="preview_txt_tit" id="preview_txt_tit"></h2>
+									<em class="preview_txt_dsc"></em><em
+										class="preview_txt_dsc"></em>
 								</div></li>
 						</ul>
 					</div>
 				</div>
 				<div class="section_store_details">
-					<div class="store_details">
+					<div class="store_details" >
 						<h3 class="in_tit"></h3>
 						<p class="dsc">
 							장소 : <br> 기간 : 2017.2.17.(금)~2017.4.18.(화)
@@ -206,7 +205,7 @@
 										<label class="label" for="message">예매내용</label>
 										<div class="inline_control">
 											<p class="inline_txt selected">
-												<input id="reservation_date" name="reservationDate" value="" readonly/>, 총 <span id="totalCount">0</span>매
+												<input id="reservation_date" name="reservationDate" readonly style="cursor: default; border: none; width: 100px;"/>, 총 <span id="totalCount">0</span>매
 											</p>
 										</div>
 									</div>
@@ -289,4 +288,5 @@
 	<input id="display_info_id" type="hidden" value="${param.id }">
 </body>
 <script src="javascript/reserve.js"></script>
+<script src="javascript/cookie.js"></script>
 </html>
