@@ -1,6 +1,8 @@
 package com.nts.reservation.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ReservationParam {
@@ -11,7 +13,9 @@ public class ReservationParam {
 	private String reservationEmail;
 	private String reservationName;
 	private String reservationTelephone;
-	private LocalDate reservationDate;
+	private LocalDateTime reservationDate;
+	
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	public int getDisplayInfoId() {
 		return displayInfoId;
@@ -69,12 +73,12 @@ public class ReservationParam {
 		this.reservationTelephone = reservationTelephone;
 	}
 
-	public LocalDate getReservationDate() {
+	public LocalDateTime getReservationDate() {
 		return reservationDate;
 	}
-
-	public void setReservationDate(LocalDate reservationDate) {
-		this.reservationDate = reservationDate;
+	
+	public void setReservationDate(String reservationDate) {
+		this.reservationDate = LocalDate.parse(reservationDate, formatter).atStartOfDay();
 	}
 
 	@Override

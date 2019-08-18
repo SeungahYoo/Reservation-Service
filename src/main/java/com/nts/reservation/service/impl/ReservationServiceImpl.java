@@ -2,6 +2,7 @@ package com.nts.reservation.service.impl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,8 @@ public class ReservationServiceImpl implements ReservationService {
 	private final DisplayInfoMapper displayInfoMapper;
 	private final ProductMapper productMapper;
 	private final ReservationMapper reservationMapper;
-
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	
 	public ReservationServiceImpl(DisplayInfoMapper displayInfoMapper, ProductMapper productMapper,
 		ReservationMapper reservationMapper) {
 		this.displayInfoMapper = displayInfoMapper;
@@ -41,11 +43,14 @@ public class ReservationServiceImpl implements ReservationService {
 				"The expedted data could not be retrieved. displayInfoId: " + displayInfoId);
 		}
 		int productId = displayInfo.getProductId();
-
+				
 		Map<String, Object> displayMap = new HashMap<>();
 		displayMap.put("displayInfo", displayInfo);
 		displayMap.put("productImages", productMapper.selectProductImages(productId));
 		displayMap.put("productPrices", productMapper.selectProductPrices(productId));
+		displayMap.put("reservationDate", LocalDate.now()
+											.plusDays(ThreadLocalRandom.current().nextInt(6))
+											.format(formatter));
 
 		return displayMap;
 	}
@@ -53,25 +58,17 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	@Transactional
 	public void saveReserveInfo(ReservationParam reservationParam) {
-		LocalDate nowDate = LocalDate.now();
-
-		long randomEpochDay = ThreadLocalRandom.current()
-			.longs(nowDate.toEpochDay(), nowDate.plusDays(5).toEpochDay())
-			.findAny().getAsLong();
-
-		reservationParam.setReservationDate(LocalDate.ofEpochDay(randomEpochDay));
-
 		reservationMapper.insertReserveInfo(reservationParam);
 		reservationMapper.insertReserveInfoPrices(reservationParam);
 	}
 
 	@Override
-	public Map<String, ArrayList<Reservation>> getMyReservations(String reservationEmail) {
+	public Map<String, List<Reservation>> getMyReservations(String reservationEmail) {
 		List<Reservation> myReservations = reservationMapper.selectReservations(reservationEmail);
 
-		ArrayList<Reservation> canceledReservations = new ArrayList<>();
-		ArrayList<Reservation> confirmedReservations = new ArrayList<>();
-		ArrayList<Reservation> usedReservations = new ArrayList<>();
+		List<Reservation> canceledReservations = new ArrayList<>();
+		List<Reservation> confirmedReservations = new ArrayList<>();
+		List<Reservation> usedReservations = new ArrayList<>();
 
 		for (Reservation reservation : myReservations) {
 			if (reservation.isCancelYn()) {
@@ -85,7 +82,7 @@ public class ReservationServiceImpl implements ReservationService {
 			}
 		}
 
-		Map<String, ArrayList<Reservation>> reservationsMap = new HashMap<>();
+		Map<String, List<Reservation>> reservationsMap = new HashMap<>();
 
 		reservationsMap.put("canceledReservations", canceledReservations);
 		reservationsMap.put("confirmedReservations", confirmedReservations);
