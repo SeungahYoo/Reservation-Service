@@ -183,11 +183,9 @@ const loadDisplayInfo = () => {
 			console.log(productDetail);
 
 			document.querySelector('#productDescription').innerText = productDetail.displayInfo.productDescription;
-			const displayImage = document.querySelector('#displayImage');
-			displayImage.style.position = "relative";
-			displayImage.style.left = "0px";
-			displayImage.querySelector('.img_thumb').src = `${productDetail.productImages[0].saveFileName}`;
-			displayImage.querySelector('.preview_txt_tit').innerText = productDetail.displayInfo.productDescription;
+			const displayImage = document.querySelector('#display_image');
+			displayImage.querySelector('#img_thumb').src = `${productDetail.productImages[0].saveFileName}`;
+			displayImage.querySelector('#preview_txt_tit').innerText = productDetail.displayInfo.productDescription;
 			document.querySelector('.store_details').innerHTML = replaceStoreDetailsTemplate(productDetail.displayInfo, productDetail.productPrices);
 			document.querySelector('#reservation_date').value = productDetail.reservationDate;
 			createBookingTicketTemplate(productDetail.productPrices, productDetail.displayInfo);
@@ -202,5 +200,10 @@ const loadDisplayInfo = () => {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+	const reservationEmail = getCookie('email');
+	if(reservationEmail !== null) {
+		document.querySelector('#email').value = reservationEmail;
+		document.querySelector('#email').readOnly = true;
+	}
 	const productId = loadDisplayInfo();
 });

@@ -4165,3 +4165,8 @@ button {
 .btn_nxt {
 	visibility: hidden;
 }
+
+#display_image {
+	position : relative;
+	left: 0px;
+}
