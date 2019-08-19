@@ -189,5 +189,10 @@ const loadDisplayInfo = () => {
 
 document.addEventListener("DOMContentLoaded", function () {
 	const productId = loadDisplayInfo();
-	getCookie('email');
+	
+	debugger;
+	let cookieEmail = getCookie('email') ;
+	if(cookieEmail !== null ){
+		document.querySelector('.viewReservation').innerText = cookieEmail;
+	}
 });
