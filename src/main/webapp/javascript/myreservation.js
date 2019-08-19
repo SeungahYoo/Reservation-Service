@@ -70,7 +70,7 @@ const loadReservations = (reservationEmail) => {
 			let canceledCardList = document.createElement("div");
 			let confirmedCardList = document.createElement("div");
 			let usedCardList = document.createElement("div");
-			
+
 			canceledCardList.classList.add("card_list");
 			confirmedCardList.classList.add("card_list");
 			usedCardList.classList.add("card_list");
@@ -153,7 +153,7 @@ const showCancelPopup = (card) => {
 }
 
 const isCanceled = (canceled) => {
-	if (canceled) {
+	if (canceled === "true") {
 		cancelReservation(event.target.closest('.btn_green').dataset.id);
 	} else {
 		document.querySelector('.popup_booking_wrapper').style.display = "none";
@@ -161,13 +161,21 @@ const isCanceled = (canceled) => {
 }
 
 const addButtonEventListener = () => {
+
 	let cancelButtons = document.querySelectorAll('.btn.cancel');
-	
 	cancelButtons.forEach(button => {
 		button.addEventListener("click", function (event) {
 			showCancelPopup(event.target.closest('article'));
 		})
 	});
+
+	let popupButtons = document.querySelectorAll('.popup_booking_wrapper a');
+
+	popupButtons.forEach(button => {
+		button.addEventListener("click",function(event) {
+			isCanceled(button.dataset.value);
+		})
+	})
 }
 
 document.addEventListener("DOMContentLoaded", function () {

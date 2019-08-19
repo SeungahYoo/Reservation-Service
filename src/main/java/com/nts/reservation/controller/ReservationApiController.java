@@ -51,7 +51,6 @@ public class ReservationApiController {
 		int successCount = reservationService.cancelReservation(cookieEmail, reservationInfoId);
 
 		if (successCount <= 0) {
-			System.out.println("hi");
 			throw new DataRetrievalFailureException("Cannot cancel a reservation : reservation id mismatch with email");
 		}
 	}
