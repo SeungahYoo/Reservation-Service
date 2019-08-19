@@ -9,13 +9,13 @@ let loadReviewInfo = () => {
 		if (xmlHttpRequest.readyState === 4) {
 			let productDetail = JSON.parse(xmlHttpRequest.responseText);
 			console.log(productDetail);
-			
+
 			document.querySelector('#score_average').innerHTML = productDetail.productScoreAverage;
-			document.querySelector('.graph_value').style.width = productDetail.productScoreAverage*20+"%";
+			document.querySelector('.graph_value').style.width = productDetail.productScoreAverage * 20 + "%";
 			document.querySelector('#commentsCount').innerHTML = productDetail.commentsCount;
 
 			createCommentsTemplate(productDetail.displayInfo.productDescription, productDetail.comments);
-			document.querySelector('#product_title').innerHTML=productDetail.displayInfo.productDescription;
+			document.querySelector('#product_title').innerHTML = productDetail.displayInfo.productDescription;
 		}
 	}
 

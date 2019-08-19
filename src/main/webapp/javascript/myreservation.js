@@ -25,6 +25,7 @@ const replaceCardItemTemplate = (key, reservation) => {
 					</div>
 					<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
 					<div class="booking_cancel">`
+
 	let template2 = `</div>
 				</div>
 			</div>
@@ -69,11 +70,10 @@ const loadReservations = (reservationEmail) => {
 			let canceledCardList = document.createElement("div");
 			let confirmedCardList = document.createElement("div");
 			let usedCardList = document.createElement("div");
+			
 			canceledCardList.classList.add("card_list");
 			confirmedCardList.classList.add("card_list");
 			usedCardList.classList.add("card_list");
-
-			//console.log(Myreservations);
 
 			let canceledCount = Myreservations.canceledReservations.length;
 			let confirmedCount = Myreservations.confirmedReservations.length;
@@ -96,9 +96,11 @@ const loadReservations = (reservationEmail) => {
 			Myreservations.canceledReservations.forEach(reservation => {
 				canceledHTML += replaceCardItemTemplate("canceled", reservation);
 			});
+
 			Myreservations.confirmedReservations.forEach(reservation => {
 				confirmedHTML += replaceCardItemTemplate("confirmed", reservation);
 			});
+
 			Myreservations.usedReservations.forEach(reservation => {
 				usedHTML += replaceCardItemTemplate("used", reservation);
 			});
@@ -109,8 +111,10 @@ const loadReservations = (reservationEmail) => {
 
 			canceledCardList.innerHTML = canceledHTML;
 			document.querySelector('li.card.cancel').replaceChild(canceledCardList, canceldCardWrapper);
+
 			confirmedCardList.innerHTML = confirmedHTML;
 			document.querySelector('li.card.confirmed').replaceChild(confirmedCardList, confirmedCardWrapper);
+
 			usedCardList.innerHTML = usedHTML;
 			document.querySelector('li.card.used').replaceChild(usedCardList, usedCardWrapper);
 
@@ -141,6 +145,7 @@ const cancelReservation = (reservationInfoId) => {
 
 const showCancelPopup = (card) => {
 	let popup = document.querySelector('.popup_booking_wrapper');
+
 	popup.querySelector('.pop_tit #title').innerText = card.querySelector('#title').innerText;
 	popup.querySelector('.pop_tit #reservation_date').innerText = card.querySelector('#reservation_date').innerText;
 	popup.querySelector('.btn_green').dataset.id = card.dataset.id;
@@ -157,6 +162,7 @@ const isCanceled = (canceled) => {
 
 const addButtonEventListener = () => {
 	let cancelButtons = document.querySelectorAll('.btn.cancel');
+	
 	cancelButtons.forEach(button => {
 		button.addEventListener("click", function (event) {
 			showCancelPopup(event.target.closest('article'));
@@ -166,7 +172,6 @@ const addButtonEventListener = () => {
 
 document.addEventListener("DOMContentLoaded", function () {
 	let reservationEmail = getCookie('email');
-	//console.log(reservationEmail);
-	loadReservations(reservationEmail);
 
+	loadReservations(reservationEmail);
 });

@@ -57,6 +57,7 @@ function addAmountButtonEventListener() {
 		button.addEventListener("click", function (event) {
 			const amountBox = button.parentElement.parentElement;
 			let amount = Number(amountBox.querySelector('.count_control_input').value);
+			
 			if (amount <= 0) {
 				//수량이 0이하면 감소할 수 없음
 				return;
@@ -68,8 +69,10 @@ function addAmountButtonEventListener() {
 
 			amount -= 1;
 			const price = amountBox.dataset.price;
+			
 			amountBox.querySelector('.count_control_input').value = amount;
 			amountBox.querySelector('.total_price').innerText = price * (amount);
+			
 			if (amount <= 0) {
 				button.classList.add("disabled");
 				amountBox.querySelector('.count_control_input').classList.add("disabled");
@@ -85,6 +88,7 @@ function addAmountButtonEventListener() {
 		button.addEventListener("click", function (event) {
 			const amountBox = button.parentElement.parentElement;
 			let amount = Number(amountBox.querySelector('.count_control_input').value);
+		
 			if (amount >= 99) {
 				//수량이 99이상이면 증가시킬수 없음 
 				return;
@@ -98,6 +102,7 @@ function addAmountButtonEventListener() {
 
 			amount += 1;
 			const price = amountBox.dataset.price;
+			
 			amountBox.querySelector('.count_control_input').value = amount;
 			amountBox.querySelector('.total_price').innerText = price * (amount);
 
@@ -164,6 +169,7 @@ const createBookingTicketTemplate = (productPrices, displayInfo) => {
 	resultHTML += `	<input type="hidden" name="displayInfoId" value="${displayInfo.displayInfoId}"/>
 	<input type="hidden" name="productId" value="${displayInfo.productId}"/>`
 	ticketBody.innerHTML = resultHTML;
+
 	let containerTicketBody = document.querySelector(".section_booking_ticket");
 	containerTicketBody.replaceChild(ticketBody, document.querySelector(".ticket_body"));
 
@@ -172,6 +178,7 @@ const createBookingTicketTemplate = (productPrices, displayInfo) => {
 
 const loadDisplayInfo = () => {
 	let xmlHttpRequest = new XMLHttpRequest();
+	
 	xmlHttpRequest.onreadystatechange = () => {
 		if (xmlHttpRequest.status >= 400) {
 			alert("오류가 발생했습니다. 다시 시도해주세요.");
@@ -201,7 +208,7 @@ const loadDisplayInfo = () => {
 
 document.addEventListener("DOMContentLoaded", function () {
 	const reservationEmail = getCookie('email');
-	if(reservationEmail !== null) {
+	if (reservationEmail !== null) {
 		document.querySelector('#email').value = reservationEmail;
 		document.querySelector('#email').readOnly = true;
 	}
