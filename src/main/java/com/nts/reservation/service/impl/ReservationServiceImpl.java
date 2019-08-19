@@ -94,8 +94,6 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public int cancelReservation(String cookieEmail, int reservationInfoId) {
-		System.out.println(cookieEmail);
-		cookieEmail = "kimjinsu@naver.com";
 		return reservationMapper.updateReservationCanceled(cookieEmail, reservationInfoId);
 	}
 
