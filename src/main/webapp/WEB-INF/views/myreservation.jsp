@@ -44,15 +44,15 @@
 								<em class="tit">전체</em> <span id="total_count" class="figure">6</span>
 						</a>
 						</li>
-						<li class="item"><a href="#" class="link_summary_board">
+						<li class="item"><a href="#confirmed" class="link_summary_board">
 								<i class="spr_book2 ico_book_ss"></i> <em class="tit">이용예정</em>
 								<span id="confirmed_count" class="figure">2</span>
 						</a></li>
-						<li class="item"><a href="#" class="link_summary_board">
+						<li class="item"><a href="#used" class="link_summary_board">
 								<i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> <span
 								id="used_count" class="figure">2</span>
 						</a></li>
-						<li class="item"><a href="#" class="link_summary_board">
+						<li class="item"><a href="#cancel" class="link_summary_board">
 								<i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em> <span
 								id="cancel_count" class="figure">2</span>
 						</a></li>
@@ -161,7 +161,7 @@
 							</article> -->
 							<div class="card_list"></div>
 						</li>
-						<li class="card confirmed">
+						<li class="card confirmed" id="confirmed">
 							<div class="link_booking_details">
 								<div class="card_header">
 									<div class="left"></div>
@@ -260,7 +260,7 @@
 							</article> -->
 							<div class="card_list"></div>
 						</li>
-						<li class="card used">
+						<li class="card used" id="used">
 							<div class="link_booking_details">
 								<div class="card_header">
 									<div class="left"></div>
@@ -354,7 +354,7 @@
 							</article> -->
 							<div class="card_list"></div>
 						</li>
-						<li class="card used cancel">
+						<li class="card used cancel" id="cancel">
 							<div class="link_booking_details">
 								<div class="card_header">
 									<div class="left"></div>
