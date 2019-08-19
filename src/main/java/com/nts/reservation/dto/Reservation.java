@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Reservation {
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 	private int reservationInfoId;
 	private boolean cancelYn;
 	private LocalDateTime createDate;
@@ -18,8 +20,6 @@ public class Reservation {
 	private String reservationName;
 	private String reservationTelephone;
 	private int totalPrice;
-
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	public int getReservationInfoId() {
 		return reservationInfoId;
@@ -79,7 +79,7 @@ public class Reservation {
 
 	@JsonProperty("reservationDate")
 	public String getReservationDateView() {
-		return (reservationDate != null) ? reservationDate.format(formatter) : "";
+		return (reservationDate != null) ? reservationDate.format(FORMATTER) : "";
 	}
 
 	public LocalDateTime getReservationDate() {

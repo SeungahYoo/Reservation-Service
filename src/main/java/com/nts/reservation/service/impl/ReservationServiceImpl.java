@@ -23,10 +23,11 @@ import com.nts.reservation.service.ReservationService;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 	private final DisplayInfoMapper displayInfoMapper;
 	private final ProductMapper productMapper;
 	private final ReservationMapper reservationMapper;
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	public ReservationServiceImpl(DisplayInfoMapper displayInfoMapper, ProductMapper productMapper,
 		ReservationMapper reservationMapper) {
@@ -50,7 +51,7 @@ public class ReservationServiceImpl implements ReservationService {
 		displayMap.put("productPrices", productMapper.selectProductPrices(productId));
 		displayMap.put("reservationDate", LocalDate.now()
 			.plusDays(ThreadLocalRandom.current().nextInt(6))
-			.format(formatter));
+			.format(FORMATTER));
 
 		return displayMap;
 	}
