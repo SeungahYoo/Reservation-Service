@@ -29,9 +29,8 @@ public class ReservationApiController {
 
 	@PostMapping("reserve")
 	public ModelAndView saveReserveInfo(@ModelAttribute("reservationParam") ReservationParam reservationParam) {
-		System.out.println(reservationParam);
-
 		reservationService.saveReserveInfo(reservationParam);
+
 		return new ModelAndView("redirect:/user-check");
 	}
 
@@ -50,7 +49,7 @@ public class ReservationApiController {
 	public void cancelReservation(@CookieValue(value = "email") String cookieEmail,
 		@RequestParam(name = "id") int reservationInfoId) {
 		int successCount = reservationService.cancelReservation(cookieEmail, reservationInfoId);
-		System.out.println(successCount);
+
 		if (successCount <= 0) {
 			System.out.println("hi");
 			throw new DataRetrievalFailureException("Cannot cancel a reservation : reservation id mismatch with email");

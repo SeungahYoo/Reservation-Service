@@ -215,8 +215,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	loadCategoryCount(0);
 	loadCategoryProducts(0, 0);
 
-	let cookieEmail = getCookie('email') ;
-	if(cookieEmail !== null ){
+	let cookieEmail = getCookie('email');
+	if (cookieEmail !== null) {
 		document.querySelector('.viewReservation').innerText = cookieEmail;
 	}
 });

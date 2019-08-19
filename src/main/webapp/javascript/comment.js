@@ -48,6 +48,6 @@ let createCommentsTemplate = (productDescription, comments) => {
 
 let setProductDetail = (productScoreAverage, commentsCount) => {
 	document.querySelector('#score_average').innerHTML = productScoreAverage;
-	document.querySelector('.graph_value').style.width = productScoreAverage*20+"%";
+	document.querySelector('.graph_value').style.width = productScoreAverage * 20 + "%";
 	document.querySelector('#commentsCount').innerHTML = commentsCount;
 }

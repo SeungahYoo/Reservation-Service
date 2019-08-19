@@ -22,7 +22,7 @@ const slideNext = (nowImage) => {
 
 const slidePrevious = (nowImage) => {
 	let nextImage = (nowImage === 2) ? 1 : 2;
-	const nowLi = document.querySelector(`.visual_img li:nth-child(${nowImage })`);
+	const nowLi = document.querySelector(`.visual_img li:nth-child(${nowImage})`);
 	const nextLi = document.querySelector(`.visual_img li:nth-child(${nextImage})`);
 	nowLi.style.transition = "left 1s";
 	nextLi.style.transition = "left 1s";
@@ -168,9 +168,9 @@ const loadDisplayInfo = () => {
 			document.querySelector('.close3').innerText = productDetail.displayInfo.productContent;
 			createProductImagesTemplate(productDetail.displayInfo.productDescription, productDetail.productImages);
 			addButtonEventListener();
-			
+
 			document.querySelector('#score_average').innerHTML = productDetail.productScoreAverage;
-			document.querySelector('.graph_value').style.width = productDetail.productScoreAverage*20+"%";
+			document.querySelector('.graph_value').style.width = productDetail.productScoreAverage * 20 + "%";
 			document.querySelector('#commentsCount').innerHTML = productDetail.commentsCount;
 
 			if (productDetail.commentsCount != 0) {
@@ -189,10 +189,10 @@ const loadDisplayInfo = () => {
 
 document.addEventListener("DOMContentLoaded", function () {
 	const productId = loadDisplayInfo();
-	
+
 	debugger;
-	let cookieEmail = getCookie('email') ;
-	if(cookieEmail !== null ){
+	let cookieEmail = getCookie('email');
+	if (cookieEmail !== null) {
 		document.querySelector('.viewReservation').innerText = cookieEmail;
 	}
 });
