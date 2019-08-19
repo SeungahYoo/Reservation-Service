@@ -30,7 +30,7 @@ let animatePromotion = (now) => {
 }
 
 let replacePromotionTemplate = (productImageUrl) => {
-	return `<li class="item" id="promotionImage" style="background-image: url(http://127.0.0.1:8080/reservation/${productImageUrl});">
+	return `<li class="item" id="promotionImage" style="background-image: url(${productImageUrl});">
         		<a href="#"> 
 					<span class="img_btm_border"></span> 
 					<span class="img_right_border"></span> 
@@ -86,7 +86,7 @@ let replaceProductTemplate = (product) => {
 	return `<li class="item">
 	            <a href="/reservation/detail?id=${product.displayInfoId}" class="item_book">
 	                <div class="item_preview">
-	                    <img alt="${product.description}" class="img_thumb" src="http://127.0.0.1:8080/reservation/${product.productImageUrl}">
+	                    <img alt="${product.description}" class="img_thumb" src="${product.productImageUrl}">
 	                    <span class="img_border"></span>
 	                </div>
 	                <div class="event_txt">
@@ -214,5 +214,10 @@ document.addEventListener("DOMContentLoaded", function () {
 	addMoreButtonEventListener();
 	loadCategoryCount(0);
 	loadCategoryProducts(0, 0);
+
+	let cookieEmail = getCookie('email');
+	if (cookieEmail !== null) {
+		document.querySelector('.viewReservation').innerText = cookieEmail;
+	}
 });
 

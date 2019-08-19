@@ -7,7 +7,7 @@ let replaceShortReviewTemplate = (productDescription, shortReview) => {
 			<div class="thumb_area">
 			<a href="#" class="thumb" title="이미지 크게 보기"> <img
 				width="90" height="90" class="img_vertical_top"
-				src="http://127.0.0.1:8080/reservation/${shortReview.commentImages[0].saveFileName}"
+				src="${shortReview.commentImages[0].saveFileName}"
 				alt="리뷰이미지">
 			</a> <span class="img_count">${shortReview.commentImages.length}</span>
 		</div>
@@ -48,6 +48,6 @@ let createCommentsTemplate = (productDescription, comments) => {
 
 let setProductDetail = (productScoreAverage, commentsCount) => {
 	document.querySelector('#score_average').innerHTML = productScoreAverage;
-	document.querySelector('.graph_value').style.width = productScoreAverage*20+"%";
+	document.querySelector('.graph_value').style.width = productScoreAverage * 20 + "%";
 	document.querySelector('#commentsCount').innerHTML = commentsCount;
 }

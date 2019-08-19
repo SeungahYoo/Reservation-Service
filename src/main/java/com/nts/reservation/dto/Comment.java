@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -52,11 +53,8 @@ public class Comment {
 
 	@JsonProperty("createDate")
 	public String getCreateDateView() {
-		if (createDate != null) {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.");
-			return createDate.format(formatter);
-		}
-		return null;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.");
+		return ObjectUtils.defaultIfNull(createDate.format(formatter), null);
 	}
 
 	public void setCreateDate(LocalDateTime createDate) {
@@ -93,6 +91,7 @@ public class Comment {
 
 	@JsonProperty("email")
 	public String getReservationEmailView() {
+
 		return StringUtils.substring(reservationEmail, 0, 4) + "****";
 	}
 
