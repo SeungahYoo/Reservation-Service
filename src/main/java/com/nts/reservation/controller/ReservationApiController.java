@@ -3,6 +3,7 @@ package com.nts.reservation.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -48,7 +49,12 @@ public class ReservationApiController {
 	@PutMapping("cancel")
 	public void cancelReservation(@CookieValue(value = "email") String cookieEmail,
 		@RequestParam(name = "id") int reservationInfoId) {
-		reservationService.cancelReservation(cookieEmail, reservationInfoId);
+		int successCount = reservationService.cancelReservation(cookieEmail, reservationInfoId);
+		System.out.println(successCount);
+		if (successCount <= 0) {
+			System.out.println("hi");
+			throw new DataRetrievalFailureException("Cannot cancel a reservation : reservation id mismatch with email");
+		}
 	}
 
 }
