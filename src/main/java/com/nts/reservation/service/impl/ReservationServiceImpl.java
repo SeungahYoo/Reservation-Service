@@ -27,7 +27,7 @@ public class ReservationServiceImpl implements ReservationService {
 	private final ProductMapper productMapper;
 	private final ReservationMapper reservationMapper;
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	
+
 	public ReservationServiceImpl(DisplayInfoMapper displayInfoMapper, ProductMapper productMapper,
 		ReservationMapper reservationMapper) {
 		this.displayInfoMapper = displayInfoMapper;
@@ -43,14 +43,14 @@ public class ReservationServiceImpl implements ReservationService {
 				"The expedted data could not be retrieved. displayInfoId: " + displayInfoId);
 		}
 		int productId = displayInfo.getProductId();
-				
+
 		Map<String, Object> displayMap = new HashMap<>();
 		displayMap.put("displayInfo", displayInfo);
 		displayMap.put("productImages", productMapper.selectProductImages(productId));
 		displayMap.put("productPrices", productMapper.selectProductPrices(productId));
 		displayMap.put("reservationDate", LocalDate.now()
-											.plusDays(ThreadLocalRandom.current().nextInt(6))
-											.format(formatter));
+			.plusDays(ThreadLocalRandom.current().nextInt(6))
+			.format(formatter));
 
 		return displayMap;
 	}
@@ -69,12 +69,13 @@ public class ReservationServiceImpl implements ReservationService {
 		List<Reservation> canceledReservations = new ArrayList<>();
 		List<Reservation> confirmedReservations = new ArrayList<>();
 		List<Reservation> usedReservations = new ArrayList<>();
+		LocalDateTime nowDate = LocalDateTime.now();
 
 		for (Reservation reservation : myReservations) {
 			if (reservation.isCancelYn()) {
 				canceledReservations.add(reservation);
 			} else {
-				if (reservation.getReservationDate().isBefore(LocalDateTime.now())) {
+				if (reservation.getReservationDate().isBefore(nowDate)) {
 					usedReservations.add(reservation);
 				} else {
 					confirmedReservations.add(reservation);
@@ -92,8 +93,10 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public void cancelReservation(int reservationInfoId) {
-		reservationMapper.updateReservationCanceled(reservationInfoId);
+	public int cancelReservation(String cookieEmail, int reservationInfoId) {
+		System.out.println(cookieEmail);
+		cookieEmail = "kimjinsu@naver.com";
+		return reservationMapper.updateReservationCanceled(cookieEmail, reservationInfoId);
 	}
 
 }

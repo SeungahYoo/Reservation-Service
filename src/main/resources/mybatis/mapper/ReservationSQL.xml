@@ -59,13 +59,15 @@
 			</foreach>
 	</insert>
 	
-	<update id="updateReservationCanceled" parameterType="int">
+	<update id="updateReservationCanceled">
 		UPDATE 
 			reservation_info
 		SET 
 			cancel_flag = 1,
 			modify_date = now()
 		WHERE 
+			reservation_email = #{cookieEmail}
+		AND
 			id = #{reservationInfoId};
 	</update>
 	

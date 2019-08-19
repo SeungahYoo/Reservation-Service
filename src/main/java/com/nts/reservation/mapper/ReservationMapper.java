@@ -16,5 +16,6 @@ public interface ReservationMapper {
 
 	List<Reservation> selectReservations(String reservationEmail);
 
-	void updateReservationCanceled(int reservationInfoId);
+	int updateReservationCanceled(@Param("cookieEmail") String cookieEmail,
+		@Param("reservationInfoId") int reservationInfoId);
 }
