@@ -1,10 +1,7 @@
 package com.nts.reservation.dto;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import org.apache.commons.lang3.ObjectUtils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -21,9 +18,8 @@ public class Reservation {
 	private String reservationName;
 	private String reservationTelephone;
 	private int totalPrice;
-	
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	public int getReservationInfoId() {
 		return reservationInfoId;
@@ -83,15 +79,15 @@ public class Reservation {
 
 	@JsonProperty("reservationDate")
 	public String getReservationDateView() {
-		return (reservationDate != null)? reservationDate.format(formatter) : "";
+		return (reservationDate != null) ? reservationDate.format(formatter) : "";
 	}
 
 	public LocalDateTime getReservationDate() {
 		return reservationDate;
 	}
-	
+
 	public void setReservationDate(LocalDateTime reservationDate) {
-		this.reservationDate =reservationDate;
+		this.reservationDate = reservationDate;
 	}
 
 	public String getReservationEmail() {
