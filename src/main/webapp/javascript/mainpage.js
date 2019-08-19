@@ -214,9 +214,10 @@ document.addEventListener("DOMContentLoaded", function () {
 	addMoreButtonEventListener();
 	loadCategoryCount(0);
 	loadCategoryProducts(0, 0);
-	debugger;
-	if(getCookie('email') !== null ){
-		document.querySelector('.viewReservation').title = getCookie('email');
+
+	let cookieEmail = getCookie('email') ;
+	if(cookieEmail !== null ){
+		document.querySelector('.viewReservation').innerText = cookieEmail;
 	}
 });
 
