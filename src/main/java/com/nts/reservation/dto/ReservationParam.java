@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ReservationParam {
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 	private int id;
 	private int displayInfoId;
 	private List<Price> prices;
@@ -14,8 +16,6 @@ public class ReservationParam {
 	private String reservationName;
 	private String reservationTelephone;
 	private LocalDateTime reservationDate;
-	
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	public int getDisplayInfoId() {
 		return displayInfoId;
@@ -76,9 +76,9 @@ public class ReservationParam {
 	public LocalDateTime getReservationDate() {
 		return reservationDate;
 	}
-	
+
 	public void setReservationDate(String reservationDate) {
-		this.reservationDate = LocalDate.parse(reservationDate, formatter).atStartOfDay();
+		this.reservationDate = LocalDate.parse(reservationDate, FORMATTER).atStartOfDay();
 	}
 
 	@Override
