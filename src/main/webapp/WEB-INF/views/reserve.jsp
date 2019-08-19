@@ -178,8 +178,8 @@
 										</label>
 										<div class="inline_control">
 											<input type="text" name="reservationName" id="name"
-												class="text" placeholder="네이버" maxlength="17"
-												pattern="^[가-힣]*$" title="한글만 입력가능합니다." required>
+												class="text" placeholder="이름" maxlength="17"
+												pattern="[^\s]+" title="공백은 입력하실 수 없습니다." required>
 										</div>
 									</div>
 									<div class="inline_form">
@@ -188,7 +188,7 @@
 										</label>
 										<div class="inline_control tel_wrap">
 											<input type="tel" name="reservationTelephone" id="tel"
-												class="tel" value="" placeholder="010-1234-5678"
+												class="tel" value="" placeholder="연락처 010-0000-0000"
 												pattern="^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$"
 												title="예) 010-1234-5678" required>
 											<div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
@@ -200,7 +200,7 @@
 										</label>
 										<div class="inline_control">
 											<input type="email" name="reservationEmail" id="email"
-												class="email" value="" placeholder="crong@codesquad.kr"
+												class="email" value="" placeholder="이메일"
 												maxlength="50" required>
 										</div>
 									</div>
