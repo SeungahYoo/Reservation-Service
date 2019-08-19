@@ -19,14 +19,16 @@
 		<div class="header">
 			<header class="header_tit">
 				<h1 class="logo">
-					<a href="./mainpage.html" class="lnk_logo" title="네이버"> <span
+					<a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span
 						class="spr_bi ico_n_logo">네이버</span>
-					</a> <a href="./mainpage.html" class="lnk_logo" title="예약"> <span
+					</a> <a href="/reservation" class="lnk_logo" title="예약"> <span
 						class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
 				<a href="#" class="btn_my"> <span title="내예약"
 					class="viewReservation"></span>
+				</a> <a href="/reservation/logout" class="btn_my"> <span
+					class="viewReservation" title="예약확인">로그아웃</span>
 				</a>
 			</header>
 		</div>
@@ -47,12 +49,12 @@
 								<span id="confirmed_count" class="figure">2</span>
 						</a></li>
 						<li class="item"><a href="#" class="link_summary_board">
-								<i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> 
-								<span id="used_count" class="figure">2</span>
+								<i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> <span
+								id="used_count" class="figure">2</span>
 						</a></li>
 						<li class="item"><a href="#" class="link_summary_board">
-								<i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em> 
-								<span id="cancel_count" class="figure">2</span>
+								<i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em> <span
+								id="cancel_count" class="figure">2</span>
 						</a></li>
 					</ul>
 				</div>
@@ -73,8 +75,7 @@
 									</div>
 									<div class="right"></div>
 								</div>
-							</div>
-							<!-- <article class="card_item">
+							</div> <!-- <article class="card_item">
 								<a href="#" class="link_booking_details">
 									<div class="card_body">
 										<div class="left"></div>
@@ -158,8 +159,7 @@
 								</a> <a href="#" class="fn fn-share1 naver-splugin btn_goto_share"
 									title="공유하기"></a>
 							</article> -->
-								<div class="card_list">
-							</div>
+							<div class="card_list"></div>
 						</li>
 						<li class="card confirmed">
 							<div class="link_booking_details">
@@ -172,8 +172,7 @@
 									</div>
 									<div class="right"></div>
 								</div>
-							</div>
-							<!-- <article class="card_item">
+							</div> <!-- <article class="card_item">
 								<a href="#" class="link_booking_details">
 									<div class="card_body">
 										<div class="left"></div>
@@ -259,8 +258,7 @@
 								</a> <a href="#" class="fn fn-share1 naver-splugin btn_goto_share"
 									title="공유하기"></a>
 							</article> -->
-							<div class="card_list">
-							</div>
+							<div class="card_list"></div>
 						</li>
 						<li class="card used">
 							<div class="link_booking_details">
@@ -273,8 +271,7 @@
 									</div>
 									<div class="right"></div>
 								</div>
-							</div>
-							<!-- <article class="card_item">
+							</div> <!-- <article class="card_item">
 								<a href="#" class="link_booking_details">
 									<div class="card_body">
 										<div class="left"></div>
@@ -355,8 +352,7 @@
 
 								</a>
 							</article> -->
-							<div class="card_list">
-							</div>
+							<div class="card_list"></div>
 						</li>
 						<li class="card used cancel">
 							<div class="link_booking_details">
@@ -369,8 +365,7 @@
 									</div>
 									<div class="right"></div>
 								</div>
-							</div>
-							<!-- <article class="card_item">
+							</div> <!-- <article class="card_item">
 								<a href="#" class="link_booking_details">
 									<div class="card_body">
 										<div class="left"></div>
@@ -440,8 +435,7 @@
 									</div>
 								</a>
 							</article> -->
-							<div class="card_list">
-							</div>
+							<div class="card_list"></div>
 						</li>
 					</ul>
 				</div>
@@ -475,7 +469,8 @@
 		<div class="dimm_dark" style="display: block"></div>
 		<div class="popup_booking refund">
 			<h1 class="pop_tit">
-				<span id="title">서비스명/상품명</span> <small class="sm" id="reservation_date">2000.0.00.(월)</small>
+				<span id="title">서비스명/상품명</span> <small class="sm"
+					id="reservation_date">2000.0.00.(월)</small>
 			</h1>
 			<div class="nomember_alert">
 				<p>취소하시겠습니까?</p>
@@ -489,8 +484,8 @@
 				</div>
 			</div>
 			<!-- 닫기 -->
-			<a onclick="isCanceled(false);" class="popup_btn_close" title="close"> <i
-				class="spr_book2 ico_cls"></i>
+			<a onclick="isCanceled(false);" class="popup_btn_close" title="close">
+				<i class="spr_book2 ico_cls"></i>
 			</a>
 			<!--// 닫기 -->
 		</div>

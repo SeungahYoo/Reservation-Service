@@ -57,11 +57,22 @@ public class MainController {
 	@PostMapping("booking-login")
 	public String loginProcess(@RequestParam("resrv_email") String email, HttpServletResponse response) {
 		Cookie cookie = new Cookie("email", email);
-		cookie.setMaxAge(-1);
+		cookie.setMaxAge(60 * 20);
 		cookie.setPath("/");
 		response.addCookie(cookie);
 
 		return "redirect:user-check";
+	}
+
+	@GetMapping("logout")
+	public String logout(HttpServletResponse response) {
+		Cookie cookie = new Cookie("email", null);
+		cookie.setMaxAge(0);
+		cookie.setPath("/");
+
+		response.addCookie(cookie);
+
+		return "redirect:mainpage";
 	}
 
 }
