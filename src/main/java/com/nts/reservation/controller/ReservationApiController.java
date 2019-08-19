@@ -21,7 +21,7 @@ import com.nts.reservation.service.ReservationService;
 @RestController
 @RequestMapping(path = "/api")
 public class ReservationApiController {
-	private ReservationService reservationService;
+	private final ReservationService reservationService;
 
 	public ReservationApiController(ReservationService reservationService) {
 		this.reservationService = reservationService;
