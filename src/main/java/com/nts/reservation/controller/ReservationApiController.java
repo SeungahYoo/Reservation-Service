@@ -6,16 +6,12 @@ import java.util.Map;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.nts.reservation.dto.Reservation;
-import com.nts.reservation.dto.ReservationParam;
 import com.nts.reservation.service.ReservationService;
 
 @RestController
@@ -25,13 +21,6 @@ public class ReservationApiController {
 
 	public ReservationApiController(ReservationService reservationService) {
 		this.reservationService = reservationService;
-	}
-
-	@PostMapping("reserve")
-	public ModelAndView saveReserveInfo(@ModelAttribute("reservationParam") ReservationParam reservationParam) {
-		reservationService.saveReserveInfo(reservationParam);
-
-		return new ModelAndView("redirect:/user-check");
 	}
 
 	@GetMapping("reserve")
