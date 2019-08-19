@@ -32,8 +32,8 @@
 		<div class="ct">
 			<div class="ct_wrap">
 				<div class="top_title">
-					<a href="/reservation/detail?id=${param.id }" class="btn_back" title="이전 화면으로 이동"> <i
-						class="fn fn-backward1"></i>
+					<a href="/reservation/detail?id=${param.id }" class="btn_back"
+						title="이전 화면으로 이동"> <i class="fn fn-backward1"></i>
 					</a>
 					<h2>
 						<span class="title" id="productDescription"></span>
@@ -48,14 +48,13 @@
 								<span class="img_bg"></span>
 								<div class="preview_txt">
 									<h2 class="preview_txt_tit" id="preview_txt_tit"></h2>
-									<em class="preview_txt_dsc"></em><em
-										class="preview_txt_dsc"></em>
+									<em class="preview_txt_dsc"></em><em class="preview_txt_dsc"></em>
 								</div></li>
 						</ul>
 					</div>
 				</div>
 				<div class="section_store_details">
-					<div class="store_details" >
+					<div class="store_details">
 						<h3 class="in_tit"></h3>
 						<p class="dsc">
 							장소 : <br> 기간 : 2017.2.17.(금)~2017.4.18.(화)
@@ -72,7 +71,8 @@
 						</p>
 					</div>
 				</div>
-				<form action="/reservation/api/reserve" method="post">
+				<form action="/reservation/api/reserve" method="post"
+					onsubmit="return isSubmitValid()">
 					<div class="section_booking_ticket">
 						<div class="ticket_body">
 							<div class="qty">
@@ -178,7 +178,8 @@
 										</label>
 										<div class="inline_control">
 											<input type="text" name="reservationName" id="name"
-												class="text" placeholder="네이버" maxlength="17" pattern="^[가-힣]*$" title="한글만 입력가능합니다." required>
+												class="text" placeholder="네이버" maxlength="17"
+												pattern="^[가-힣]*$" title="한글만 입력가능합니다." required>
 										</div>
 									</div>
 									<div class="inline_form">
@@ -187,7 +188,9 @@
 										</label>
 										<div class="inline_control tel_wrap">
 											<input type="tel" name="reservationTelephone" id="tel"
-												class="tel" value="" placeholder="010-1234-5678" pattern="^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$" title="예) 010-1234-5678" required>
+												class="tel" value="" placeholder="010-1234-5678"
+												pattern="^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$"
+												title="예) 010-1234-5678" required>
 											<div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
 										</div>
 									</div>
@@ -205,7 +208,9 @@
 										<label class="label" for="message">예매내용</label>
 										<div class="inline_control">
 											<p class="inline_txt selected">
-												<input id="reservation_date" name="reservationDate" readonly style="cursor: default; border: none; width: 100px;"/>, 총 <span id="totalCount">0</span>매
+												<input id="reservation_date" name="reservationDate" readonly
+													style="cursor: default; border: none; width: 100px;" />, 총
+												<span id="totalCount">0</span>매
 											</p>
 										</div>
 									</div>

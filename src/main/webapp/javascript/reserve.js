@@ -57,7 +57,7 @@ function addAmountButtonEventListener() {
 		button.addEventListener("click", function (event) {
 			const amountBox = button.parentElement.parentElement;
 			let amount = Number(amountBox.querySelector('.count_control_input').value);
-			
+
 			if (amount <= 0) {
 				//수량이 0이하면 감소할 수 없음
 				return;
@@ -69,10 +69,10 @@ function addAmountButtonEventListener() {
 
 			amount -= 1;
 			const price = amountBox.dataset.price;
-			
+
 			amountBox.querySelector('.count_control_input').value = amount;
 			amountBox.querySelector('.total_price').innerText = price * (amount);
-			
+
 			if (amount <= 0) {
 				button.classList.add("disabled");
 				amountBox.querySelector('.count_control_input').classList.add("disabled");
@@ -88,7 +88,7 @@ function addAmountButtonEventListener() {
 		button.addEventListener("click", function (event) {
 			const amountBox = button.parentElement.parentElement;
 			let amount = Number(amountBox.querySelector('.count_control_input').value);
-		
+
 			if (amount >= 99) {
 				//수량이 99이상이면 증가시킬수 없음 
 				return;
@@ -102,7 +102,7 @@ function addAmountButtonEventListener() {
 
 			amount += 1;
 			const price = amountBox.dataset.price;
-			
+
 			amountBox.querySelector('.count_control_input').value = amount;
 			amountBox.querySelector('.total_price').innerText = price * (amount);
 
@@ -137,7 +137,7 @@ function addButtonEventListener() {
 		})
 	})
 
-	document.querySelector('.label.chk_txt_label').addEventListener('click', function (click) {
+	document.querySelector('.label.chk_txt_label').addEventListener("click", function (click) {
 		if (document.querySelector('#chk3').checked) {
 			document.querySelector('.bk_btn_wrap').classList.add("disable");
 			document.querySelector('button.bk_btn').disabled = true;
@@ -147,13 +147,14 @@ function addButtonEventListener() {
 		}
 	})
 
-	// document.querySelector('.bk_btn').addEventListener('click', function (click) {
-	// 	if (Number(document.querySelector('#totalCount').innerText) <= 0) {
-	// 		alert('티켓을 선택해주세요');
-	// 		return false;
-	// 	}
-	// })
+}
 
+const isSubmitValid = () => {
+	if (Number(document.querySelector('#totalCount').innerText) <= 0) {
+		alert('티켓을 선택해주세요');
+		return false;
+	}
+	return true;
 }
 
 const createBookingTicketTemplate = (productPrices, displayInfo) => {
@@ -178,7 +179,7 @@ const createBookingTicketTemplate = (productPrices, displayInfo) => {
 
 const loadDisplayInfo = () => {
 	let xmlHttpRequest = new XMLHttpRequest();
-	
+
 	xmlHttpRequest.onreadystatechange = () => {
 		if (xmlHttpRequest.status >= 400) {
 			alert("오류가 발생했습니다. 다시 시도해주세요.");
