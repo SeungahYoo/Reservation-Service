@@ -73,7 +73,7 @@ const loadReservations = (reservationEmail) => {
 			confirmedCardList.classList.add("card_list");
 			usedCardList.classList.add("card_list");
 
-			// console.log(Myreservations);
+			//console.log(Myreservations);
 
 			let canceledCount = Myreservations.canceledReservations.length;
 			let confirmedCount = Myreservations.confirmedReservations.length;
@@ -125,9 +125,9 @@ const loadReservations = (reservationEmail) => {
 const cancelReservation = (reservationInfoId) => {
 	let xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.onreadystatechange = () => {
-		if (xmlHttpRequest.status >= 400) {
-			alert("오류가 발생했습니다. 다시 시도해주세요.");
-			window.location.replace("/reservation/mainpage");
+		if (xmlHttpRequest.readyState === 4 && xmlHttpRequest.status >= 400) {
+			alert("예약 취소 중 오류가 발생했습니다. 다시 시도해주세요.");
+			window.location.replace("/reservation/user-check");
 			return;
 		}
 		if (xmlHttpRequest.readyState === 4) {
@@ -149,7 +149,6 @@ const showCancelPopup = (card) => {
 
 const isCanceled = (canceled) => {
 	if (canceled) {
-		debugger;
 		cancelReservation(event.target.closest('.btn_green').dataset.id);
 	} else {
 		document.querySelector('.popup_booking_wrapper').style.display = "none";
@@ -160,7 +159,6 @@ const addButtonEventListener = () => {
 	let cancelButtons = document.querySelectorAll('.btn.cancel');
 	cancelButtons.forEach(button => {
 		button.addEventListener("click", function (event) {
-			debugger;
 			showCancelPopup(event.target.closest('article'));
 		})
 	});
@@ -168,7 +166,7 @@ const addButtonEventListener = () => {
 
 document.addEventListener("DOMContentLoaded", function () {
 	let reservationEmail = getCookie('email');
-	console.log(reservationEmail);
+	//console.log(reservationEmail);
 	loadReservations(reservationEmail);
 
 });
