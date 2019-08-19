@@ -8,11 +8,24 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.nts.reservation.dto.ReservationParam;
+import com.nts.reservation.service.ReservationService;
 
 @Controller
 public class MainController {
+	private final ReservationService reservationService;
+	private static final Pattern EMAIL_PATTERN = Pattern
+		.compile("/^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$/i");
+
+	public MainController(ReservationService reservationService) {
+		this.reservationService = reservationService;
+	}
+
 	@GetMapping("mainpage")
 	public String mainpage() {
 		return "mainpage";
@@ -42,6 +55,13 @@ public class MainController {
 		return "myreservation";
 	}
 
+	@PostMapping("reserve")
+	public ModelAndView saveReserveInfo(@ModelAttribute("reservationParam") ReservationParam reservationParam) {
+		reservationService.saveReserveInfo(reservationParam);
+
+		return new ModelAndView("redirect:/user-check");
+	}
+
 	@GetMapping("user-check")
 	public String userCheck(@CookieValue(value = "email", required = false) String email) {
 		if (email == null) {
@@ -58,9 +78,7 @@ public class MainController {
 
 	@PostMapping("booking-login")
 	public String loginProcess(@RequestParam("resrv_email") String email, HttpServletResponse response) {
-		if (email.length() <= 0 ||
-			Pattern.compile("/^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$/i")
-				.matcher(email).matches()) {
+		if (email.length() <= 0 || EMAIL_PATTERN.matcher(email).matches()) {
 			throw new IllegalArgumentException("Invalid ReservationEmail");
 		}
 
