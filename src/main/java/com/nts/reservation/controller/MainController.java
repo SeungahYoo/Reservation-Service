@@ -1,5 +1,7 @@
 package com.nts.reservation.controller;
 
+import java.util.regex.Pattern;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
@@ -56,6 +58,12 @@ public class MainController {
 
 	@PostMapping("booking-login")
 	public String loginProcess(@RequestParam("resrv_email") String email, HttpServletResponse response) {
+		if (email.length() <= 0 ||
+			Pattern.compile("/^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$/i")
+				.matcher(email).matches()) {
+			throw new IllegalArgumentException("Invalid ReservationEmail");
+		}
+
 		Cookie cookie = new Cookie("email", email);
 		cookie.setMaxAge(60 * 20);
 		cookie.setPath("/");
