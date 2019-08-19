@@ -2,7 +2,7 @@ let totalCount = 0;
 
 const replaceBookingTicketTemplate = (productPrice, priceIndex) => {
 	return `						<div class="qty">
-	<div class="count_control" data-price="${productPrice.price}">
+	<div class="count_control" data-price="${Math.floor(productPrice.price*(1-productPrice.discountRate*0.01))}">
 		<div class="clearfix">
 			<a 
 				class="btn_plus_minus spr_book2 ico_minus3 disabled"
@@ -17,7 +17,7 @@ const replaceBookingTicketTemplate = (productPrice, priceIndex) => {
 	</div>
 	<div class="qty_info_icon">
 		<strong class="product_amount"> <span>${productPrice.priceTypeName}</span>
-		</strong> <strong class="product_price"> <span class="price">${productPrice.price}</span>
+		</strong> <strong class="product_price"> <span class="price">${Math.floor(productPrice.price*(1-productPrice.discountRate*0.01))}</span>
 			<span class="price_type">원</span>
 		</strong> <em class="product_dsc">${productPrice.price}원 (${productPrice.discountRate}% 할인가)</em>
 	</div>
