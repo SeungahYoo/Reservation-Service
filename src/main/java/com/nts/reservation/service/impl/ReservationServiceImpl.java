@@ -50,7 +50,7 @@ public class ReservationServiceImpl implements ReservationService {
 		displayMap.put("productImages", productMapper.selectProductImages(productId));
 		displayMap.put("productPrices", productMapper.selectProductPrices(productId));
 		displayMap.put("reservationDate", LocalDate.now()
-			.plusDays(ThreadLocalRandom.current().nextInt(6))
+			.plusDays(ThreadLocalRandom.current().nextInt(1, 6))
 			.format(FORMATTER));
 
 		return displayMap;
