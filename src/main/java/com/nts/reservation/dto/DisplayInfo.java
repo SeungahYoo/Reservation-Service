@@ -10,7 +10,7 @@ public class DisplayInfo {
 	private String email;
 	private String homepage;
 	private LocalDateTime modifyDate;
-	private String opiningHours;
+	private String openingHours;
 	private String placeLot;
 	private String placeName;
 	private String placeStreet;
@@ -76,12 +76,12 @@ public class DisplayInfo {
 		this.modifyDate = modifyDate;
 	}
 
-	public String getOpiningHours() {
-		return opiningHours;
+	public String getopeningHours() {
+		return openingHours;
 	}
 
-	public void setOpiningHours(String opiningHours) {
-		this.opiningHours = opiningHours;
+	public void setopeningHours(String openingHours) {
+		this.openingHours = openingHours;
 	}
 
 	public String getPlaceLot() {
@@ -152,7 +152,7 @@ public class DisplayInfo {
 	public String toString() {
 		return "DisplayInfo [categoryId=" + categoryId + ", categoryName=" + categoryName + ", createDate=" + createDate
 			+ ", displayInfoId=" + displayInfoId + ", email=" + email + ", homepage=" + homepage + ", modifyDate="
-			+ modifyDate + ", opiningHours=" + opiningHours + ", placeLot=" + placeLot + ", placeName=" + placeName
+			+ modifyDate + ", openingHours=" + openingHours + ", placeLot=" + placeLot + ", placeName=" + placeName
 			+ ", placeStreet=" + placeStreet + ", productContent=" + productContent + ", productDescription="
 			+ productDescription + ", productEvent=" + productEvent + ", telephone=" + telephone + ", productId="
 			+ productId + "]";

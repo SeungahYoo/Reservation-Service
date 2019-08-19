@@ -38,13 +38,13 @@
 				<div class="section_visual">
 					<header>
 						<h1 class="logo">
-							<a href="./mainpage.html" class="lnk_logo" title="네이버"> <span
+							<a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span
 								class="spr_bi ico_n_logo">네이버</span>
-							</a> <a href="./mainpage.html" class="lnk_logo" title="예약"> <span
+							</a> <a href="/reservation" class="lnk_logo" title="예약"> <span
 								class="spr_bi ico_bk_logo">예약</span>
 							</a>
 						</h1>
-						<a href="./myreservation.html" class="btn_my"> <span
+						<a href="/reservation/user-check" class="btn_my"> <span
 							class="viewReservation" title="예약확인">예약확인</span>
 						</a>
 					</header>
@@ -336,4 +336,5 @@
 </body>
 <script src="javascript/detail.js"></script>
 <script src="javascript/comment.js"></script>
+<script src="javascript/cookie.js"></script>
 </html>
