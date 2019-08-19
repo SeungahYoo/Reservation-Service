@@ -62,7 +62,7 @@
 
 				<!-- 내 예약 리스트 -->
 				<div class="wrap_mylist">
-					<ul class="list_cards" ng-if="bookedLists.length > 0">
+					<ul class="list_cards">
 						<!--[D] 예약확정: .confirmed, 취소된 예약&이용완료: .used 추가 card -->
 						<li class="card" style="display: none;">
 							<div class=link_booking_details>
