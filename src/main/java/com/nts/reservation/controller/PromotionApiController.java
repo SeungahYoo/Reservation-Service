@@ -13,7 +13,7 @@ import com.nts.reservation.service.PromotionService;
 @RestController
 @RequestMapping(path = "/api")
 public class PromotionApiController {
-	private PromotionService promotionService;
+	private final PromotionService promotionService;
 
 	@Autowired
 	public PromotionApiController(PromotionService promotionService) {
