@@ -90,7 +90,7 @@ public class MainController {
 
 	@PostMapping("booking-login")
 	public String loginProcess(@RequestParam("resrv_email") String email, HttpServletResponse response) {
-		if (email.length() <= 0 || EMAIL_PATTERN.matcher(email).matches()) {
+		if (StringUtils.isEmpty(email) || EMAIL_PATTERN.matcher(email).matches()) {
 			throw new IllegalArgumentException("Invalid ReservationEmail");
 		}
 
