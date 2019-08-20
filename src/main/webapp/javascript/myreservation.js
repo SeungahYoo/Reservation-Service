@@ -46,9 +46,10 @@ const replaceCardItemTemplate = (key, reservation) => {
 		<span>취소</span>
 		</button>`
 	} else if (key === "used") {
-		button = `	<button class="btn review">
+		button = `	<a href="/reservation/review-write?id=${reservation.reservationInfoId}">
+		<button class="btn review ">
 		<span>예매자 리뷰 남기기</span>
-		</button>`
+		</button> </a>`
 	}
 
 	return template1 + button + template2;
@@ -172,7 +173,7 @@ const addButtonEventListener = () => {
 	let popupButtons = document.querySelectorAll('.popup_booking_wrapper a');
 
 	popupButtons.forEach(button => {
-		button.addEventListener("click",function(event) {
+		button.addEventListener("click", function (event) {
 			isCanceled(button.dataset.value);
 		})
 	})
