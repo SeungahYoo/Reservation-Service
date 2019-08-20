@@ -21,6 +21,8 @@ public class MainController {
 	private final ReservationService reservationService;
 	private static final Pattern EMAIL_PATTERN = Pattern
 		.compile("/^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$/i");
+	private static final Pattern NAME_PATTERN = Pattern.compile("[^\\s]+");
+	private static final Pattern TELEPHONE_PATTERN = Pattern.compile("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$");
 
 	public MainController(ReservationService reservationService) {
 		this.reservationService = reservationService;
@@ -57,6 +59,12 @@ public class MainController {
 
 	@PostMapping("reserve")
 	public ModelAndView saveReserveInfo(@ModelAttribute("reservationParam") ReservationParam reservationParam) {
+		if (EMAIL_PATTERN.matcher(reservationParam.getReservationEmail()).matches()
+			|| NAME_PATTERN.matcher(reservationParam.getReservationName()).matches()
+			|| TELEPHONE_PATTERN.matcher(reservationParam.getReservationTelephone()).matches()) {
+			throw new IllegalArgumentException("Invalid ReservationParam");
+		}
+
 		reservationService.saveReserveInfo(reservationParam);
 
 		return new ModelAndView("redirect:/user-check");
