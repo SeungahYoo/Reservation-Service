@@ -190,7 +190,6 @@ const loadDisplayInfo = () => {
 document.addEventListener("DOMContentLoaded", function () {
 	const productId = loadDisplayInfo();
 
-	debugger;
 	let cookieEmail = getCookie('email');
 	if (cookieEmail !== null) {
 		document.querySelector('.viewReservation').innerText = cookieEmail;
