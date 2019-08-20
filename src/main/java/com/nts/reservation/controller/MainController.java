@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,7 +60,10 @@ public class MainController {
 
 	@PostMapping("reserve")
 	public ModelAndView saveReserveInfo(@ModelAttribute("reservationParam") ReservationParam reservationParam) {
-		if (EMAIL_PATTERN.matcher(reservationParam.getReservationEmail()).matches()
+		if (StringUtils.isEmpty(reservationParam.getReservationEmail())
+			|| StringUtils.isEmpty(reservationParam.getReservationName())
+			|| StringUtils.isEmpty(reservationParam.getReservationTelephone())
+			|| EMAIL_PATTERN.matcher(reservationParam.getReservationEmail()).matches()
 			|| NAME_PATTERN.matcher(reservationParam.getReservationName()).matches()
 			|| TELEPHONE_PATTERN.matcher(reservationParam.getReservationTelephone()).matches()) {
 			throw new IllegalArgumentException("Invalid ReservationParam");
