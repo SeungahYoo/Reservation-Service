@@ -12,7 +12,10 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.nts.reservation.dto.Comment;
+import com.nts.reservation.dto.CommentImage;
 import com.nts.reservation.dto.DisplayInfo;
 import com.nts.reservation.dto.Reservation;
 import com.nts.reservation.dto.ReservationParam;
@@ -96,6 +99,17 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public int cancelReservation(String cookieEmail, int reservationInfoId) {
 		return reservationMapper.updateReservationCanceled(cookieEmail, reservationInfoId);
+	}
+
+	@Override
+	public void saveComment(Comment comment, List<MultipartFile> commentImages) {
+		CommentImage commentImage = new CommentImage();
+
+		for (MultipartFile file : commentImages) {
+			commentImage.setContentType(file.getContentType());
+			commentImage.setFileName(file.getOriginalFilename());
+		}
+
 	}
 
 }
