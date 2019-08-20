@@ -15,7 +15,7 @@
 	</appender>
 
 	<!-- root는 글로벌 로거를 의미하며, 위의 logger에 해당하지 않으면 root 로거가 실행된다. -->
-	<root level="warn">
+	<root level="debug">
 		<param name="encoding" value="UTF-8" />
 		<appender-ref ref="consoleAppender" />
 	</root>

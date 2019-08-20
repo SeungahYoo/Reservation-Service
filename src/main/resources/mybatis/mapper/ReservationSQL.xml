@@ -59,7 +59,7 @@
 			</foreach>
 	</insert>
 	
-	<update id="updateReservationCanceled">
+	<update id="updateReservationCanceled" parameterType="Map">
 		UPDATE 
 			reservation_info
 		SET 
@@ -100,5 +100,22 @@
 			reservation_info.id;
 	</select>
 	
+	<insert id="insertReservationUserComment" parameterType="com.nts.reservation.dto.Comment">
+	INSERT INTO 
+		reservation_user_comment
+			(product_id, 
+			reservation_info_id, 
+			score, 
+			comment, 
+			create_date, 
+			modify_date)
+	VALUES 
+		(2, 
+		16, 
+		5, 
+		'테스트123', 
+		now(), 
+		now())
+	</insert>
 
 </mapper>
