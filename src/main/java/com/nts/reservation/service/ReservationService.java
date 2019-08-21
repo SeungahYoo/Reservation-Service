@@ -3,9 +3,6 @@ package com.nts.reservation.service;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import com.nts.reservation.dto.Comment;
 import com.nts.reservation.dto.Reservation;
 import com.nts.reservation.dto.ReservationParam;
 
@@ -18,5 +15,4 @@ public interface ReservationService {
 
 	int cancelReservation(String cookieEmail, int reservationInfoId);
 
-	void saveComment(Comment comment, List<MultipartFile> commentImages);
 }
