@@ -33,12 +33,14 @@
 	<insert id="insertFileInfo" parameterType="com.nts.reservation.dto.CommentImage" useGeneratedKeys="true" keyProperty="fileId">
 		INSERT INTO
 			file_info 
-				(file_name, 
-				save_file_name, 
-				content_type, 
-				delete_flag, 
-				create_date, 
-				modify_date ) 
+				(
+					file_name, 
+					save_file_name, 
+					content_type, 
+					delete_flag, 
+					create_date, 
+					modify_date 
+				) 
 			VALUES
 				<foreach collection="commentImages" item="commentImage" separator=",">
 					(
@@ -50,6 +52,22 @@
 						now()
 					)
 				</foreach>
+	</insert>
+	
+	<insert id="insertUserCommentImage" parameterType="Map">
+		INSERT INTO 
+			reservation_user_comment_image
+				(
+					reservation_info_id, 
+					reservation_user_comment_id, 
+					file_id
+				) 
+			VALUES 
+				(
+					#{reservationInfoId}, 
+					#{reservationUserCommentId}, 
+					#{fileId}
+				)
 	</insert>
 	
 

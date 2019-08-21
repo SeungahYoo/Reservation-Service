@@ -17,7 +17,7 @@ import com.nts.reservation.service.CommentService;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-	private static final String SAVE_PATH = "c:/tmp/";
+	private static final String SAVE_PATH = "c:/tmp/commentImage/";
 	private static final String PREFIX_URL = "c:/tmp/";
 
 	private final CommentMapper commentMapper;
@@ -30,16 +30,13 @@ public class CommentServiceImpl implements CommentService {
 	public void saveComment(Comment comment, List<MultipartFile> multipartFiles) {
 		List<CommentImage> commentImages = uploadCommentImages(multipartFiles);
 
-		System.out.println("====before===");
-		System.out.println(comment);
-		System.out.println(commentImages);
-
 		commentMapper.insertUserComment(comment);
 		commentMapper.insertFileInfo(commentImages);
+		for (CommentImage commentImage : commentImages) {
+			commentMapper.insertUserCommentImage(comment.getReservationInfoId(), comment.getCommentId(),
+				commentImage.getFileId());
+		}
 
-		System.out.println("====after===");
-		System.out.println(comment);
-		System.out.println(commentImages);
 	}
 
 	private List<CommentImage> uploadCommentImages(List<MultipartFile> multipartFiles) {

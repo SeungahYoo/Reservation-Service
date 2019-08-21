@@ -77,8 +77,9 @@ public class ReservationApiController {
 	}
 
 	@PostMapping("comments")
-	public void saveComment(Comment comment, @RequestParam("files") List<MultipartFile> commentImages) {
+	public ModelAndView saveComment(Comment comment, @RequestParam("files") List<MultipartFile> commentImages) {
 		commentService.saveComment(comment, commentImages);
+		return new ModelAndView("redirect:/user-check");
 	}
 
 }

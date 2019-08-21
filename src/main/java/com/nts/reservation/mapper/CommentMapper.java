@@ -11,4 +11,8 @@ public interface CommentMapper {
 	void insertUserComment(Comment comment);
 
 	void insertFileInfo(@Param("commentImages") List<CommentImage> commentImages);
+
+	void insertUserCommentImage(@Param("reservationInfoId") int ReservationInfoId,
+		@Param("reservationUserCommentId") int reservationUserCommentId,
+		@Param("fileId") int fileId);
 }
