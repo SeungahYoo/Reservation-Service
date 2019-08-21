@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -25,7 +26,8 @@
 						class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<a href="/reservation/user-check" class="btn_my"> <span title="예약확인">예약확인</span>
+				<a href="/reservation/user-check" class="btn_my"> <span
+					title="예약확인">예약확인</span>
 				</a>
 			</header>
 		</div>
@@ -49,7 +51,8 @@
 								<span class="graph_mask"> <em class="graph_value"></em>
 								</span> <strong class="text_value"> <span id="score_average"></span>
 									<em class="total">5.0</em>
-								</strong> <span class="join_count"><em class="green"><span id="commentsCount"></span>건</em> 등록</span>
+								</strong> <span class="join_count"><em class="green"><span
+										id="commentsCount"></span>건</em> 등록</span>
 							</div>
 							<ul class="list_short_review">
 								<!-- <li class="list_item">
