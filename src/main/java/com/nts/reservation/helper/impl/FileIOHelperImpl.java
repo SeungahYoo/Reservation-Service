@@ -1,6 +1,7 @@
 package com.nts.reservation.helper.impl;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.helper.FileIOHelper;
 
@@ -32,5 +34,23 @@ public class FileIOHelperImpl implements FileIOHelper {
 
 		FileCopyUtils.copy(FileUtils.openInputStream(saveFile), response.getOutputStream());
 	}
+
+	@Override
+	public void uploadFile(MultipartFile multipartFile, String saveFileName) throws IOException {
+		FileCopyUtils.copy(multipartFile.getBytes(), new FileOutputStream(SAVE_PATH + saveFileName));
+
+	}
+
+	//	@Override
+	//	private void uploadFile(MultipartFile multipartFile, String saveFileName) throws IOException {
+	//		byte[] data = ;
+	//
+	//		FileOutputStream fileOutputStream = new FileOutputStream(SAVE_PATH + saveFileName);
+	//		fileOutputStream.write(data);
+	//		fileOutputStream.close();
+	//
+	//
+	//	}
+	//
 
 }
