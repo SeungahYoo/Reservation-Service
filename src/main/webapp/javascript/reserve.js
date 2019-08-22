@@ -192,7 +192,7 @@ const loadDisplayInfo = () => {
 
 			document.querySelector('#productDescription').innerText = productDetail.displayInfo.productDescription;
 			const displayImage = document.querySelector('#display_image');
-			displayImage.querySelector('#img_thumb').src = `${productDetail.productImages[0].saveFileName}`;
+			displayImage.querySelector('#img_thumb').src = `/reservation/file/download?saveFileName=${productDetail.productImages[0].saveFileName}`;
 			displayImage.querySelector('#preview_txt_tit').innerText = productDetail.displayInfo.productDescription;
 			document.querySelector('.store_details').innerHTML = replaceStoreDetailsTemplate(productDetail.displayInfo, productDetail.productPrices);
 			document.querySelector('#reservation_date').value = productDetail.reservationDate;

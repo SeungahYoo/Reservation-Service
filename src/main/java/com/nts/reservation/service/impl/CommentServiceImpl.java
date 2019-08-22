@@ -17,7 +17,7 @@ import com.nts.reservation.service.CommentService;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-	private static final String SAVE_PATH = "c:/tmp/commentImage/";
+	private static final String SAVE_PATH = "c:/tmp/";
 	private static final String PREFIX_URL = "c:/tmp/";
 
 	private final CommentMapper commentMapper;
@@ -57,7 +57,7 @@ public class CommentServiceImpl implements CommentService {
 
 				commentImage.setContentType(multiPartFile.getContentType());
 				commentImage.setFileName(saveFileName);
-				commentImage.setSaveFileName(SAVE_PATH + saveFileName);
+				commentImage.setSaveFileName(SAVE_PATH + "commentImage/" + saveFileName);
 
 				commentImageList.add(commentImage);
 
