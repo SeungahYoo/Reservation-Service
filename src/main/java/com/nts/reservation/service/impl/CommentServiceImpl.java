@@ -1,10 +1,9 @@
 package com.nts.reservation.service.impl;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -12,18 +11,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.dto.Comment;
 import com.nts.reservation.dto.CommentImage;
+import com.nts.reservation.helper.FileIOHelper;
 import com.nts.reservation.mapper.CommentMapper;
 import com.nts.reservation.service.CommentService;
 
 @Service
 public class CommentServiceImpl implements CommentService {
 	private static final String SAVE_PATH = "c:/tmp/";
-	private static final String PREFIX_URL = "c:/tmp/";
 
 	private final CommentMapper commentMapper;
+	private final FileIOHelper fileIOHelper;
 
-	public CommentServiceImpl(CommentMapper commentMapper) {
+	public CommentServiceImpl(CommentMapper commentMapper, FileIOHelper fileIOHelper) {
 		this.commentMapper = commentMapper;
+		this.fileIOHelper = fileIOHelper;
 	}
 
 	@Override
@@ -51,13 +52,14 @@ public class CommentServiceImpl implements CommentService {
 				}
 
 				String saveFileName = getSaveFileName(originFileName);
-				writeFile(multiPartFile, saveFileName);
+
+				fileIOHelper.uploadFile(multiPartFile, "comment_img/" + saveFileName);
 
 				CommentImage commentImage = new CommentImage();
 
 				commentImage.setContentType(multiPartFile.getContentType());
 				commentImage.setFileName(saveFileName);
-				commentImage.setSaveFileName(SAVE_PATH + "commentImage/" + saveFileName);
+				commentImage.setSaveFileName(SAVE_PATH + "comment_img/" + saveFileName);
 
 				commentImageList.add(commentImage);
 
@@ -69,27 +71,7 @@ public class CommentServiceImpl implements CommentService {
 		return commentImageList;
 	}
 
-	private boolean writeFile(MultipartFile multipartFile, String saveFileName) throws IOException {
-		boolean result = false;
-		byte[] data = multipartFile.getBytes();
-
-		FileOutputStream fileOutputStream = new FileOutputStream(SAVE_PATH + saveFileName);
-		fileOutputStream.write(data);
-		fileOutputStream.close();
-
-		return result;
-	}
-
 	private String getSaveFileName(String fileName) {
-		Calendar calendar = Calendar.getInstance();
-
-		return calendar.get(Calendar.YEAR)
-			+ calendar.get(Calendar.MONTH)
-			+ calendar.get(Calendar.DATE)
-			+ calendar.get(Calendar.HOUR)
-			+ calendar.get(Calendar.MINUTE)
-			+ calendar.get(Calendar.SECOND)
-			+ calendar.get(Calendar.MILLISECOND)
-			+ fileName.substring(fileName.lastIndexOf("."));
+		return UUID.randomUUID() + fileName.substring(fileName.lastIndexOf("."));
 	}
 }
