@@ -21,7 +21,7 @@ public class FileIOHelperImpl implements FileIOHelper {
 
 	@Override
 	public void downloadFile(HttpServletResponse response, String saveFileName) throws IOException {
-		String saveFilePath = SAVE_PATH + saveFileName; // 맥일 경우 "/tmp/connect.png" 로 수정
+		String saveFilePath = SAVE_PATH + saveFileName;
 		File saveFile = new File(saveFilePath);
 
 		response.setHeader("Content-Disposition",
@@ -40,17 +40,4 @@ public class FileIOHelperImpl implements FileIOHelper {
 		FileCopyUtils.copy(multipartFile.getBytes(), new FileOutputStream(SAVE_PATH + saveFileName));
 
 	}
-
-	//	@Override
-	//	private void uploadFile(MultipartFile multipartFile, String saveFileName) throws IOException {
-	//		byte[] data = ;
-	//
-	//		FileOutputStream fileOutputStream = new FileOutputStream(SAVE_PATH + saveFileName);
-	//		fileOutputStream.write(data);
-	//		fileOutputStream.close();
-	//
-	//
-	//	}
-	//
-
 }

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public void saveComment(Comment comment, List<MultipartFile> multipartFiles) {
+	public void saveComment(Comment comment, List<MultipartFile> multipartFiles) throws IOException {
 		List<CommentImage> commentImages = uploadCommentImages(multipartFiles);
 
 		commentMapper.insertUserComment(comment);
@@ -40,35 +39,35 @@ public class CommentServiceImpl implements CommentService {
 
 	}
 
-	private List<CommentImage> uploadCommentImages(List<MultipartFile> multipartFiles) {
+	private List<CommentImage> uploadCommentImages(List<MultipartFile> multipartFiles) throws IOException {
 		List<CommentImage> commentImageList = new ArrayList<>();
 
 		for (MultipartFile multiPartFile : multipartFiles) {
-			try {
-				String originFileName = multiPartFile.getOriginalFilename();
 
-				if (StringUtils.isBlank(originFileName)) {
-					continue;
-				}
+			//			//check!!!
+			//			if (StringUtils.isBlank(originFileName)) {
+			//				continue;
+			//			}
 
-				String saveFileName = getSaveFileName(originFileName);
+			CommentImage commentImage = getCommentImage(multiPartFile);
 
-				fileIOHelper.uploadFile(multiPartFile, "comment_img/" + saveFileName);
+			fileIOHelper.uploadFile(multiPartFile, "comment_img/" + commentImage.getFileName());
 
-				CommentImage commentImage = new CommentImage();
-
-				commentImage.setContentType(multiPartFile.getContentType());
-				commentImage.setFileName(saveFileName);
-				commentImage.setSaveFileName(SAVE_PATH + "comment_img/" + saveFileName);
-
-				commentImageList.add(commentImage);
-
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
+			commentImageList.add(commentImage);
 		}
 
 		return commentImageList;
+	}
+
+	private CommentImage getCommentImage(MultipartFile multiPartFile) {
+		CommentImage commentImage = new CommentImage();
+
+		String saveFileName = getSaveFileName(multiPartFile.getOriginalFilename());
+		commentImage.setContentType(multiPartFile.getContentType());
+		commentImage.setFileName(saveFileName);
+		commentImage.setSaveFileName(SAVE_PATH + "comment_img/" + saveFileName);
+
+		return commentImage;
 	}
 
 	private String getSaveFileName(String fileName) {
