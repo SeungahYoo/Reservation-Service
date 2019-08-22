@@ -90,6 +90,6 @@ public class CommentServiceImpl implements CommentService {
 			+ calendar.get(Calendar.MINUTE)
 			+ calendar.get(Calendar.SECOND)
 			+ calendar.get(Calendar.MILLISECOND)
-			+ fileName.substring(fileName.lastIndexOf("."), fileName.length());
+			+ fileName.substring(fileName.lastIndexOf("."));
 	}
 }
