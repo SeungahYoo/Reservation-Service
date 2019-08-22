@@ -1,10 +1,35 @@
 const replaceThumbnailImage = (image) => {
-    return `<li class="item"><a href=""
-    class="anchor"> <span class="spr_book ico_del">삭제</span>
+    return `<li class="item"><a href="#"
+    class="anchor"> <span class="spr_book ico_del" id="remove_file_button" data-name="${image.name}">삭제</span>
 </a> <img
     src="${window.URL.createObjectURL(image)}"
     width="130" alt="" class="item_thumb"> <span
     class="img_border"></span></li>`
+}
+
+const removeFile = (imageName) => {
+    let filelist = new DataTransfer();
+    let arraylist = Array.from(document.querySelector('#reviewImageFileOpenInput').files);
+    arraylist.splice(getIndex(imageName, arraylist), 1);
+    arraylist.forEach(element => {
+        filelist.items.add(element);
+    });
+
+
+    document.querySelector('#reviewImageFileOpenInput').files = filelist.files;
+}
+
+const getIndex = (imageName, filelist) => {
+    let index = 0;
+
+    while (index < filelist.length) {
+        if (index in filelist && filelist[index].name === imageName) {
+            return index;
+        }
+        index++;
+    }
+
+    return -1;
 }
 
 const addScoreStarsEventListener = () => {
@@ -61,14 +86,27 @@ const addfileUploaderEventListener = () => {
             }
         });
         const thumbnailList = document.querySelector('.lst_thumb');
-        
+
         let thumbnailsHTML = "";
         Array.from(images).forEach(image => {
             thumbnailsHTML += replaceThumbnailImage(image);
         })
-        
+
         thumbnailList.innerHTML = thumbnailsHTML
+
+        addRemoveFileButtonEventListener();
     })
+}
+
+const addRemoveFileButtonEventListener = () => {
+    const removeFileButtons = document.querySelectorAll('#remove_file_button');
+
+    removeFileButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+            button.closest("li").style.display="none";
+            removeFile(button.dataset.name);
+        })
+    });
 }
 
 const isValidImageType = (image) => {
