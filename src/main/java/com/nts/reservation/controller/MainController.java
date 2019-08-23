@@ -92,7 +92,8 @@ public class MainController {
 	}
 
 	@PostMapping("comments")
-	public String saveComment(@RequestParam(value = "id") int reservationInfoId) {
+	public String saveComment(@RequestParam(value = "id") int reservationInfoId,
+		@RequestParam(value = "title") int productDescription) {
 
 		return "reviewWrite";
 	}

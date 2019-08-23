@@ -49,7 +49,7 @@
 			#{startIndex} , #{maxCount}
 	</select>
 	
-	<select id="selectProduct" parameterType="int" resultType="com.nts.reservation.dto.Product">
+	<select id="selectProductByProductId" parameterType="int" resultType="com.nts.reservation.dto.Product">
 		SELECT 
 			display_info.id displayInfoId,
 			product.id id, 

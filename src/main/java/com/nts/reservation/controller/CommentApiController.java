@@ -3,7 +3,6 @@ package com.nts.reservation.controller;
 import java.io.IOException;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +22,6 @@ public class CommentApiController {
 		this.commentService = commentService;
 	}
 
-	@Transactional
 	@PostMapping("comments")
 	public ModelAndView saveComment(Comment comment, @RequestParam("files") List<MultipartFile> commentImages)
 		throws IOException {

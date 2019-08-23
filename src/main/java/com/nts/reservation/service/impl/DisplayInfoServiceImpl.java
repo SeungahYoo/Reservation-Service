@@ -40,7 +40,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		displayMap.put("productPrices", productMapper.selectProductPrices(productId));
 		displayMap.put("comments", productMapper.selectComments(productId, isDetail));
 
-		Product product = productMapper.selectProduct(productId);
+		Product product = productMapper.selectProductByProductId(productId);
 		displayMap.put("productScoreAverage", product.getProductScoreAverageView());
 		displayMap.put("commentsCount", product.getCommentsCount());
 		return displayMap;

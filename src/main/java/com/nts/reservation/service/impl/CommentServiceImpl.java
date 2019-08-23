@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.dto.Comment;
@@ -27,6 +28,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
+	@Transactional
 	public void saveComment(Comment comment, List<MultipartFile> multipartFiles) throws IOException {
 		commentMapper.insertUserComment(comment);
 
