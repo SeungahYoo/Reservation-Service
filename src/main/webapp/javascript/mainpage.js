@@ -5,7 +5,7 @@ let productListMaxIndex = 0;
 let currentCategoryCount = 0;
 
 let replacePromotionTemplate = (productImageUrl) => {
-	return `<li class="item" id="promotionImage" style="background-image: url('/reservation/file/download?saveFileName=${productImageUrl}');">
+	return `<li class="item" id="promotionImage" style="background-image: url('${productImageUrl}');">
         		<a href="#"> 
 					<span class="img_btm_border"></span> 
 					<span class="img_right_border"></span> 
@@ -23,7 +23,7 @@ let replaceProductTemplate = (product) => {
 	return `<li class="item">
 	            <a href="/reservation/detail?id=${product.displayInfoId}" class="item_book">
 	                <div class="item_preview">
-	                    <img alt="${product.description}" class="img_thumb" src="/reservation/file/download?saveFileName=${product.productImageUrl}">
+	                    <img alt="${product.description}" class="img_thumb" src="${product.productImageUrl}">
 	                    <span class="img_border"></span>
 	                </div>
 	                <div class="event_txt">
