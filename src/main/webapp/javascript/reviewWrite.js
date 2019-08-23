@@ -66,6 +66,18 @@ const addCommentTextareaEventListener = () => {
         document.querySelector(".review_textarea").style.visibility = "visible";
         document.querySelector(".review_textarea").focus();
     });
+
+    const commentTextarea = document.querySelector(".review_textarea");
+
+    commentTextarea.addEventListener("input", function(event) {
+        document.querySelector('#comment_length').innerText = commentTextarea.textLength;
+        if(commentTextarea.textLength > 400){
+            alert('최소 5자에서 최대 400자까지 등록할 수 있습니다.');
+            event.preventDefault();
+        //    commentTextarea.innerText = 
+        }
+    })
+
 }
 
 const addfileUploaderEventListener = () => {

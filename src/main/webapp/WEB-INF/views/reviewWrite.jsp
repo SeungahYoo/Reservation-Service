@@ -73,7 +73,7 @@
 							class="middot">소중한 리뷰에 대한 감사로 네이버페이 포인트 500원을 적립해드립니다. </span> <span
 							class="left_space">(단, 리뷰 포인트는 ID 당 1일 최대 5건까지 지급됩니다.)</span>
 						</a>
-						<textarea cols="30" rows="10" class="review_textarea" name="comment" style="visibility: hidden;"></textarea>
+						<textarea cols="30" rows="10" class="review_textarea" name="comment" maxlength="400" style="visibility: hidden;"></textarea>
 					</div>
 					<!-- //리뷰 입력 -->
 
