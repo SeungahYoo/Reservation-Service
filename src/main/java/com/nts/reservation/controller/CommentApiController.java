@@ -47,7 +47,7 @@ public class CommentApiController {
 			.filter(multipartFile -> !multipartFile.isEmpty())
 			.map(multipartFile -> {
 				CommentImage commentImage = getCommentImage(multipartFile);
-				fileUpload(multipartFile, commentImage.getFileName());
+				fileUpload(multipartFile, commentImage.getSaveFileName());
 				return commentImage;
 			})
 			.collect(Collectors.toList());
@@ -55,9 +55,9 @@ public class CommentApiController {
 		return commentImageList;
 	}
 
-	private void fileUpload(MultipartFile multipartFile, String fileName) {
+	private void fileUpload(MultipartFile multipartFile, String saveFileName) {
 		try {
-			fileIOHelper.uploadFile(multipartFile, "comment_img/" + fileName);
+			fileIOHelper.uploadFile(multipartFile, saveFileName);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -68,7 +68,7 @@ public class CommentApiController {
 
 		String saveFileName = getSaveFileName(multiPartFile.getOriginalFilename());
 		commentImage.setContentType(multiPartFile.getContentType());
-		commentImage.setFileName(saveFileName);
+		commentImage.setFileName(multiPartFile.getOriginalFilename());
 		commentImage.setSaveFileName("comment_img/" + saveFileName);
 
 		return commentImage;
