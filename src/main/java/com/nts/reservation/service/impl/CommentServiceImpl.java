@@ -65,8 +65,7 @@ public class CommentServiceImpl implements CommentService {
 		try {
 			fileIOHelper.uploadFile(multipartFile, "comment_img/" + fileName);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 

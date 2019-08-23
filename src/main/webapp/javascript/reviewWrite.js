@@ -9,24 +9,23 @@ const replaceThumbnailImage = (image) => {
 
 const removeFile = (imageName) => {
     let filelist = new DataTransfer();
-    let arraylist = Array.from(document.querySelector('#reviewImageFileOpenInput').files);
-    arraylist.splice(getIndex(imageName, arraylist), 1);
-    arraylist.forEach(element => {
-        filelist.items.add(element);
+    let attachedFilelist = Array.from(document.querySelector('#reviewImageFileOpenInput').files);
+    attachedFilelist.splice(getIndex(imageName, attachedFilelist), 1);
+    attachedFilelist.forEach(file => {
+        filelist.items.add(file);
     });
-
 
     document.querySelector('#reviewImageFileOpenInput').files = filelist.files;
 }
 
 const getIndex = (imageName, filelist) => {
-    let index = 0;
+    let fileIndex = 0;
 
-    while (index < filelist.length) {
-        if (index in filelist && filelist[index].name === imageName) {
-            return index;
+    while (fileIndex < filelist.length) {
+        if (fileIndex in filelist && filelist[fileIndex].name === imageName) {
+            return fileIndex;
         }
-        index++;
+        fileIndex++;
     }
 
     return -1;
