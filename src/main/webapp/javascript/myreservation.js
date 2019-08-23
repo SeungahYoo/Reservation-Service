@@ -46,13 +46,17 @@ const replaceCardItemTemplate = (key, reservation) => {
 		<span>취소</span>
 		</button>`
 	} else if (key === "used") {
-		button = `	<a href="/reservation/review-write?id=${reservation.reservationInfoId}">
+		button = `	<a href="/reservation/review-write?id=${reservation.reservationInfoId}&title=${replaceURL(reservation.displayInfo.productDescription)}">
 		<button class="btn review ">
 		<span>예매자 리뷰 남기기</span>
 		</button> </a>`
 	}
 
 	return template1 + button + template2;
+}
+
+const replaceURL = (url) => {
+	return encodeURIComponent(url);
 }
 
 const loadReservations = (reservationEmail) => {

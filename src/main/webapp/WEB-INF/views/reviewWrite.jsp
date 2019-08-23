@@ -36,12 +36,12 @@
 						title="이전 화면으로 이동"> <i class="fn fn-backward1"></i>
 					</a>
 					<h2>
-						<span class="title">클림트 인사이드</span>
+						<span id="title" class="title">${param.title}</span>
 					</h2>
 				</div>
 				<!-- 리뷰 별점 -->
 				<form action="/reservation/api/comments" method="post" id="review_form" enctype="multipart/form-data">
-				<input type="hidden" name="reservationInfoId" value="${param.id }">
+				<input type="hidden" id="reservationInfoId" name="reservationInfoId" value="${param.id }">
 					<div class="write_act">
 						<p class="title_star">별점과 이용경험을 남겨주세요.</p>
 						<input type="hidden" id="review_score" name="score" value="0"/>

@@ -117,5 +117,4 @@ document.addEventListener("DOMContentLoaded", function () {
     addScoreStarsEventListener();
     addCommentTextareaEventListener();
     addfileUploaderEventListener();
-
 });
