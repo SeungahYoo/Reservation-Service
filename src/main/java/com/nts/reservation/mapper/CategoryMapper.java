@@ -9,7 +9,7 @@ import com.nts.reservation.dto.Category;
 
 @Repository
 public interface CategoryMapper {
-	public List<Category> selectCategories();
+	List<Category> selectCategories();
 
-	public int selectCategoryCount(@Param("categoryId") int categoryId);
+	int selectCategoryCount(@Param("categoryId") int categoryId);
 }

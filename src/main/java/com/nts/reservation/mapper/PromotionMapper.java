@@ -8,5 +8,5 @@ import com.nts.reservation.dto.Promotion;
 
 @Repository
 public interface PromotionMapper {
-	public List<Promotion> selectPromotions();
+	List<Promotion> selectPromotions();
 }

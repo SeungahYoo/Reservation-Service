@@ -21,8 +21,8 @@ public class FileIOController {
 	}
 
 	@GetMapping("download")
-	public void downloadFile(HttpServletResponse response, @RequestParam(name = "saveFileName") String saveFileName)
+	public void downloadFile(HttpServletResponse response, @RequestParam(name = "fileId") int fileId)
 		throws IOException {
-		fileIOHelper.downloadFile(response, saveFileName);
+		fileIOHelper.downloadFile(response, fileId);
 	}
 }
