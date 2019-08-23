@@ -14,15 +14,15 @@ import com.nts.reservation.dto.ProductPrice;
 
 @Repository
 public interface ProductMapper {
-	public List<Product> selectProducts(Map<String, Object> parameters);
+	List<Product> selectProducts(Map<String, Object> parameters);
 
-	public List<ProductImage> selectProductImages(int productId);
+	List<ProductImage> selectProductImages(int productId);
 
-	public List<ProductPrice> selectProductPrices(int productId);
+	List<ProductPrice> selectProductPrices(int productId);
 
-	public List<Comment> selectComments(@Param("productId") int productId, @Param("isDetail") boolean isDetail);
+	List<Comment> selectComments(@Param("productId") int productId, @Param("isDetail") boolean isDetail);
 
-	public List<CommentImage> selectCommentImages(int commentId);
+	List<CommentImage> selectCommentImages(int commentId);
 
-	public Product selectProductByProductId(int productId);
+	Product selectProductByProductId(int productId);
 }
