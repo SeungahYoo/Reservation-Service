@@ -28,13 +28,17 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public void saveComment(Comment comment, List<MultipartFile> multipartFiles) throws IOException {
+		commentMapper.insertUserComment(comment);
+
 		List<CommentImage> commentImages = uploadCommentImages(multipartFiles);
 
-		commentMapper.insertUserComment(comment);
-		commentMapper.insertFileInfo(commentImages);
-		for (CommentImage commentImage : commentImages) {
-			commentMapper.insertUserCommentImage(comment.getReservationInfoId(), comment.getCommentId(),
-				commentImage.getFileId());
+		if (commentImages.size() > 0) {
+			commentMapper.insertFileInfo(commentImages);
+
+			for (CommentImage commentImage : commentImages) {
+				commentMapper.insertUserCommentImage(comment.getReservationInfoId(), comment.getCommentId(),
+					commentImage.getFileId());
+			}
 		}
 
 	}
@@ -43,12 +47,9 @@ public class CommentServiceImpl implements CommentService {
 		List<CommentImage> commentImageList = new ArrayList<>();
 
 		for (MultipartFile multiPartFile : multipartFiles) {
-
-			//			//check!!!
-			//			if (StringUtils.isBlank(originFileName)) {
-			//				continue;
-			//			}
-
+			if (multiPartFile.isEmpty()) {
+				continue;
+			}
 			CommentImage commentImage = getCommentImage(multiPartFile);
 
 			fileIOHelper.uploadFile(multiPartFile, "comment_img/" + commentImage.getFileName());
