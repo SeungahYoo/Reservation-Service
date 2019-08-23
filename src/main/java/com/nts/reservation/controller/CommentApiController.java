@@ -69,7 +69,7 @@ public class CommentApiController {
 		String saveFileName = getSaveFileName(multiPartFile.getOriginalFilename());
 		commentImage.setContentType(multiPartFile.getContentType());
 		commentImage.setFileName(saveFileName);
-		commentImage.setSaveFileName(SAVE_PATH + "comment_img/" + saveFileName);
+		commentImage.setSaveFileName("comment_img/" + saveFileName);
 
 		return commentImage;
 	}
