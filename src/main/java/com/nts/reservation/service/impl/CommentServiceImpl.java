@@ -34,14 +34,16 @@ public class CommentServiceImpl implements CommentService {
 
 		List<CommentImage> commentImages = uploadCommentImages(multipartFiles);
 
-		if (commentImages.size() > 0) {
-			commentMapper.insertFileInfo(commentImages);
+		if (commentImages.isEmpty()) {
+			return;
+		}
 
-			for (CommentImage commentImage : commentImages) {
-				commentImage.setReservationInfoId(comment.getReservationInfoId());
-				commentImage.setReservationUserCommentId(comment.getCommentId());
-				commentMapper.insertUserCommentImage(commentImage);
-			}
+		commentMapper.insertFileInfo(commentImages);
+
+		for (CommentImage commentImage : commentImages) {
+			commentImage.setReservationInfoId(comment.getReservationInfoId());
+			commentImage.setReservationUserCommentId(comment.getCommentId());
+			commentMapper.insertUserCommentImage(commentImage);
 		}
 
 	}
