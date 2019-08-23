@@ -3,10 +3,9 @@ package com.nts.reservation.service;
 import java.io.IOException;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.nts.reservation.dto.Comment;
+import com.nts.reservation.dto.CommentImage;
 
 public interface CommentService {
-	void saveComment(Comment comment, List<MultipartFile> commentImages) throws IOException;
+	void saveComment(Comment comment, List<CommentImage> commentImages) throws IOException;
 }
