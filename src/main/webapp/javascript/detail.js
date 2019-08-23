@@ -34,7 +34,7 @@ const slidePrevious = (nowImage) => {
 
 const replaceProductImageTemplate = (productDescription, productImageUrl) => {
 	return (`<li class="item" style="width: 414px;">
-	<img class="img_thumb" alt="${productDescription}" src="/reservation/file/download?saveFileName=${productImageUrl}"> <span class="img_bg"></span>
+	<img class="img_thumb" alt="${productDescription}" src="${productImageUrl}"> <span class="img_bg"></span>
 	<div class="visual_txt">
 		<div class="visual_txt_inn">
 			<h2 class="visual_txt_tit">
