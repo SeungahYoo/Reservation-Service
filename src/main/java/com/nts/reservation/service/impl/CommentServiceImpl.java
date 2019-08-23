@@ -1,9 +1,9 @@
 package com.nts.reservation.service.impl;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,28 +38,43 @@ public class CommentServiceImpl implements CommentService {
 			commentMapper.insertFileInfo(commentImages);
 
 			for (CommentImage commentImage : commentImages) {
-				commentMapper.insertUserCommentImage(comment.getReservationInfoId(), comment.getCommentId(),
-					commentImage.getFileId());
+				commentImage.setReservationInfoId(comment.getReservationInfoId());
+				commentImage.setReservationUserCommentId(comment.getCommentId());
+				commentMapper.insertUserCommentImage(commentImage);
 			}
 		}
 
 	}
 
-	private List<CommentImage> uploadCommentImages(List<MultipartFile> multipartFiles) throws IOException {
-		List<CommentImage> commentImageList = new ArrayList<>();
+	private List<CommentImage> uploadCommentImages(List<MultipartFile> multipartFiles) {
+		List<CommentImage> commentImageList = null;
 
-		for (MultipartFile multiPartFile : multipartFiles) {
-			if (multiPartFile.isEmpty()) {
-				continue;
-			}
-			CommentImage commentImage = getCommentImage(multiPartFile);
-
-			fileIOHelper.uploadFile(multiPartFile, "comment_img/" + commentImage.getFileName());
-
-			commentImageList.add(commentImage);
-		}
+		commentImageList = multipartFiles.stream()
+			.filter(multipartFile -> !multipartFile.isEmpty())
+			.map(multipartFile -> {
+				CommentImage commentImage = getCommentImage(multipartFile);
+				try {
+					fileIOHelper.uploadFile(multipartFile, "comment_img/" + commentImage.getFileName());
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+				return commentImage;
+			})
+			.collect(Collectors.toList());
 
 		return commentImageList;
+
+		//		for (MultipartFile multiPartFile : multipartFiles) {
+		//			if (multiPartFile.isEmpty()) {
+		//				continue;
+		//			}
+		//			CommentImage commentImage = getCommentImage(multiPartFile);
+		//
+		//			fileIOHelper.uploadFile(multiPartFile, "comment_img/" + commentImage.getFileName());
+		//
+		//			commentImageList.add(commentImage);
+		//		}
+
 	}
 
 	private CommentImage getCommentImage(MultipartFile multiPartFile) {

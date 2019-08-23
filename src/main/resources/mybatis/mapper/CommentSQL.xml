@@ -54,7 +54,7 @@
 				</foreach>
 	</insert>
 	
-	<insert id="insertUserCommentImage" parameterType="Map">
+	<insert id="insertUserCommentImage" parameterType="com.nts.reservation.dto.CommentImage">
 		INSERT INTO 
 			reservation_user_comment_image
 				(
@@ -64,9 +64,9 @@
 				) 
 			VALUES 
 				(
-					#{reservationInfoId}, 
-					#{reservationUserCommentId}, 
-					#{fileId}
+					#{commentImage.reservationInfoId}, 
+					#{commentImage.reservationUserCommentId}, 
+					#{commentImage.fileId}
 				)
 	</insert>
 	
