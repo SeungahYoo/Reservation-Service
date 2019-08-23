@@ -73,7 +73,7 @@ public class ReservationServiceImpl implements ReservationService {
 		reservationMapper.insertReserveInfoPrices(reservationParam);
 	}
 
-	public boolean isValidReservationParam(ReservationParam reservationParam) {
+	private boolean isValidReservationParam(ReservationParam reservationParam) {
 		if (StringUtils.isEmpty(reservationParam.getReservationEmail())
 			|| StringUtils.isEmpty(reservationParam.getReservationName())
 			|| StringUtils.isEmpty(reservationParam.getReservationTelephone())
