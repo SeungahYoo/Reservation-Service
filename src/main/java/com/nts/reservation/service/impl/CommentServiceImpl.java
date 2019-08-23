@@ -53,28 +53,21 @@ public class CommentServiceImpl implements CommentService {
 			.filter(multipartFile -> !multipartFile.isEmpty())
 			.map(multipartFile -> {
 				CommentImage commentImage = getCommentImage(multipartFile);
-				try {
-					fileIOHelper.uploadFile(multipartFile, "comment_img/" + commentImage.getFileName());
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}
+				fileUpload(multipartFile, commentImage.getFileName());
 				return commentImage;
 			})
 			.collect(Collectors.toList());
 
 		return commentImageList;
+	}
 
-		//		for (MultipartFile multiPartFile : multipartFiles) {
-		//			if (multiPartFile.isEmpty()) {
-		//				continue;
-		//			}
-		//			CommentImage commentImage = getCommentImage(multiPartFile);
-		//
-		//			fileIOHelper.uploadFile(multiPartFile, "comment_img/" + commentImage.getFileName());
-		//
-		//			commentImageList.add(commentImage);
-		//		}
-
+	private void fileUpload(MultipartFile multipartFile, String fileName) {
+		try {
+			fileIOHelper.uploadFile(multipartFile, "comment_img/" + fileName);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private CommentImage getCommentImage(MultipartFile multiPartFile) {
