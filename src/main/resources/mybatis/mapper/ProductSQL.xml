@@ -24,7 +24,8 @@
 			product.description productDescription, 
 			product.content productContent, 
 			display_info.place_name placeName, 
-			file_info.save_file_name productImageUrl
+			file_info.save_file_name productImageUrl,
+			file_info.id productImageFileId
 		FROM 
 			product 
 		JOIN 

@@ -18,6 +18,8 @@ import com.nts.reservation.mapper.FileInfoMapper;
 @Service
 public class FileIOHelperImpl implements FileIOHelper {
 	private static final String SAVE_PATH = "c:/tmp/";
+//	private static final String SAVE_PATH = "/temp/";
+
 
 	private final FileInfoMapper fileMapper;
 
