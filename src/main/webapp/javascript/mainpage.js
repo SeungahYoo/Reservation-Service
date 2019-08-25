@@ -1,11 +1,11 @@
-let promotionImageUrl = [];
+let promotionImageFildIdList = [];
 let now = 1;
 let imagesSize = 0;
 let productListMaxIndex = 0;
 let currentCategoryCount = 0;
 
-let replacePromotionTemplate = (productImageUrl) => {
-	return `<li class="item" id="promotionImage" style="background-image: url('${productImageUrl}');">
+let replacePromotionTemplate = (fileId) => {
+	return `<li class="item" id="promotionImage" style="background-image: url('/reservation/file/download?fileId=${fileId}');">
         		<a href="#"> 
 					<span class="img_btm_border"></span> 
 					<span class="img_right_border"></span> 
@@ -23,7 +23,7 @@ let replaceProductTemplate = (product) => {
 	return `<li class="item">
 	            <a href="/reservation/detail?id=${product.displayInfoId}" class="item_book">
 	                <div class="item_preview">
-	                    <img alt="${product.description}" class="img_thumb" src="${product.productImageUrl}">
+	                    <img alt="${product.description}" class="img_thumb" src="/reservation/file/download?fileId=${product.productImageFileId}">
 	                    <span class="img_border"></span>
 	                </div>
 	                <div class="event_txt">
@@ -65,8 +65,8 @@ let createPromotionTemplate = () => {
 
 	let resultHTML = "";
 
-	promotionImageUrl.forEach((url) => {
-		resultHTML += replacePromotionTemplate(url);
+	promotionImageFildIdList.forEach((fildId) => {
+		resultHTML += replacePromotionTemplate(fildId);
 	});
 
 	visualImage.innerHTML = resultHTML;
@@ -83,11 +83,12 @@ let loadPromotions = () => {
 		}
 
 		if (xmlHttpRequest.readyState === 4) {
-			let imageList = JSON.parse(xmlHttpRequest.responseText);
-			imageList.forEach((image) => {
-				promotionImageUrl.push(image.promotionImage);
+			let promotionImages = JSON.parse(xmlHttpRequest.responseText);
+			console.log(promotionImages);
+			promotionImages.forEach((promotionImage) => {
+				promotionImageFildIdList.push(promotionImage.promotionImageFileId);
 			});
-			imagesSize = promotionImageUrl.length;
+			imagesSize = promotionImageFildIdList.length;
 			createPromotionTemplate();
 			document.querySelector('.visual_img').firstElementChild.style.left = "0px";
 			animatePromotion(now);
@@ -136,7 +137,8 @@ let loadCategoryProducts = () => {
 		}
 		if (xmlHttpRequest.readyState === 4) {
 			let CategorizedProducts = JSON.parse(xmlHttpRequest.responseText);
-			createProductTemplate(CategorizedProducts, event);
+			console.log(CategorizedProducts);
+			createProductTemplate(CategorizedProducts);
 		}
 	}
 	categoryId = document.querySelector(".active").closest("li").dataset.category;

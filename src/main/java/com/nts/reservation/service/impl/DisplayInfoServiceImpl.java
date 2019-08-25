@@ -31,6 +31,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 			throw new DataRetrievalFailureException(
 				"The expedted data could not be retrieved. displayInfoId: " + displayInfoId);
 		}
+	
 		int productId = displayInfo.getProductId();
 
 		Map<String, Object> displayMap = new HashMap<>();
