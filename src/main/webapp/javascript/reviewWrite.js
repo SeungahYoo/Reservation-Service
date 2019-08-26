@@ -7,13 +7,10 @@ const replaceThumbnailImage = (image) => {
     class="img_border"></span></li>`
 }
 
-const removeFile = (imageName) => {
+const removeFile = (imageIndex) => {
     let filelist = new DataTransfer();
     let attachedFilelist = Array.from(document.querySelector('#reviewImageFileOpenInput').files);
-    attachedFilelist.splice(getIndex(imageName, attachedFilelist), 1);
-    attachedFilelist.forEach(file => {
-        filelist.items.add(file);
-    });
+    attachedFilelist.splice(imageIndex, 1);
 
     document.querySelector('#reviewImageFileOpenInput').files = filelist.files;
 }
@@ -139,8 +136,11 @@ const addRemoveFileButtonEventListener = () => {
 
     removeFileButtons.forEach(button => {
         button.addEventListener("click", function (event) {
-            button.closest("li").style.display = "none";
-            removeFile(button.dataset.name);
+            let currentAttachedFiles = Array.from(document.querySelector('.lst_thumb').children);
+            let li = event.target.closest('li')
+
+            removeFile(currentAttachedFiles.indexOf(li));
+            button.closest("li").remove();
         })
     });
 }
