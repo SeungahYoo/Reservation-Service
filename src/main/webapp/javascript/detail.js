@@ -129,11 +129,15 @@ const createProductImagesTemplate = (productDescription, productImages) => {
 		let image = productImages[imageIndex];
 		resultHTML += replaceProductImageTemplate(productDescription, image.fileInfoId);
 	}
+	
 	document.querySelector('#images_count').innerText = imageCount;
 	visualImage.innerHTML = resultHTML;
+	
 	let containerVisual = document.querySelector(".container_visual");
+	
 	containerVisual.replaceChild(visualImage, document.querySelector(".visual_img"));
 	document.querySelector('.visual_img').firstElementChild.style.left = "0px";
+	
 	if (imageCount === 2) {
 		addSlideButtonEventListener();
 	}
