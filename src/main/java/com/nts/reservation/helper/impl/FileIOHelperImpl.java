@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,7 +29,9 @@ public class FileIOHelperImpl implements FileIOHelper {
 	@Override
 	public void downloadFile(HttpServletResponse response, int fileId) throws IOException {
 		FileInfo fileInfo = fileMapper.selectFileInfo(fileId);
-		String saveFilePath = SAVE_PATH + fileInfo.getSaveFileName();
+
+		String saveFilePath = SAVE_PATH
+			+ ObjectUtils.defaultIfNull(fileInfo, fileMapper.selectFileInfo(0)).getSaveFileName();
 		File saveFile = new File(saveFilePath);
 
 		response.setHeader("Content-Disposition",
