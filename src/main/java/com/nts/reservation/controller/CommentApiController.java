@@ -20,8 +20,6 @@ import com.nts.reservation.service.CommentService;
 @RestController
 @RequestMapping(path = "/api")
 public class CommentApiController {
-	private static final String SAVE_PATH = "c:/tmp/";
-
 	private final CommentService commentService;
 	private final FileIOHelper fileIOHelper;
 

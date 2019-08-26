@@ -18,12 +18,14 @@ import com.nts.reservation.interceptor.LoggingInterceptor;
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.nts.reservation"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
+	private static final int MAX_UPLOAD_SIZE = 10485760;// 1024 * 1024 * 10
+	private static final int YEAR_TO_SECONDS = 31556926;
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);
-		registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
-		registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
+		registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(YEAR_TO_SECONDS);
+		registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(YEAR_TO_SECONDS);
+		registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(YEAR_TO_SECONDS);
 	}
 
 	@Override
@@ -47,7 +49,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Bean
 	public MultipartResolver multipartResolver() {
 		org.springframework.web.multipart.commons.CommonsMultipartResolver multipartResolver = new org.springframework.web.multipart.commons.CommonsMultipartResolver();
-		multipartResolver.setMaxUploadSize(10485760); // 1024 * 1024 * 10
+		multipartResolver.setMaxUploadSize(MAX_UPLOAD_SIZE);
 		return multipartResolver;
 	}
 
