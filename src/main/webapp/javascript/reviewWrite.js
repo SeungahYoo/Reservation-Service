@@ -32,21 +32,34 @@ const getIndex = (imageName, filelist) => {
 }
 
 const addScoreStarsEventListener = () => {
-    const stars = document.querySelectorAll('.rating_rdo');
 
-    stars.forEach(starElement => {
+    function ScoreStar(star) {
+        this.star = star;
+        this.score = star.value;
+    }
+
+    ScoreStar.prototype.setScore = function (clickedValue) {
+        if (this.score <= clickedValue) {
+            this.star.classList.add("checked");
+            this.star.checked = true;
+        } else {
+            this.star.classList.remove("checked");
+            this.star.checked = false;
+        }
+    }
+
+    const scoreStars = new Array();
+    const starElements = document.querySelectorAll('.rating_rdo');
+
+    starElements.forEach((starElement, index, starElements) => {
+        scoreStars[index] = new ScoreStar(starElement);
+
         starElement.addEventListener("click", function () {
             let clickedValue = starElement.value;
 
-            stars.forEach(star => {
-                if (star.value <= clickedValue) {
-                    star.classList.add("checked");
-                    star.checked = true;
-                } else {
-                    star.classList.remove("checked");
-                    star.checked = false;
-                }
-            })
+            scoreStars.forEach(scoreStar => {
+                scoreStar.setScore(clickedValue);
+            });
 
             if (clickedValue > 0) {
                 document.querySelector('#star_score').classList.remove("gray_star");
@@ -69,12 +82,12 @@ const addCommentTextareaEventListener = () => {
 
     const commentTextarea = document.querySelector(".review_textarea");
 
-    commentTextarea.addEventListener("input", function(event) {
+    commentTextarea.addEventListener("input", function (event) {
         document.querySelector('#comment_length').innerText = commentTextarea.textLength;
-        if(commentTextarea.textLength > 400){
+        if (commentTextarea.textLength > 400) {
             alert('최소 5자에서 최대 400자까지 등록할 수 있습니다.');
             event.preventDefault();
-        //    commentTextarea.innerText = 
+            //    commentTextarea.innerText = 
         }
     })
 
@@ -114,7 +127,7 @@ const addRemoveFileButtonEventListener = () => {
 
     removeFileButtons.forEach(button => {
         button.addEventListener("click", function (event) {
-            button.closest("li").style.display="none";
+            button.closest("li").style.display = "none";
             removeFile(button.dataset.name);
         })
     });
