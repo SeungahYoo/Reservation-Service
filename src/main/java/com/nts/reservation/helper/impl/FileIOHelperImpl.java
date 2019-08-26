@@ -1,7 +1,6 @@
 package com.nts.reservation.helper.impl;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,8 +17,7 @@ import com.nts.reservation.mapper.FileInfoMapper;
 @Service
 public class FileIOHelperImpl implements FileIOHelper {
 	private static final String SAVE_PATH = "c:/tmp/";
-//	private static final String SAVE_PATH = "/temp/";
-
+	//	private static final String SAVE_PATH = "/temp/";
 
 	private final FileInfoMapper fileMapper;
 
@@ -46,7 +44,6 @@ public class FileIOHelperImpl implements FileIOHelper {
 
 	@Override
 	public void uploadFile(MultipartFile multipartFile, String saveFileName) throws IOException {
-		FileCopyUtils.copy(multipartFile.getBytes(), new FileOutputStream(SAVE_PATH + saveFileName));
-
+		multipartFile.transferTo(new File(SAVE_PATH + saveFileName));
 	}
 }
