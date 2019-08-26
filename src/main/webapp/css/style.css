@@ -4174,3 +4174,8 @@ button {
 	position: relative;
 	left: 0px;
 }
+
+.comment_img_larger {
+	width: 240px;
+	padding: 10px;
+}

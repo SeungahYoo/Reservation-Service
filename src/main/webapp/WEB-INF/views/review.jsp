@@ -246,6 +246,23 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+
+	<div class="popup_booking_wrapper" id="popup_viewing_images_larger" style="display: none;">
+		<div class="dimm_dark" style="display: block"></div>
+		<div class="popup_booking refund">
+		<div class="container_image">
+			<ul>
+				
+			</ul>
+		</div>
+			<!-- 닫기 -->
+			<a class="popup_btn_close" data-value="false" title="close"> <i
+				class="spr_book2 ico_cls"></i>
+			</a>
+			<!--// 닫기 -->
+		</div>
+	</div>
+
 	<input id="display_info_id" type="hidden" value="${param.id }">
 </body>
 <script src="javascript/review.js"></script>
