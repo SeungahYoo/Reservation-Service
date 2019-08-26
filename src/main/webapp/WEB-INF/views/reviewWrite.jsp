@@ -40,7 +40,7 @@
 					</h2>
 				</div>
 				<!-- 리뷰 별점 -->
-				<form action="/reservation/api/comments" method="post" id="review_form" enctype="multipart/form-data" onsubmit="return isSubmitValid()">
+				<form action="/reservation/api/comments" method="post" id="review_form" enctype="multipart/form-data">
 				<input type="hidden" id="reservationInfoId" name="reservationInfoId" value="${param.id }">
 					<div class="write_act">
 						<p class="title_star">별점과 이용경험을 남겨주세요.</p>
