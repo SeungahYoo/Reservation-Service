@@ -97,7 +97,7 @@ public class ReservationServiceImpl implements ReservationService {
 			errorTarget += "reservation telephone pattern";
 		}
 
-		if (StringUtils.isEmpty(errorTarget)) {
+		if (errorTarget != "") {
 			throw new IllegalArgumentException(
 				"Invalid ReservationParam : " + reservationParam + "/ invalid value(" + errorTarget + ")");
 		}

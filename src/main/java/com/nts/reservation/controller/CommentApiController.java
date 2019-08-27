@@ -34,7 +34,7 @@ public class CommentApiController {
 		List<CommentImage> commentImages = uploadCommentImages(multipartFiles);
 
 		commentService.saveComment(comment, commentImages);
-		System.out.println(comment);
+
 		return new ModelAndView("redirect:/detail?id=" + comment.getDisplayInfoId());
 	}
 
