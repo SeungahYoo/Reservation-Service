@@ -71,8 +71,7 @@
 						</p>
 					</div>
 				</div>
-				<form action="/reservation/api/reserve" method="post"
-					onsubmit="return isSubmitValid()">
+				<form action="/reservation/api/reserve" method="post" id="reserve_form">
 					<div class="section_booking_ticket">
 						<div class="ticket_body">
 							<div class="qty">
