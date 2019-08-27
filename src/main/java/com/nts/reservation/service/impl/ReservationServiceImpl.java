@@ -45,13 +45,16 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public Map<String, Object> getReserveInfo(int displayInfoId) {
 		DisplayInfo displayInfo = displayInfoMapper.selectDisplayInfo(displayInfoId);
+
 		if (displayInfo == null) {
 			throw new DataRetrievalFailureException(
 				"The expedted data could not be retrieved. displayInfoId: " + displayInfoId);
 		}
+
 		int productId = displayInfo.getProductId();
 
 		Map<String, Object> displayMap = new HashMap<>();
+
 		displayMap.put("displayInfo", displayInfo);
 		displayMap.put("productImages", productMapper.selectProductImages(productId));
 		displayMap.put("productPrices", productMapper.selectProductPrices(productId));
@@ -74,21 +77,33 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	private boolean isValidReservationParam(ReservationParam reservationParam) {
+		String errorTarget = "";
+
 		if (StringUtils.isEmpty(reservationParam.getReservationEmail())) {
-			throw new IllegalArgumentException("Invalid ReservationParam(email): " + reservationParam);
-		} else if (StringUtils.isEmpty(reservationParam.getReservationName())) {
-			throw new IllegalArgumentException("Invalid ReservationParam(name): " + reservationParam);
-		} else if (StringUtils.isEmpty(reservationParam.getReservationTelephone())) {
-			throw new IllegalArgumentException("Invalid ReservationParam(telephone): " + reservationParam);
+			errorTarget += "reservation email, ";
 		} else if (!EMAIL_PATTERN.matcher(reservationParam.getReservationEmail()).matches()) {
-			throw new IllegalArgumentException("Invalid ReservationParam(email pattern): " + reservationParam);
+			errorTarget += "reservation email pattern, ";
+		}
+
+		if (StringUtils.isEmpty(reservationParam.getReservationName())) {
+			errorTarget += "reservation name, ";
 		} else if (!NAME_PATTERN.matcher(reservationParam.getReservationName()).matches()) {
-			throw new IllegalArgumentException("Invalid ReservationParam(name pattern): " + reservationParam);
+			errorTarget += "reservation name pattern, ";
+		}
+
+		if (StringUtils.isEmpty(reservationParam.getReservationTelephone())) {
+			errorTarget += "reservation telephone, ";
 		} else if (!TELEPHONE_PATTERN.matcher(reservationParam.getReservationTelephone()).matches()) {
-			throw new IllegalArgumentException("Invalid ReservationParam(telephone pattern): " + reservationParam);
+			errorTarget += "reservation telephone pattern";
+		}
+
+		if (StringUtils.isEmpty(errorTarget)) {
+			throw new IllegalArgumentException(
+				"Invalid ReservationParam : " + reservationParam + "/ invalid value(" + errorTarget + ")");
 		}
 
 		return true;
+
 	}
 
 	@Override
