@@ -86,14 +86,15 @@ public class MainController {
 	}
 
 	@GetMapping("review-write")
-	public String reviewWrite(@RequestParam(value = "id") int reservationInfoId) {
+	public String reviewWrite(@RequestParam(value = "reservationInfoId") int reservationInfoId,
+		@RequestParam("displayInfoId") int displayInfoId,
+		@RequestParam("title") String productDescription) {
 
 		return "reviewWrite";
 	}
 
 	@PostMapping("comments")
-	public String saveComment(@RequestParam(value = "id") int reservationInfoId,
-		@RequestParam(value = "title") int productDescription) {
+	public String saveComment(@RequestParam("reservationInfoId") int reservationInfoId) {
 
 		return "reviewWrite";
 	}
