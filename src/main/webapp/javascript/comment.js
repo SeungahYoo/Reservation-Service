@@ -1,3 +1,8 @@
+const escapeHtml = (string) => {
+	const replaceMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '/': '&#x2F;', '`': '&#x60;', '=': '&#x3D;' };
+	return String(string).replace(/[&<>"'`=\/]/g, function (s) { return replaceMap[s]; });
+}
+
 const replaceShortReviewTemplate = (productDescription, shortReview, index) => {
 	let template = "";
 
@@ -10,7 +15,7 @@ const replaceShortReviewTemplate = (productDescription, shortReview, index) => {
 			<img
 				width="90" height="90" class="img_vertical_top"
 				src="/reservation/file/download?fileId=${shortReview.commentImages[0].fileId}"
-				alt="리뷰이미지" onerror="this.src='/reservation/img/default.png';">
+				alt="리뷰이미지">
 
 			</a> <span class="img_count">${shortReview.commentImages.length}</span>
 		</div>
@@ -20,7 +25,7 @@ const replaceShortReviewTemplate = (productDescription, shortReview, index) => {
 		<div class="review_area no_img">`
 	}
 	template += `			<h4 class="resoc_name">${productDescription}</h4>
-			<p class="review"><xmp>${shortReview.comment}</xmp></p>
+			<p class="review">${escapeHtml(shortReview.comment)}</p>
 		</div>
 		<div class="info_area">
 			<div class="review_info">
@@ -74,9 +79,9 @@ const addCommentImageThumbEventListener = (comments) => {
 
 			viewImagesLarger(comments[commentIndex]);
 			document.querySelector('#popup_viewing_images_larger').style.display = "block";
-			
-			document.querySelector('.popup_btn_close').addEventListener("click",function(){
-				document.querySelector('#popup_viewing_images_larger').style.display="none";
+
+			document.querySelector('.popup_btn_close').addEventListener("click", function () {
+				document.querySelector('#popup_viewing_images_larger').style.display = "none";
 			})
 		})
 	});
