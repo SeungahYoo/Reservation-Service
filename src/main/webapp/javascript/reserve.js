@@ -157,6 +157,17 @@ const isSubmitValid = () => {
 	return true;
 }
 
+const addCheckValidSubmitEventListener = () => {
+    document.querySelector('#reserve_form').addEventListener("submit", function (event) {
+
+		if (Number(document.querySelector('#totalCount').innerText) <= 0) {
+			alert('티켓을 선택해주세요');
+			event.preventDefault();
+		}
+
+    })
+}
+
 const createBookingTicketTemplate = (productPrices, displayInfo) => {
 	let ticketBody = document.createElement("div");
 	ticketBody.classList.add("ticket_body");
@@ -217,4 +228,5 @@ document.addEventListener("DOMContentLoaded", function () {
 		document.querySelector('#email').readOnly = true;
 	}
 	const productId = loadDisplayInfo();
+	addCheckValidSubmitEventListener();
 });

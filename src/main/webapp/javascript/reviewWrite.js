@@ -15,19 +15,6 @@ const removeFile = (imageIndex) => {
     document.querySelector('#reviewImageFileOpenInput').files = filelist.files;
 }
 
-const getIndex = (imageName, filelist) => {
-    let fileIndex = 0;
-
-    while (fileIndex < filelist.length) {
-        if (fileIndex in filelist && filelist[fileIndex].name === imageName) {
-            return fileIndex;
-        }
-        fileIndex++;
-    }
-
-    return -1;
-}
-
 const addScoreStarsEventListener = () => {
 
     function ScoreStar(star) {
@@ -87,27 +74,14 @@ const addCommentTextareaEventListener = () => {
     })
 }
 
-// const isSubmitValid = () => {
-//     const commentLength = document.querySelector(".review_textarea").length;
-//     const score = document.querySelector('#review_score').value;
-
-//     if (commentLength < 5 || commentLength > 400) {
-//         alert('최소 5자에서 최대 400자 이상 작성하셔야 게시물이 등록됩니다.');
-//         return false;
-//     } else if (score <= 0 || score > 5) {
-//         alert('별점을 선택해 주십시요. (1~5점 내에 선택 가능합니다.)');
-//         return false;
-//     }
-
-//     return true;
-// }
-
 const addCheckValidSubmitEventListener = () => {
     document.querySelector('#review_form').addEventListener("submit", function (event) {
-        const commentLength = document.querySelector(".review_textarea").length;
+        const commentLength = document.querySelector(".review_textarea").textLength;
         const score = document.querySelector('#review_score').value;
+        debugger;
 
         if (commentLength < 5 || commentLength > 400) {
+            
             alert('최소 5자에서 최대 400자 이상 작성하셔야 게시물이 등록됩니다.');
             event.preventDefault();
         } else if (score <= 0 || score > 5) {
@@ -115,7 +89,6 @@ const addCheckValidSubmitEventListener = () => {
             event.preventDefault();
         }
 
-        return true;
     })
 }
 
