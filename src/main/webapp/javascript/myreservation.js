@@ -23,7 +23,6 @@ const replaceCardItemTemplate = (key, reservation) => {
 							class="unit">원</span>
 						</em>
 					</div>
-					<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
 					<div class="booking_cancel">`
 
 	let template2 = `</div>
@@ -46,7 +45,7 @@ const replaceCardItemTemplate = (key, reservation) => {
 		<span>취소</span>
 		</button>`
 	} else if (key === "used") {
-		button = `	<a href="/reservation/review-write?id=${reservation.reservationInfoId}&title=${replaceURL(reservation.displayInfo.productDescription)}">
+		button = `	<a href="/reservation/review-write?reservationInfoId=${reservation.reservationInfoId}&displayInfoId=${reservation.displayInfoId}&title=${replaceURL(reservation.displayInfo.productDescription)}">
 		<button class="btn review ">
 		<span>예매자 리뷰 남기기</span>
 		</button> </a>`

@@ -31,11 +31,11 @@ public class CommentApiController {
 	@PostMapping("comments")
 	public ModelAndView saveComment(Comment comment, @RequestParam("files") List<MultipartFile> multipartFiles)
 		throws IOException {
-
 		List<CommentImage> commentImages = uploadCommentImages(multipartFiles);
 
 		commentService.saveComment(comment, commentImages);
-		return new ModelAndView("redirect:/user-check");
+		System.out.println(comment);
+		return new ModelAndView("redirect:/detail?id=" + comment.getDisplayInfoId());
 	}
 
 	private List<CommentImage> uploadCommentImages(List<MultipartFile> multipartFiles) {
