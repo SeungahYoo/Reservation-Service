@@ -24,5 +24,5 @@ public interface ProductMapper {
 
 	List<CommentImage> selectCommentImages(int commentId);
 
-	Product selectProductByProductId(int productId);
+	Product selectProductByDisplayId(int displayInfoId);
 }

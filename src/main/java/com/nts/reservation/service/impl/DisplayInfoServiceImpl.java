@@ -31,7 +31,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 			throw new DataRetrievalFailureException(
 				"The expedted data could not be retrieved. displayInfoId: " + displayInfoId);
 		}
-	
+
 		int productId = displayInfo.getProductId();
 
 		Map<String, Object> displayMap = new HashMap<>();
@@ -41,9 +41,11 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		displayMap.put("productPrices", productMapper.selectProductPrices(productId));
 		displayMap.put("comments", productMapper.selectComments(productId, isDetail));
 
-		Product product = productMapper.selectProductByProductId(productId);
+		Product product = productMapper.selectProductByDisplayId(displayInfoId);
+
 		displayMap.put("productScoreAverage", product.getProductScoreAverageView());
 		displayMap.put("commentsCount", product.getCommentsCount());
+
 		return displayMap;
 	}
 
