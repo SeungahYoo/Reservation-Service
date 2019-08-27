@@ -4179,3 +4179,8 @@ button {
 	width: 240px;
 	padding: 10px;
 }
+
+xmp {
+	white-space: pre-wrap;
+}
+

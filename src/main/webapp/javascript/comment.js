@@ -1,14 +1,17 @@
-let replaceShortReviewTemplate = (productDescription, shortReview, index) => {
+const replaceShortReviewTemplate = (productDescription, shortReview, index) => {
 	let template = "";
 
 	if (shortReview.commentImages.length > 0) {
 		template += `<li class="list_item"><div>
 		<div class="review_area">
 			<div class="thumb_area" data-index="${index}">
-			<a class="thumb" title="이미지 크게 보기"> <img
+			<a class="thumb" title="이미지 크게 보기"> 
+			
+			<img
 				width="90" height="90" class="img_vertical_top"
 				src="/reservation/file/download?fileId=${shortReview.commentImages[0].fileId}"
-				alt="리뷰이미지">
+				alt="리뷰이미지" onerror="this.src='/reservation/img/default.png';">
+
 			</a> <span class="img_count">${shortReview.commentImages.length}</span>
 		</div>
 		`
@@ -17,7 +20,7 @@ let replaceShortReviewTemplate = (productDescription, shortReview, index) => {
 		<div class="review_area no_img">`
 	}
 	template += `			<h4 class="resoc_name">${productDescription}</h4>
-			<p class="review">${shortReview.comment}</p>
+			<p class="review"><xmp>${shortReview.comment}</xmp></p>
 		</div>
 		<div class="info_area">
 			<div class="review_info">
@@ -31,7 +34,14 @@ let replaceShortReviewTemplate = (productDescription, shortReview, index) => {
 	return template;
 }
 
-let createCommentsTemplate = (productDescription, comments) => {
+const replaceLargeImage = (fildId) => {
+	return `<li class="item" ><img class="comment_img_larger"
+	alt="리뷰 이미지"
+	src="/reservation/file/download?fileId=${fildId}">
+</li>` ;
+}
+
+const createCommentsTemplate = (productDescription, comments) => {
 	let listShortReview = document.createElement("ul");
 	listShortReview.classList.add("list_short_review");
 
@@ -48,7 +58,7 @@ let createCommentsTemplate = (productDescription, comments) => {
 	addCommentImageThumbEventListener(comments);
 }
 
-let setProductDetail = (productScoreAverage, commentsCount) => {
+const setProductDetail = (productScoreAverage, commentsCount) => {
 	document.querySelector('#score_average').innerHTML = productScoreAverage;
 	document.querySelector('.graph_value').style.width = productScoreAverage * 20 + "%";
 	document.querySelector('#commentsCount').innerHTML = commentsCount;
@@ -88,9 +98,3 @@ const viewImagesLarger = (comment) => {
 	containerImage.replaceChild(visualImage, containerImage.querySelector("ul"))
 }
 
-const replaceLargeImage = (fildId) => {
-	return `<li class="item" ><img class="comment_img_larger"
-	alt="리뷰 이미지"
-	src="/reservation/file/download?fileId=${fildId}">
-</li>` ;
-}
