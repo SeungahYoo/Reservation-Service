@@ -65,8 +65,8 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	@Transactional
 	public void saveReserveInfo(ReservationParam reservationParam) {
-		if (isValidReservationParam(reservationParam)) {
-			throw new IllegalArgumentException("Invalid ReservationParam");
+		if (!isValidReservationParam(reservationParam)) {
+			return;
 		}
 
 		reservationMapper.insertReserveInfo(reservationParam);
@@ -74,16 +74,21 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	private boolean isValidReservationParam(ReservationParam reservationParam) {
-		if (StringUtils.isEmpty(reservationParam.getReservationEmail())
-			|| StringUtils.isEmpty(reservationParam.getReservationName())
-			|| StringUtils.isEmpty(reservationParam.getReservationTelephone())
-			|| !EMAIL_PATTERN.matcher(reservationParam.getReservationEmail()).matches()
-			|| !NAME_PATTERN.matcher(reservationParam.getReservationName()).matches()
-			|| !TELEPHONE_PATTERN.matcher(reservationParam.getReservationTelephone()).matches()) {
-			return false;
+		if (StringUtils.isEmpty(reservationParam.getReservationEmail())) {
+			throw new IllegalArgumentException("Invalid ReservationParam(email): " + reservationParam);
+		} else if (StringUtils.isEmpty(reservationParam.getReservationName())) {
+			throw new IllegalArgumentException("Invalid ReservationParam(name): " + reservationParam);
+		} else if (StringUtils.isEmpty(reservationParam.getReservationTelephone())) {
+			throw new IllegalArgumentException("Invalid ReservationParam(telephone): " + reservationParam);
+		} else if (!EMAIL_PATTERN.matcher(reservationParam.getReservationEmail()).matches()) {
+			throw new IllegalArgumentException("Invalid ReservationParam(email pattern): " + reservationParam);
+		} else if (!NAME_PATTERN.matcher(reservationParam.getReservationName()).matches()) {
+			throw new IllegalArgumentException("Invalid ReservationParam(name pattern): " + reservationParam);
+		} else if (!TELEPHONE_PATTERN.matcher(reservationParam.getReservationTelephone()).matches()) {
+			throw new IllegalArgumentException("Invalid ReservationParam(telephone pattern): " + reservationParam);
 		}
-		return true;
 
+		return true;
 	}
 
 	@Override
