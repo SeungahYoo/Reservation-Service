@@ -19,10 +19,12 @@ public class ContextSqlMapper {
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws IOException {
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+
 		factoryBean.setDataSource(dataSource);
 		factoryBean.setMapperLocations(
 			new PathMatchingResourcePatternResolver().getResources("classpath:/mybatis/mapper/*.xml"));
 		factoryBean.setTypeAliasesPackage("com.nts.reservation.dto");
+
 		return factoryBean;
 	}
 

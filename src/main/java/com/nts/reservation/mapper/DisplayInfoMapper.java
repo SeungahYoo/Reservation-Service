@@ -7,7 +7,7 @@ import com.nts.reservation.dto.DisplayInfoImage;
 
 @Repository
 public interface DisplayInfoMapper {
-	public DisplayInfo selectDisplayInfo(int displayInfoId);
+	DisplayInfo selectDisplayInfo(int displayInfoId);
 
-	public DisplayInfoImage selectDisplayInfoImage(int displayInfoId);
+	DisplayInfoImage selectDisplayInfoImage(int displayInfoId);
 }

@@ -16,6 +16,7 @@
 		<result property="totalPrice" column="totalPrice"/>
 		<collection property="displayInfo" column="displayInfoId" ofType="com.nts.reservation.dto.DisplayInfo" select="com.nts.reservation.mapper.DisplayInfoMapper.selectDisplayInfo"></collection>
 	</resultMap>
+
 	<insert id="insertReserveInfo" parameterType="com.nts.reservation.dto.ReservationParam"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
@@ -59,7 +60,7 @@
 			</foreach>
 	</insert>
 	
-	<update id="updateReservationCanceled">
+	<update id="updateReservationCanceled" parameterType="Map">
 		UPDATE 
 			reservation_info
 		SET 
@@ -100,5 +101,4 @@
 			reservation_info.id;
 	</select>
 	
-
 </mapper>

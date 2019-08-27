@@ -2,7 +2,7 @@ let totalCount = 0;
 
 const replaceBookingTicketTemplate = (productPrice, priceIndex) => {
 	return `						<div class="qty">
-	<div class="count_control" data-price="${Math.floor(productPrice.price*(1-productPrice.discountRate*0.01))}">
+	<div class="count_control" data-price="${Math.floor(productPrice.price * (1 - productPrice.discountRate * 0.01))}">
 		<div class="clearfix">
 			<a 
 				class="btn_plus_minus spr_book2 ico_minus3 disabled"
@@ -17,7 +17,7 @@ const replaceBookingTicketTemplate = (productPrice, priceIndex) => {
 	</div>
 	<div class="qty_info_icon">
 		<strong class="product_amount"> <span>${productPrice.priceTypeName}</span>
-		</strong> <strong class="product_price"> <span class="price">${Math.floor(productPrice.price*(1-productPrice.discountRate*0.01))}</span>
+		</strong> <strong class="product_price"> <span class="price">${Math.floor(productPrice.price * (1 - productPrice.discountRate * 0.01))}</span>
 			<span class="price_type">원</span>
 		</strong> <em class="product_dsc">${productPrice.price}원 (${productPrice.discountRate}% 할인가)</em>
 	</div>
@@ -149,12 +149,17 @@ function addButtonEventListener() {
 
 }
 
-const isSubmitValid = () => {
-	if (Number(document.querySelector('#totalCount').innerText) <= 0) {
-		alert('티켓을 선택해주세요');
-		return false;
-	}
-	return true;
+const addCheckValidSubmitEventListener = () => {
+	document.querySelector('#reserve_form').addEventListener("submit", function (event) {
+
+		if (Number(document.querySelector('#totalCount').innerText) <= 0) {
+			alert('티켓을 선택해주세요');
+			event.preventDefault();
+		}
+		else {
+			alert("예약이 완료되었습니다.");
+		}
+	})
 }
 
 const createBookingTicketTemplate = (productPrices, displayInfo) => {
@@ -191,11 +196,14 @@ const loadDisplayInfo = () => {
 			console.log(productDetail);
 
 			document.querySelector('#productDescription').innerText = productDetail.displayInfo.productDescription;
+
 			const displayImage = document.querySelector('#display_image');
-			displayImage.querySelector('#img_thumb').src = `${productDetail.productImages[0].saveFileName}`;
+
+			displayImage.querySelector('#img_thumb').src = `/reservation/file/download?fileId=${productDetail.productImages[0].fileInfoId}`;
 			displayImage.querySelector('#preview_txt_tit').innerText = productDetail.displayInfo.productDescription;
 			document.querySelector('.store_details').innerHTML = replaceStoreDetailsTemplate(productDetail.displayInfo, productDetail.productPrices);
 			document.querySelector('#reservation_date').value = productDetail.reservationDate;
+
 			createBookingTicketTemplate(productDetail.productPrices, productDetail.displayInfo);
 
 			addButtonEventListener();
@@ -214,4 +222,5 @@ document.addEventListener("DOMContentLoaded", function () {
 		document.querySelector('#email').readOnly = true;
 	}
 	const productId = loadDisplayInfo();
+	addCheckValidSubmitEventListener();
 });

@@ -11,6 +11,7 @@ public class Product {
 	private String productDescription;
 	private int productId;
 	private String productImageUrl;
+	private String productImageFileId;
 	private List<ProductPrice> productPrices;
 	private Double productScoreAverage;
 	private int commentsCount;
@@ -63,6 +64,14 @@ public class Product {
 		this.productImageUrl = productImageUrl;
 	}
 
+	public String getProductImageFileId() {
+		return productImageFileId;
+	}
+
+	public void setProductImageFileId(String productImageFileId) {
+		this.productImageFileId = productImageFileId;
+	}
+
 	public List<ProductPrice> getProductPrices() {
 		return productPrices;
 	}
@@ -98,8 +107,10 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [displayInfoId=" + displayInfoId + ", placeName=" + placeName + ", productContent="
-			+ productContent + ", productDescription=" + productDescription + ", productId=" + productId
-			+ ", productImageUrl=" + productImageUrl + ", productPrices=" + productPrices + "]";
+				+ productContent + ", productDescription=" + productDescription + ", productId=" + productId
+				+ ", productImageUrl=" + productImageUrl + ", productImageFileId=" + productImageFileId
+				+ ", productPrices=" + productPrices + ", productScoreAverage=" + productScoreAverage
+				+ ", commentsCount=" + commentsCount + "]";
 	}
 
 }

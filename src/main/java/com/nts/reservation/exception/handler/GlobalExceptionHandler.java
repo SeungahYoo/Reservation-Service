@@ -24,4 +24,5 @@ public class GlobalExceptionHandler {
 	public void handleResourceNotFoundException(Exception e) {
 		LOGGER.error(e.getMessage(), e);
 	}
+
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.reservation.mapper.CommentMapper">
+	<insert id="insertUserComment" parameterType="com.nts.reservation.dto.Comment" useGeneratedKeys="true" keyProperty="commentId">
+		INSERT INTO
+			reservation_user_comment
+				(
+					product_id,
+					reservation_info_id,
+					score,
+					comment,
+					create_date,
+					modify_date
+				)
+			VALUES
+				(
+					(
+					SELECT 
+						product_id 
+					FROM 
+						reservation_info 
+					WHERE 
+						id = #{reservationInfoId}
+					),
+					#{reservationInfoId},
+					#{score},
+					#{comment},
+					now(),
+					now()
+				)
+	</insert>
+	
+	<insert id="insertFileInfo" parameterType="com.nts.reservation.dto.CommentImage" useGeneratedKeys="true" keyProperty="fileId">
+		INSERT INTO
+			file_info 
+				(
+					file_name, 
+					save_file_name, 
+					content_type, 
+					delete_flag, 
+					create_date, 
+					modify_date 
+				) 
+			VALUES
+				<foreach collection="commentImages" item="commentImage" separator=",">
+					(
+						#{commentImage.fileName}, 
+						#{commentImage.saveFileName}, 
+						#{commentImage.contentType}, 
+						0, 
+						now(), 
+						now()
+					)
+				</foreach>
+	</insert>
+	
+	<insert id="insertUserCommentImage" parameterType="com.nts.reservation.dto.CommentImage">
+		INSERT INTO 
+			reservation_user_comment_image
+				(
+					reservation_info_id, 
+					reservation_user_comment_id, 
+					file_id
+				) 
+			VALUES 
+				(
+					#{commentImage.reservationInfoId}, 
+					#{commentImage.reservationUserCommentId}, 
+					#{commentImage.fileId}
+				)
+	</insert>
+	
+
+</mapper>

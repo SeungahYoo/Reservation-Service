@@ -1,8 +1,38 @@
-let promotionImageUrl = [];
+let promotionImageFildIdList = [];
 let now = 1;
 let imagesSize = 0;
 let productListMaxIndex = 0;
 let currentCategoryCount = 0;
+
+let replacePromotionTemplate = (fileId) => {
+	return `<li class="item" id="promotionImage" style="background-image: url('/reservation/file/download?fileId=${fileId}');">
+        		<a href="#"> 
+					<span class="img_btm_border"></span> 
+					<span class="img_right_border"></span> 
+					<span class="img_bg_gra"></span>
+            			<div class="event_txt">
+							<h4 class="event_txt_tit"></h4>
+                			<p class="event_txt_adr"></p>
+                			<p class="event_txt_dsc"></p>
+            			</div>
+        		</a>
+    		</li>`;
+};
+
+let replaceProductTemplate = (product) => {
+	return `<li class="item">
+	            <a href="/reservation/detail?id=${product.displayInfoId}" class="item_book">
+	                <div class="item_preview">
+	                    <img alt="${product.description}" class="img_thumb" src="/reservation/file/download?fileId=${product.productImageFileId}">
+	                    <span class="img_border"></span>
+	                </div>
+	                <div class="event_txt">
+	                    <h4 class="event_txt_tit"> <span>${product.productDescription}</span> <small class="sm">${product.placeName}</small> </h4>
+	                    <p class="event_txt_dsc">${product.productContent}</p>
+	                </div>
+	            </a>
+			</li>`;
+}
 
 let slide = (now) => {
 	let next = (now === imagesSize) ? 1 : now + 1;
@@ -29,29 +59,14 @@ let animatePromotion = (now) => {
 	}, 3000);
 }
 
-let replacePromotionTemplate = (productImageUrl) => {
-	return `<li class="item" id="promotionImage" style="background-image: url(${productImageUrl});">
-        		<a href="#"> 
-					<span class="img_btm_border"></span> 
-					<span class="img_right_border"></span> 
-					<span class="img_bg_gra"></span>
-            			<div class="event_txt">
-							<h4 class="event_txt_tit"></h4>
-                			<p class="event_txt_adr"></p>
-                			<p class="event_txt_dsc"></p>
-            			</div>
-        		</a>
-    		</li>`;
-};
-
 let createPromotionTemplate = () => {
 	let visualImage = document.createElement("ul");
 	visualImage.classList.add("visual_img");
 
 	let resultHTML = "";
 
-	promotionImageUrl.forEach((url) => {
-		resultHTML += replacePromotionTemplate(url);
+	promotionImageFildIdList.forEach((fildId) => {
+		resultHTML += replacePromotionTemplate(fildId);
 	});
 
 	visualImage.innerHTML = resultHTML;
@@ -68,11 +83,12 @@ let loadPromotions = () => {
 		}
 
 		if (xmlHttpRequest.readyState === 4) {
-			let imageList = JSON.parse(xmlHttpRequest.responseText);
-			imageList.forEach((image) => {
-				promotionImageUrl.push(image.promotionImage);
+			let promotionImages = JSON.parse(xmlHttpRequest.responseText);
+			console.log(promotionImages);
+			promotionImages.forEach((promotionImage) => {
+				promotionImageFildIdList.push(promotionImage.promotionImageFileId);
 			});
-			imagesSize = promotionImageUrl.length;
+			imagesSize = promotionImageFildIdList.length;
 			createPromotionTemplate();
 			document.querySelector('.visual_img').firstElementChild.style.left = "0px";
 			animatePromotion(now);
@@ -80,21 +96,6 @@ let loadPromotions = () => {
 	}
 	xmlHttpRequest.open("GET", "/reservation/api/promotions");
 	xmlHttpRequest.send();
-}
-
-let replaceProductTemplate = (product) => {
-	return `<li class="item">
-	            <a href="/reservation/detail?id=${product.displayInfoId}" class="item_book">
-	                <div class="item_preview">
-	                    <img alt="${product.description}" class="img_thumb" src="${product.productImageUrl}">
-	                    <span class="img_border"></span>
-	                </div>
-	                <div class="event_txt">
-	                    <h4 class="event_txt_tit"> <span>${product.productDescription}</span> <small class="sm">${product.placeName}</small> </h4>
-	                    <p class="event_txt_dsc">${product.productContent}</p>
-	                </div>
-	            </a>
-			</li>`;
 }
 
 let createProductTemplate = (CategorizedProducts) => {
@@ -136,7 +137,8 @@ let loadCategoryProducts = () => {
 		}
 		if (xmlHttpRequest.readyState === 4) {
 			let CategorizedProducts = JSON.parse(xmlHttpRequest.responseText);
-			createProductTemplate(CategorizedProducts, event);
+			console.log(CategorizedProducts);
+			createProductTemplate(CategorizedProducts);
 		}
 	}
 	categoryId = document.querySelector(".active").closest("li").dataset.category;

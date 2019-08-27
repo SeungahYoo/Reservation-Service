@@ -19,6 +19,7 @@ public class Comment {
 	private LocalDateTime reservationDate;
 	private String reservationEmail;
 	private int reservationInfoId;
+	private int displayInfoId;
 	private String reservationName;
 	private String reservationTelephone;
 	private int score;
@@ -107,6 +108,14 @@ public class Comment {
 		this.reservationInfoId = reservationInfoId;
 	}
 
+	public int getDisplayInfoId() {
+		return displayInfoId;
+	}
+
+	public void setDisplayInfoId(int displayInfoId) {
+		this.displayInfoId = displayInfoId;
+	}
+
 	public String getReservationName() {
 		return reservationName;
 	}
@@ -141,8 +150,8 @@ public class Comment {
 		return "Comment [comment=" + comment + ", commentId=" + commentId + ", commentImages=" + commentImages
 			+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", productId=" + productId
 			+ ", reservationDate=" + reservationDate + ", reservationEmail=" + reservationEmail + ", reservationInfoId="
-			+ reservationInfoId + ", reservationName=" + reservationName + ", reservationTelephone="
-			+ reservationTelephone + ", score=" + score + "]";
+			+ reservationInfoId + ", displayInfoId=" + displayInfoId + ", reservationName=" + reservationName
+			+ ", reservationTelephone=" + reservationTelephone + ", score=" + score + "]";
 	}
 
 }
