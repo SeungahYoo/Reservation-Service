@@ -54,11 +54,13 @@ public class CommentApiController {
 	}
 
 	private void fileUpload(MultipartFile multipartFile, String saveFileName) {
+
 		try {
 			fileIOHelper.uploadFile(multipartFile, saveFileName);
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			throw new IllegalArgumentException(e);
 		}
+
 	}
 
 	private CommentImage getCommentImage(MultipartFile multiPartFile) {
