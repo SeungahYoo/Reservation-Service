@@ -14,4 +14,5 @@ public interface ReservationService {
 	Map<String, List<Reservation>> getMyReservations(String reservationEmail);
 
 	int cancelReservation(String cookieEmail, int reservationInfoId);
+
 }

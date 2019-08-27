@@ -6,6 +6,7 @@ let loadReviewInfo = () => {
 			alert("오류가 발생했습니다. 다시 시도해주세요.");
 			return;
 		}
+		
 		if (xmlHttpRequest.readyState === 4) {
 			let productDetail = JSON.parse(xmlHttpRequest.responseText);
 			console.log(productDetail);
@@ -20,6 +21,7 @@ let loadReviewInfo = () => {
 	}
 
 	let displayInfoId = document.querySelector("#display_info_id").value;
+	
 	xmlHttpRequest.open("GET", `/reservation/api/detail?id=${displayInfoId}&is-detail=false`);
 	xmlHttpRequest.send();
 }

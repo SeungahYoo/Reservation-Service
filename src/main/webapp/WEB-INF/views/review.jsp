@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -19,13 +20,14 @@
 		<div class="header fade">
 			<header class="header_tit">
 				<h1 class="logo">
-					<a href="#" class="lnk_logo" title="네이버"> <span
+					<a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span
 						class="spr_bi ico_n_logo">네이버</span>
-					</a> <a href="#" class="lnk_logo" title="예약"> <span
+					</a> <a href="/reservation" class="lnk_logo" title="예약"> <span
 						class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<a href="#" class="btn_my"> <span title="예약확인">예약확인</span>
+				<a href="/reservation/user-check" class="btn_my"> <span
+					title="예약확인">예약확인</span>
 				</a>
 			</header>
 		</div>
@@ -49,7 +51,8 @@
 								<span class="graph_mask"> <em class="graph_value"></em>
 								</span> <strong class="text_value"> <span id="score_average"></span>
 									<em class="total">5.0</em>
-								</strong> <span class="join_count"><em class="green"><span id="commentsCount"></span>건</em> 등록</span>
+								</strong> <span class="join_count"><em class="green"><span
+										id="commentsCount"></span>건</em> 등록</span>
 							</div>
 							<ul class="list_short_review">
 								<!-- <li class="list_item">
@@ -243,6 +246,23 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+
+	<div class="popup_booking_wrapper" id="popup_viewing_images_larger" style="display: none;">
+		<div class="dimm_dark" style="display: block"></div>
+		<div class="popup_booking refund">
+		<div class="container_image">
+			<ul>
+				
+			</ul>
+		</div>
+			<!-- 닫기 -->
+			<a class="popup_btn_close" data-value="false" title="close"> <i
+				class="spr_book2 ico_cls"></i>
+			</a>
+			<!--// 닫기 -->
+		</div>
+	</div>
+
 	<input id="display_info_id" type="hidden" value="${param.id }">
 </body>
 <script src="javascript/review.js"></script>

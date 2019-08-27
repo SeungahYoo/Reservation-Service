@@ -40,7 +40,7 @@
 			file_info.delete_flag deleteFlag,
 			display_info_image.display_info_id displayInfoId,
 			display_info_image.id displayInfoImageId,
-			display_info_image.file_id fildId,
+			display_info_image.file_id fileId,
 			file_info.file_name fileName,
 			file_info.modify_date modifyDate,
 			file_info.save_file_name saveFileName 
