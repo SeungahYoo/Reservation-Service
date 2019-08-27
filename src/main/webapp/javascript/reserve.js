@@ -149,23 +149,17 @@ function addButtonEventListener() {
 
 }
 
-const isSubmitValid = () => {
-	if (Number(document.querySelector('#totalCount').innerText) <= 0) {
-		alert('티켓을 선택해주세요');
-		return false;
-	}
-	return true;
-}
-
 const addCheckValidSubmitEventListener = () => {
-    document.querySelector('#reserve_form').addEventListener("submit", function (event) {
+	document.querySelector('#reserve_form').addEventListener("submit", function (event) {
 
 		if (Number(document.querySelector('#totalCount').innerText) <= 0) {
 			alert('티켓을 선택해주세요');
 			event.preventDefault();
 		}
-
-    })
+		else {
+			alert("예약이 완료되었습니다.");
+		}
+	})
 }
 
 const createBookingTicketTemplate = (productPrices, displayInfo) => {

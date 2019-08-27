@@ -68,6 +68,7 @@ const addCommentTextareaEventListener = () => {
 
     commentTextarea.addEventListener("input", function (event) {
         document.querySelector('#comment_length').innerText = commentTextarea.textLength;
+      
         if (commentTextarea.textLength >= 400) {
             alert('최소 5자에서 최대 400자까지 등록할 수 있습니다.');
         }
@@ -78,10 +79,8 @@ const addCheckValidSubmitEventListener = () => {
     document.querySelector('#review_form').addEventListener("submit", function (event) {
         const commentLength = document.querySelector(".review_textarea").textLength;
         const score = document.querySelector('#review_score').value;
-        debugger;
 
         if (commentLength < 5 || commentLength > 400) {
-            
             alert('최소 5자에서 최대 400자 이상 작성하셔야 게시물이 등록됩니다.');
             event.preventDefault();
         } else if (score <= 0 || score > 5) {
@@ -111,6 +110,7 @@ const addfileUploaderEventListener = () => {
         const thumbnailList = document.querySelector('.lst_thumb');
 
         let thumbnailsHTML = "";
+      
         Array.from(images).forEach(image => {
             thumbnailsHTML += replaceThumbnailImage(image);
         })
