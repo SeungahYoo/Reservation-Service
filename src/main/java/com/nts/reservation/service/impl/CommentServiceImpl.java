@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import com.nts.reservation.dto.Comment;
 import com.nts.reservation.dto.CommentImage;
@@ -26,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
 	public void saveComment(Comment comment, List<CommentImage> commentImages) throws IOException {
 		commentMapper.insertUserComment(comment);
 
-		if (commentImages.isEmpty()) {
+		if (CollectionUtils.isEmpty(commentImages)) {
 			return;
 		}
 
