@@ -50,7 +50,7 @@
 			#{startIndex} , #{maxCount}
 	</select>
 	
-	<select id="selectProductByProductId" parameterType="int" resultType="com.nts.reservation.dto.Product">
+	<select id="selectProductByDisplayId" parameterType="int" resultType="com.nts.reservation.dto.Product">
 		SELECT 
 			display_info.id displayInfoId,
 			product.id id, 
@@ -78,7 +78,7 @@
 		ON 
 			product.id = display_info.product_id
 		WHERE
-			product.id =  #{productId}
+			display_info.id = #{displayInfoId}
 	</select>
 	
 	<select id="selectProductImages" parameterType="int" resultType="com.nts.reservation.dto.ProductImage">
